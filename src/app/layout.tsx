@@ -13,7 +13,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es">
-      <body>{children}</body>
+      <body className="min-h-screen w-full grid grid-cols-3">
+        <div></div>
+        {children}
+        <div></div>
+      </body>
     </html>
   );
 }
