@@ -1,6 +1,6 @@
 'use client'
 
-import { addPost } from '../actions/compose-post-action'
+import { addPost } from '../../actions/compose-post-action'
 import { useRef } from 'react'
 import { useFormStatus } from "react-dom";
 

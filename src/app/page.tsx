@@ -1,8 +1,8 @@
 import SignOut from "@/app/components/SignOut";
 import { redirect } from 'next/navigation'
 import { createClient } from '@/app/utils/supabase/server'
-import  PostsList  from "@/app/components/posts-list";
-import { ComposePost } from "./components/compose-post";
+import  PostsList  from "@/app/components/posts/posts-list";
+import { ComposePost } from "./components/posts/compose-post";
 
 const supabase = createClient()
 

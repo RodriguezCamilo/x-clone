@@ -1,5 +1,5 @@
-import { PostCard } from "@/app/components/post-card";
-import { type Posts } from "../types/posts";
+import { PostCard } from "@/app/components/posts/post-card";
+import { type Posts } from "../../types/posts";
 
 export default function PostsList({ posts } : { posts: Posts[] | null }) {
     return (
