@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { NavBar } from "./components/navbar/navbar";
+import NavBar from "./components/navbar/navbar";
 
 export const metadata: Metadata = {
   title: "Clon de X",
@@ -15,7 +15,9 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body className="min-h-screen w-full grid grid-cols-3">
-        <NavBar/>
+        <header>
+          <NavBar />
+        </header>
         {children}
         <div></div>
       </body>

@@ -1,14 +1,27 @@
-import { IconHome, IconUser } from '@tabler/icons-react'
-import { XIcon } from '../icons/x'
 
-export function NavBar() {
+import { XIcon } from '../icons/x'
+import Link from 'next/link'
+import { createClient } from '@/app/utils/supabase/server'
+import NavLink from './navbar-link'
+import NavPerfil from './navbar-perfil'
+
+
+export default async function NavBar() {
+
+    const supabase = createClient()
+    const { data } = await supabase.auth.getUser()
+    const userName = data.user?.user_metadata.user_name || 'defaultUser'
+
     return (
-        <nav className="w-full flex flex-1 flex-col items-end px-4">
-            <div className='flex flex-1 flex-col w-72 gap-6 items-start'>
-                <button className='h-10 px-4 py-8 flex items-center justify-center rounded-full hover:bg-white/5 transition'><XIcon /></button>
-                <button className='flex p-4 flex-row h-12 items-center text-xl gap-4 rounded-full hover:bg-white/5 transition'> <IconHome className='size-8' /> Inicio</button>
-                <button className='flex p-4 flex-row h-12 items-center text-xl gap-4 rounded-full hover:bg-white/5 transition'> <IconUser className='size-8' /> Perfil</button>
+        <nav className="w-1/3 h-screen fixed flex flex-1 flex-col items-end justify-between px-4">
+            <div className='flex flex-col w-72 gap-6'>
+                <Link href={'/'} className='h-10 px-4 py-8 flex items-center justify-center rounded-full hover:bg-white/5 transition'><XIcon /></Link>
+                <NavLink perfil={userName} />
             </div>
+            <div>
+                <NavPerfil data={data} />
+            </div>
+
         </nav>
     )
 }

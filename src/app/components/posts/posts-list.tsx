@@ -1,3 +1,4 @@
+
 import { PostCard } from "@/app/components/posts/post-card";
 import { type Posts } from "../../types/posts";
 
@@ -17,7 +18,7 @@ export default function PostsList({ posts } : { posts: Posts[] | null }) {
                         avatar_url: avatarUrl
                     } = user
                     return (
-                        <PostCard key={id} userName={userName??"Unknown"} fullName={fullName??"Unknown"} avatarUrl={avatarUrl??"Unknown"} content={content} />
+                        <PostCard key={id} id={id} userName={userName??"Unknown"} fullName={fullName??"Unknown"} avatarUrl={avatarUrl??"Unknown"} content={content} />
                     )
                 })
             }
