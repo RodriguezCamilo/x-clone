@@ -1,6 +1,6 @@
 "use client";
 
-import { gitHubSignIn } from "../../login/actions"
+import { gitHubSignIn } from "../../auth/login/actions"
 import {IconBrandGithubFilled} from '@tabler/icons-react'
 
 

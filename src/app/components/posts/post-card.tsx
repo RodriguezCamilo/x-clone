@@ -1,6 +1,7 @@
 
 import Link from "next/link"
 import { IconMessageCircle, IconHeart, IconRepeat } from '@tabler/icons-react'
+import { IconUser } from "@tabler/icons-react"
 
 export function PostCard({
     userName,
@@ -14,12 +15,14 @@ export function PostCard({
     fullName: string,
     content: string,
     id: string,
-}) {
+})
+
+{
     return (
         <article className="text-left flex flex-row w-full p-4 border-b-2 border-zinc-700 gap-2 bg-gray/0 transition hover:bg-zinc-300/5 cursor-pointer relative">
             <Link className="absolute inset-0" href={`/posts/${id}`}></Link>
                 <Link href={`/perfil/${userName}`} className="flex flex-row">
-                    <img src={avatarUrl} className="rounded-full size-10" alt="" />
+                {avatarUrl ? <img src={avatarUrl} className="rounded-full size-10" alt="" /> : <div className='rounded-full bg-zinc-500/50 size-10 flex items-center justify-center'><IconUser /></div>}
                 </Link>
                 <main className="flex flex-col">
                     <div className="flex flex-row gap-2">

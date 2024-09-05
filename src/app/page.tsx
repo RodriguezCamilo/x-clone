@@ -1,8 +1,9 @@
-import SignOut from "@/app/components/SignOut";
+import SignOut from "@/app/components/sign-out";
 import { redirect } from 'next/navigation'
-import  PostsList  from "@/app/components/posts/posts-list";
+import PostsList from "@/app/components/posts/posts-list";
 import { ComposePost } from "./components/posts/compose-post";
 import { createClient } from '@/app/utils/supabase/server'
+import { Suspense } from 'react';
 
 const supabase = createClient()
 
@@ -10,7 +11,7 @@ export default async function Home() {
 
   const { data, error } = await supabase.auth.getUser()
   if (error || !data?.user) {
-    redirect('/login')
+    redirect('/auth/login')
   }
 
 
@@ -24,9 +25,12 @@ export default async function Home() {
   return (
     <main className="w-full">
       <section className="flex h-full flex-col items-center border border-y-0 border-zinc-700">
-        <ComposePost avatarUrl={data.user.user_metadata.avatar_url}/>
-        <PostsList posts={posts}/>
-        <SignOut />
+        <Suspense fallback={<div>Loading...</div>}>
+          <ComposePost avatarUrl={data.user.user_metadata.avatar_url} />
+          <PostsList posts={posts} />
+          <SignOut />
+        </Suspense>
+
       </section>
     </main>
   );

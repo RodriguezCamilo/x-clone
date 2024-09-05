@@ -3,6 +3,7 @@
 import { addPost } from '../../actions/compose-post-action'
 import { useRef } from 'react'
 import { useFormStatus } from "react-dom";
+import { IconUser } from '@tabler/icons-react';
 
 export function ComposePost({
     avatarUrl
@@ -17,7 +18,7 @@ export function ComposePost({
             await addPost(formData)
             formRef.current?.reset()
         }} className='flex flex-1 flex-row max-h-40 w-full p-4 gap-2 border-b-2 border-zinc-700'>
-            <img className='rounded-full size-10' src={avatarUrl} alt="perfil image" />
+            {avatarUrl? <img src={avatarUrl} className="rounded-full size-10" alt="" /> : <div className='rounded-full bg-zinc-500/50 size-10 flex items-center justify-center'><IconUser /></div>}
             <div className='flex flex-1 flex-col w-full'>
 
                 <textarea name="content" rows={4} className='w-full text-xl font-light p-2 bg-transparent placeholder-white/50 resize-none focus:border-0 focus:outline-none' placeholder='¿¡Qué esta pasando!?' id=""></textarea>

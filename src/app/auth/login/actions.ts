@@ -14,9 +14,10 @@ export async function emailLogin(formData: FormData) {
   }
 
   const { error } = await supabase.auth.signInWithPassword(data)
+  console.log(error)
 
   if (error) {
-    redirect('/login?message= No se pudo autenticar')
+    redirect('/auth/login?message= No se pudo autenticar')
   }
 
   revalidatePath('/', 'layout')
@@ -28,21 +29,27 @@ export async function signup(formData: FormData) {
 
   const data = {
     email: formData.get('email') as string,
-    name: formData.get('name') as string,
-    full_name: formData.get('name') as string,
-    user_name: formData.get('user') as string,
     password: formData.get('password') as string,
+    options: {
+      data: {
+        name: formData.get('name') as string,
+        full_name: formData.get('name') as string,
+        user_name: formData.get('user') as string
+      },
+    },
   }
 
-  const { error } = await supabase.auth.signUp(data)
+  const { data: signUpData, error: signUpError } = await supabase.auth.signUp(data)
 
-  if (error) {
-    redirect('/login?message= No se pudo autenticar')
+  if (signUpError) {
+    redirect('/auth/login?message= No se pudo autenticar')
+    return
   }
 
   revalidatePath('/', 'layout')
   redirect('/')
 }
+
 
 export async function signOut() {
   const supabase = createClient()
