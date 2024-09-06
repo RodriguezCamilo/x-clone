@@ -16,7 +16,6 @@ export async function handleLike({ post_id }: any) {
         .eq('user_id', user?.user?.id)
         .single();
     if (like) {
-        // Si ya dio like, eliminar el like
         const { error } = await supabase
             .from('likes')
             .delete()
@@ -30,7 +29,6 @@ export async function handleLike({ post_id }: any) {
             return false
         }
     } else {
-        // Si no ha dado like, insertar el like
         const { error } = await supabase
             .from('likes')
             .insert({ post_id: post_id, user_id: user?.user?.id });
@@ -45,7 +43,6 @@ export async function handleLike({ post_id }: any) {
 
 }
 
-
 export async function fetchLikeStatus({ post_id }: any) {
 
     const supabase = createClient()
@@ -58,6 +55,18 @@ export async function fetchLikeStatus({ post_id }: any) {
         .eq('post_id', post_id)
         .eq('user_id', user?.user?.id)
         .single();
+
+    return likeData
+}
+
+export async function fetchLikes({ post_id }: any) {
+
+    const supabase = createClient()
+
+    const { data: likeData } = await supabase
+        .from('likes')
+        .select('*')
+        .eq('post_id', post_id)
 
     return likeData
 }
