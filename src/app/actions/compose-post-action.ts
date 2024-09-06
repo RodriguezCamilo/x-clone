@@ -12,6 +12,7 @@ export const addPost = async (formData: FormData) => {
 
     const { data, error } = await supabase.auth.getUser()
     if (error || !data?.user) {
+        console.log(data)
         return
     }
 

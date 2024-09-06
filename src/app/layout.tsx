@@ -14,12 +14,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es">
-      <body className="min-h-screen w-full grid grid-cols-3">
+      <body className="min-h-screen w-full grid grid-cols-3 text-white bg-black">
         <header>
           <NavBar />
         </header>
         {children}
-        <div></div>
+        <div className="bg-black"></div>
       </body>
     </html>
   );

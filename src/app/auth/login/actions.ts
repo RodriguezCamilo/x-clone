@@ -14,10 +14,9 @@ export async function emailLogin(formData: FormData) {
   }
 
   const { error } = await supabase.auth.signInWithPassword(data)
-  console.log(error)
 
   if (error) {
-    redirect('/auth/login?message= No se pudo autenticar')
+    redirect('/error')
   }
 
   revalidatePath('/', 'layout')
@@ -58,7 +57,6 @@ export async function signOut() {
 }
 
 export async function gitHubSignIn() {
-  console.log("funca")
   const supabase = createClient()
   const redirectUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/auth/callback`
   const {data, error} = await supabase.auth.signInWithOAuth({

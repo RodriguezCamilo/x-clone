@@ -11,8 +11,8 @@ export default function LoginPage() {
 
   return (
     <main className="relative flex flex-col flex-1 m-0 max-h-screen w-screen items-center overflow-hidden">
-      <section className="flex flex-row flex-1 items-center">
-        <div className="p-60 w-full"><XIcon height={'20'} weight={'20'} /></div>
+      <section className="flex gap-20 flex-row flex-1 items-center">
+        <div className="p-20 pr-32 w-full"><XIcon height={'96'} weight={'96'} /></div>
         <div className="flex w-full flex-col gap-10 items-start p-20">
           <h1 className="font-bold text-6xl text-wrap">Lo que está pasando ahora</h1>
           <h2 className="font-bold text-3xl">Únete Hoy</h2>

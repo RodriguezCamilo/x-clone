@@ -9,7 +9,7 @@ export default function PerfilPage({ params }: PerfilPageProps) {
   const { id } = params
 
   return (
-    <div>
+    <div className="bg-black">
       <h1>Perfil de {id}</h1>
     </div>
   )
