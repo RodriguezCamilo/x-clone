@@ -3,7 +3,7 @@ import { redirect } from 'next/navigation'
 import PostsList from "@/app/components/posts/posts-list";
 import { ComposePost } from "./components/posts/compose-post";
 import { createClient } from '@/app/utils/supabase/server'
-import { Suspense } from 'react';
+import { Suspense } from 'react'
 
 
 export default async function Home() {
@@ -17,10 +17,10 @@ export default async function Home() {
 
   const { data: posts } = await supabase
     .from('posts')
-    .select('*, user:users(name, user_name, avatar_url)')
-    .order('created_at', {
-      ascending: false
-    })
+    .select('*, user:users(name, user_name, avatar_url), likes_count')
+    .order('created_at', { ascending: false })
+    .limit(10)
+
 
   return (
     <main className="w-full bg-black">

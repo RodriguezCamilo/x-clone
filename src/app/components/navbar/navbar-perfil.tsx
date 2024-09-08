@@ -1,7 +1,8 @@
 import Link from "next/link"
 import {IconUser} from '@tabler/icons-react'
+import {NavPerfilProps} from './types'
 
-export default function NavPerfil({data}:any) {
+export default function NavPerfil({ data }: NavPerfilProps) {
 
     const userName = data.user?.user_metadata.user_name || 'defaultUser'
     const name = data.user?.user_metadata.full_name || 'defaultUser'

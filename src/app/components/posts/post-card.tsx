@@ -9,12 +9,14 @@ export function PostCard({
     avatarUrl,
     fullName,
     content,
+    likesCount,
     id
 }: {
     userName: string,
     avatarUrl: string,
     fullName: string,
     content: string,
+    likesCount: number,
     id: string,
 }) {
     return (
@@ -39,7 +41,7 @@ export function PostCard({
                         <IconRepeat className="size-5 text-white/50" />
                     </button>
                     <div className='z-10'>
-                        <LikeButton post_id={id} />
+                        <LikeButton likes_count={likesCount} post_id={id} />
                     </div>
                 </footer>
             </main>

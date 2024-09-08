@@ -2,8 +2,9 @@
 import { IconX } from "@tabler/icons-react"
 import { XIcon } from "../icons/x"
 import { signup, emailLogin } from '../../auth/login/actions'
+import { RegisterModalProps, LoginModalProps } from './types'
 
-export function RegisterModal({ isRegisterOpen, closeModal }: any) {
+export function RegisterModal({ isRegisterOpen, closeModal }: RegisterModalProps) {
     if (!isRegisterOpen) return null
 
     return (
@@ -25,7 +26,7 @@ export function RegisterModal({ isRegisterOpen, closeModal }: any) {
 }
 
 
-export function LoginModal({  isLoginOpen, closeModal }: any) {
+export function LoginModal({  isLoginOpen, closeModal }: LoginModalProps) {
     if (!isLoginOpen) return null
 
     return (

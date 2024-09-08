@@ -1,19 +1,18 @@
 'use client'
 
-import { IconHeart, IconHeartFilled } from '@tabler/icons-react';
-import { useState, useEffect } from 'react';
-import { handleLike, fetchLikeStatus, fetchLikes } from '@/app/actions/like-action';
+import { IconHeart, IconHeartFilled } from '@tabler/icons-react'
+import { useState, useEffect } from 'react'
+import { handleLike, fetchLikeStatus } from '@/app/actions/like-action'
+import { LikeButtonProps } from './types'
 
-export default function LikeButton({ post_id }: any) {
+export default function LikeButton({ post_id, likes_count}: LikeButtonProps) {
 
     const [like, setLike] = useState(false)
-    const [manyLikes, setManyLikes] = useState(0)
+    const [manyLikes, setManyLikes] = useState(likes_count)
 
     useEffect(() => {
         const fetchData = async () => {
             const likeData = await fetchLikeStatus({ post_id })
-            const fetchLikesData = await fetchLikes({ post_id })
-            setManyLikes(fetchLikesData?.length)
             setLike(!!likeData)
         }
         fetchData()
@@ -24,12 +23,12 @@ export default function LikeButton({ post_id }: any) {
         <div className='flex flex-row'>
             <button
                 onClick={async () => {
-                    const wasLiked = like;
-                    setLike(!wasLiked);
+                    const wasLiked = like
+                    setLike(!wasLiked)
 
-                    const isLiked = await handleLike({ post_id });
+                    const isLiked = await handleLike({ post_id })
 
-                    setManyLikes(prevLikes => isLiked ? prevLikes + 1 : prevLikes - 1);
+                    setManyLikes(prevLikes => isLiked ? prevLikes + 1 : prevLikes - 1)
 
                 }}
                 className='rounded-full size-8 flex items-center justify-center hover:bg-pink-600/20 transition group'

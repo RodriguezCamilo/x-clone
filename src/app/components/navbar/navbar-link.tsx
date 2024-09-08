@@ -4,9 +4,9 @@ import Link from 'next/link'
 import React from 'react'
 import { usePathname } from 'next/navigation'
 import { IconHome, IconHomeFilled, IconUser, IconUserFilled, IconMail, IconMailFilled } from '@tabler/icons-react'
+import {NavLinkProps} from './types'
 
-
-export default function NavLink({ perfil }: any) {
+export default function NavLink({ perfil }: NavLinkProps) {
 
   const pathname = usePathname()
 
