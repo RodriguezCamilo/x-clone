@@ -17,7 +17,7 @@ export default async function Home() {
 
   const { data: posts } = await supabase
     .from('posts')
-    .select('*, user:users(name, user_name, avatar_url), likes_count')
+    .select('*, user:users(name, user_name, avatar_url), likes_count, created_at')
     .order('created_at', { ascending: false })
     .limit(10)
 
