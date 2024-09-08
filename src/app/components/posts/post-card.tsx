@@ -18,7 +18,9 @@ export function PostCard({
     content: string,
     likesCount: number,
     id: string,
-}) {
+})
+
+{
     return (
         <article className="text-left flex flex-row w-full p-4 pb-2 border-b-2 border-zinc-700 gap-2 bg-gray/0 transition hover:bg-zinc-300/5 cursor-pointer relative">
             <Link className="absolute inset-0 z-0 " aria-hidden="true" href={`/posts/${id}`}></Link>
