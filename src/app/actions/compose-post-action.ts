@@ -7,8 +7,8 @@ const supabase = createClient()
 
 export const addPost = async (formData: FormData) => {
 
-    const content = formData.get('content')
-    if (content === null || content == "") return
+    const content = formData.get('content')?.toString().trim()
+    if (!content) return
 
     const { data, error } = await supabase.auth.getUser()
     if (error || !data?.user) {

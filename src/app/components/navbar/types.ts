@@ -6,9 +6,9 @@ export interface NavPerfilProps {
         user_name?: string;
         full_name?: string;
         avatar_url?: string;
-      };
-    };
-  };
+      }
+    } | null
+  }
 }
 
 export interface NavLinkProps {

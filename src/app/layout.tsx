@@ -1,6 +1,7 @@
-import type { Metadata } from "next";
-import "./globals.css";
-import NavBar from "./components/navbar/navbar";
+import type { Metadata } from "next"
+import "./globals.css"
+import NavBar from "./components/navbar/navbar"
+import SideBar from "./components/sidebar/sidebar"
 
 export const metadata: Metadata = {
   title: "Clon de X",
@@ -10,7 +11,7 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) {
   return (
     <html lang="es">
@@ -19,7 +20,9 @@ export default function RootLayout({
           <NavBar />
         </header>
         {children}
-        <div className="bg-black"></div>
+        <div className="bg-black">
+          <SideBar />
+        </div>
       </body>
     </html>
   );

@@ -18,3 +18,28 @@ export function formattedDate(date: string): string {
         return "Fecha inválida"
     }
 }
+
+export function formattedTime(date: string): string {
+    try {
+        const parsedDate = parseISO(date)
+        
+        return format(parsedDate, 'h:mm aaaa', { locale: es })
+
+    } catch (error) {
+        console.error("Error al formatear la fecha:", error)
+        return "Fecha inválida"
+    }
+}
+
+export function formattedExpecificDate(date: string): string {
+    try {
+        const parsedDate = parseISO(date)
+
+        const dateFormat = 'dd MMM yyyy'
+
+        return format(parsedDate, dateFormat, { locale: es })
+    } catch (error) {
+        console.error("Error al formatear la fecha:", error)
+        return "Fecha inválida"
+    }
+}

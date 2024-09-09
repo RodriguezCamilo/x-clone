@@ -1,3 +1,5 @@
+import { createClient } from "@/app/utils/supabase/server"
+import { redirect } from "next/navigation"
 
 interface PerfilPageProps {
   params: {
@@ -5,8 +7,20 @@ interface PerfilPageProps {
   }
 }
 
-export default function PerfilPage({ params }: PerfilPageProps) {
+
+export default async function PerfilPage({ params }: PerfilPageProps) {
   const { id } = params
+  const supabase = createClient()
+
+  const { data: user, error } = await supabase
+    .from('users') 
+    .select('name, user_name, avatar_url, bio, created_at')
+    .eq('id', id)
+    .single()
+
+  if(error) {
+    redirect('/')
+  }
 
   return (
     <div className="bg-black">
