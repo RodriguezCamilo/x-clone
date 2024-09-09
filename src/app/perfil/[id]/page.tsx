@@ -14,8 +14,8 @@ export default async function PerfilPage({ params }: PerfilPageProps) {
 
   const { data: user, error } = await supabase
     .from('users') 
-    .select('name, user_name, avatar_url, bio, created_at')
-    .eq('id', id)
+    .select('name, user_name, avatar_url')
+    .eq('user_name', id)
     .single()
 
   if(error) {

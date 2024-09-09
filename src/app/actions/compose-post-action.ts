@@ -16,7 +16,8 @@ export const addPost = async (formData: FormData) => {
         return
     }
 
-    await supabase.from('posts').insert({ content, user_id: data.user.id })
+    const post = await supabase.from('posts').insert({ content, user_id: data.user.id })
+    console.log(post)
     revalidatePath('/')
 
 }

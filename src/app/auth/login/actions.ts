@@ -26,6 +26,14 @@ export async function emailLogin(formData: FormData) {
 export async function signup(formData: FormData) {
   const supabase = createClient()
 
+  const { data: existingUser} = await supabase
+    .from('users') 
+    .select('user_name')
+    .eq('user_name', formData.get('user'))
+    .single()
+
+  if (existingUser) return {error: 'El nombre de usuario ya está en uso.'}
+
   const data = {
     email: formData.get('email') as string,
     password: formData.get('password') as string,
@@ -41,12 +49,13 @@ export async function signup(formData: FormData) {
   const { data: signUpData, error: signUpError } = await supabase.auth.signUp(data)
 
   if (signUpError) {
-    redirect('/auth/login?message= No se pudo autenticar')
-    return
+    return {error: "signUpError.message"}
   }
 
   revalidatePath('/', 'layout')
   redirect('/')
+
+  return { success: 'Registro exitoso.'}
 }
 
 

@@ -19,12 +19,7 @@ export function ComentPost({
         const handleInput = () => {
             const content = textareaRef.current?.value.trim()
             setCanPost(!!content)
-
-            if (textareaRef.current) {
-                textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`
-            }
         }
-
         const textarea = textareaRef.current
         textarea?.addEventListener('input', handleInput)
 

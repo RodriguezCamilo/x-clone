@@ -17,12 +17,11 @@ export default async function Home() {
     redirect('/auth/login')
   }
 
-  const { data: posts } = await supabase
+  const { data: posts, error } = await supabase
     .from('posts')
     .select('*, user:users(name, user_name, avatar_url), likes_count, created_at')
     .order('created_at', { ascending: false })
     .limit(10)
-
 
   return (
     <main className="w-full bg-black">
