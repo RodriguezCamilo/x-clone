@@ -5,9 +5,10 @@ import { XIcon } from '../../components/icons/x'
 import { GitHubButton } from '../../components/login/github-signin'
 import {LoginModal, RegisterModal} from '../../components/login/login-modal'
 
+
 export default function LoginPage() {
-  const [isModalLoginOpen, setIsModalLoginOpen] = useState(false);
-  const [isModalRegisterOpen, setIsModalRegisterOpen] = useState(false);
+  const [isModalLoginOpen, setIsModalLoginOpen] = useState(false)
+  const [isModalRegisterOpen, setIsModalRegisterOpen] = useState(false)
 
   return (
     <main className="relative flex flex-col flex-1 m-0 max-h-screen w-screen items-center overflow-hidden">

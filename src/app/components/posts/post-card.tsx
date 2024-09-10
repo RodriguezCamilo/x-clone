@@ -27,7 +27,9 @@ export function PostCard({
         <article className="text-left flex flex-row w-full p-4 pb-2 border-b-2 border-zinc-700 gap-2 bg-gray/0 transition hover:bg-zinc-300/5 cursor-pointer relative">
             <Link className="absolute inset-0 z-0 " aria-hidden="true" href={`/posts/${id}`}></Link>
             <Link href={`/perfil/${userName}`} className="flex flex-row z-10">
-                {avatarUrl != 'Unknown' ? <img src={avatarUrl} className="rounded-full size-10" alt="" /> : <div className='rounded-full bg-zinc-500/50 size-10 flex items-center justify-center'><IconUser /></div>}
+                {avatarUrl != 'Unknown' 
+                ? <img src={avatarUrl} className="rounded-full size-10" alt="" /> 
+                : <div className='rounded-full bg-zinc-500/50 size-10 flex items-center justify-center'><IconUser /></div>}
             </Link>
             <div className="flex flex-col w-full">
                 <main className="flex flex-col w-full">

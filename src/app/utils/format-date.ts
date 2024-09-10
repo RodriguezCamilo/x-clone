@@ -43,3 +43,16 @@ export function formattedExpecificDate(date: string): string {
         return "Fecha inválida"
     }
 }
+
+export function formattedMonthYear(date: string): string {
+    try {
+        const parsedDate = parseISO(date)
+
+        const dateFormat = "MMMM 'de' yyyy"
+
+        return format(parsedDate, dateFormat, { locale: es })
+    } catch (error) {
+        console.error("Error al formatear la fecha:", error)
+        return "Fecha inválida"
+    }
+}
