@@ -26,7 +26,7 @@ export default async function Home() {
 
   return (
     <main className="w-full bg-black">
-      <section className="flex h-full w-full flex-col items-center border border-y-0 border-zinc-700">
+      <section className="flex h-full w-full flex-col items-center pt-4 border border-y-0 border-zinc-700">
         <Suspense fallback={<IconLoader/>}>
           <ComposePost avatarUrl={data?.user?.user_metadata.avatar_url} />
           <PostsList posts={posts} />

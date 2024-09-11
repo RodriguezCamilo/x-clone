@@ -1,3 +1,4 @@
+'use server'
 import Link from "next/link";
 import { IconMessageCircle, IconRepeat } from "@tabler/icons-react";
 import { IconUser } from "@tabler/icons-react";
@@ -29,7 +30,7 @@ export async function PostCard({
   return (
     <article className="text-left flex flex-row w-full p-4 pb-2 border-b-2 border-zinc-700 gap-2 bg-gray/0 transition hover:bg-zinc-300/5 cursor-pointer relative">
       <Link
-        className="absolute inset-0 -z-10 "
+        className="absolute inset-0 z-0 "
         aria-hidden="true"
         href={`/posts/${id}`}
       ></Link>
@@ -67,7 +68,7 @@ export async function PostCard({
             <IconMessageCircle className="size-5 text-white/50" />
           </button>
           <div>
-            <RepostDropdown />
+            <RepostDropdown post_id={id} />
           </div>
 
           <LikeButton

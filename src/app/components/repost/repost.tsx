@@ -3,8 +3,10 @@
 import { useState, useEffect, useRef } from "react";
 import { IconRepeat, IconPencilMinus } from "@tabler/icons-react";
 import RepostButton from "./repost-button";
+import type { RepostDropdownProps } from "./types";
 
-export default function RepostDropdown() {
+export default function RepostDropdown({post_id}: RepostDropdownProps) {
+
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -26,6 +28,7 @@ export default function RepostDropdown() {
   return (
     <div className="relative inline-block text-left">
       <button
+        type="button"
         className="flex items-center size-8 group hover:bg-emerald-600/10 rounded-full justify-center"
         onClick={() => setIsDropdownOpen(!isDropdownOpen)}
       >
@@ -42,13 +45,12 @@ export default function RepostDropdown() {
             aria-orientation="vertical"
             aria-labelledby="options-menu"
           >
-            <button
+            <div
               className=" px-4 py-3 font-bold  hover:bg-white/5 w-full text-left flex flex-row gap-2"
               role="menuitem"
             >
-              <IconRepeat />
-              <RepostButton />
-            </button>
+              <RepostButton post_id={post_id} />
+            </div>
             <button
               className=" px-4 py-3 font-bold  hover:bg-white/5 w-full text-left flex flex-row gap-2"
               role="menuitem"

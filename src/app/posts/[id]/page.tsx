@@ -4,6 +4,7 @@ import { IconMessageCircle, IconRepeat, IconArrowLeft, IconUser } from '@tabler/
 import LikeButton from '@/app/components/like/like'
 import { ComentPost } from '@/app/components/posts/coment-post'
 import { formattedExpecificDate, formattedTime } from '@/app/utils/format-date'
+import { fetchLikeStatus } from '@/app/actions/like-action'
 import DataUser from '@/app/utils/supabase/user'
 
 interface PostPageProps {
@@ -26,6 +27,7 @@ export default async function PostPage({ params }: PostPageProps) {
     .single()
 
   const postAvatar = post.user.avatar_url
+  const LikeStatus = await fetchLikeStatus({ post_id: post.id });
 
   const user = await DataUser()
   const userAvatar = user?.user?.user_metadata.avatar_url
@@ -36,7 +38,7 @@ export default async function PostPage({ params }: PostPageProps) {
   return (
     <article className="text-left flex flex-col w-full bg-black p-4 border border-t-0 border-zinc-700 ">
       <div className='flex flex-row items-center gap-6 pb-4'>
-        <Link className='rounded-full size-8 hover:bg-zinc-700 transition flex items-center justify-center' href={'/'}><IconArrowLeft /></Link>
+        <Link className='rounded-full size-8 hover:bg-zinc-700 transition flex items-center justify-center z-0' href={'/'}><IconArrowLeft /></Link>
         <h2 className='text-xl font-semibold'>Post</h2>
       </div>
       <header className='flex flex-row gap-2 '>
@@ -65,7 +67,7 @@ export default async function PostPage({ params }: PostPageProps) {
         <button>
           <IconRepeat className="size-5 text-white/50" />
         </button>
-        <LikeButton post_id={id} likes_count={post.likes_count} />
+        <LikeButton like_status={LikeStatus} post_id={id} likes_count={post.likes_count} />
       </footer>
       {!user.user??<ComentPost avatarUrl={userAvatar} />}
     </article >

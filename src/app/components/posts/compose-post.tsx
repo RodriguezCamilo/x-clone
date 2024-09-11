@@ -56,7 +56,7 @@ export function ComposePost({
                 formRef.current?.reset()
                 setCanPost(false)
             }}
-            className="flex flex-1 flex-row max-h-80 w-full p-4 gap-2 border-b-2 border-zinc-700"
+            className="flex flex-1 flex-row max-h-80 w-full p-4 pt-0 gap-2 border-b-2 border-zinc-700"
         >
             {avatarUrl ? (
                 <img src={avatarUrl} className="rounded-full size-10" alt="Imagen de perfil" />
