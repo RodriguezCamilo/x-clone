@@ -1,9 +1,10 @@
 
 import { PostCard } from "@/app/components/posts/post-card";
 import { type Posts } from "../../types/posts";
+import {IconLoader} from "@tabler/icons-react"
 
 export default function PostsList({ posts } : { posts: Posts[] | null }) {
-    if (!posts) return <div>Loading...</div>
+    if (!posts) return <IconLoader/>
     return (
         <>
             {

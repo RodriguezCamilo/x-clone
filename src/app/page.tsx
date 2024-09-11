@@ -5,6 +5,7 @@ import { ComposePost } from "./components/posts/compose-post";
 import { createClient } from '@/app/utils/supabase/server'
 import DataUser from "./utils/supabase/user";
 import { Suspense } from 'react'
+import { IconLoader } from "@tabler/icons-react";
 
 
 export default async function Home() {
@@ -26,7 +27,7 @@ export default async function Home() {
   return (
     <main className="w-full bg-black">
       <section className="flex h-full w-full flex-col items-center border border-y-0 border-zinc-700">
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<IconLoader/>}>
           <ComposePost avatarUrl={data?.user?.user_metadata.avatar_url} />
           <PostsList posts={posts} />
           <SignOut />

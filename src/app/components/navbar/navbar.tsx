@@ -18,6 +18,8 @@ export default async function NavBar() {
                 {data.user ? <NavLink perfil={userName} /> : null}
             </div>
             <div>
+            </div>
+            <div>
                 {data.user ? <NavPerfil data={data} /> : null}
             </div>
         </nav>
