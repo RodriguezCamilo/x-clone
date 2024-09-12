@@ -3,7 +3,8 @@
 import { useState } from 'react'
 import { XIcon } from '../../components/icons/x'
 import { GitHubButton } from '../../components/login/github-signin'
-import {LoginModal, RegisterModal} from '../../components/login/login-modal'
+import {LoginModal} from '../../components/login/login-modal'
+import { RegisterModal } from '@/app/components/login/register-modal'
 
 
 export default function LoginPage() {
