@@ -14,7 +14,8 @@ export default function PostsList({ posts } : { posts: Posts[] | null }) {
                         user,
                         content,
                         likes_count,
-                        created_at
+                        created_at,
+                        repost
                     } = post
                     const {
                         user_name: userName,
@@ -22,7 +23,7 @@ export default function PostsList({ posts } : { posts: Posts[] | null }) {
                         avatar_url: avatarUrl
                     } = user
                     return (
-                        <PostCard key={id} id={id} userName={userName??"Unknown"} fullName={fullName??"Unknown"} avatarUrl={avatarUrl??"Unknown"} content={content} likesCount = {likes_count ?? 0} createdAt = {created_at} />
+                        <PostCard key={id} id={id} userName={userName??"Unknown"} fullName={fullName??"Unknown"} avatarUrl={avatarUrl??"Unknown"} content={content} likesCount = {likes_count ?? 0} createdAt = {created_at} repost={repost} />
                     )
                 })
             }

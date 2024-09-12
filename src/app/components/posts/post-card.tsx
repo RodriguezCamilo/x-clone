@@ -6,6 +6,7 @@ import { formattedDate } from "@/app/utils/format-date";
 import LikeButton from "../like/like";
 import { fetchLikeStatus } from "@/app/actions/like-action";
 import RepostDropdown from "../repost/repost";
+import { RepostCard } from "./repost-card";
 
 export async function PostCard({
   userName,
@@ -14,6 +15,7 @@ export async function PostCard({
   content,
   likesCount,
   createdAt,
+  repost,
   id,
 }: {
   userName: string;
@@ -23,6 +25,7 @@ export async function PostCard({
   likesCount: number;
   createdAt: string;
   id: string;
+  repost: string
 }) {
   const formattedCreatedAt = formattedDate(createdAt);
   const LikeStatus = await fetchLikeStatus({ post_id: id });
@@ -54,7 +57,7 @@ export async function PostCard({
             </Link>
             <Link
               href={`/perfil/${userName}`}
-              className="font-light text-white/50"
+              className="font-extralight text-white/50"
             >
               @{userName}
             </Link>
@@ -62,6 +65,8 @@ export async function PostCard({
             <p className="font-light text-white/50">{formattedCreatedAt}</p>
           </div>
           <p>{content}</p>
+          {repost && <RepostCard repost={repost} />}
+          
         </main>
         <footer className="flex flex-row w-full justify-start items-center gap-24 pt-2">
           <button>

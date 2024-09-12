@@ -11,7 +11,7 @@ export default function LikeButton({ post_id, likes_count, like_status }: LikeBu
     const [manyLikes, setManyLikes] = useState(likes_count)
 
     return (
-        <div className='flex flex-row'>
+        <div className='flex flex-row z-10'>
             <button
                 onClick={async () => {
                     const wasLiked = like

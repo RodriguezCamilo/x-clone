@@ -20,7 +20,7 @@ export default async function Home() {
 
   const { data: posts, error } = await supabase
     .from('posts')
-    .select('*, user:users(name, user_name, avatar_url), likes_count, created_at')
+    .select('*, user:users(name, user_name, avatar_url), likes_count, created_at, repost')
     .order('created_at', { ascending: false })
     .limit(10)
 

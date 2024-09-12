@@ -16,6 +16,7 @@ export default function RepostDropdown({post_id}: RepostDropdownProps) {
         dropdownRef.current &&
         !dropdownRef.current.contains(event.target as Node)
       ) {
+        console.log(post_id)
         setIsDropdownOpen(false);
       }
     }

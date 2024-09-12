@@ -6,6 +6,7 @@ import DataUser from "@/app/utils/supabase/user";
 export async function handleRepost({ post_id }: any) {
   const supabase = createClient();
   const user = await DataUser();
+  console.log({post_id})
 
   if (user?.user?.id) {
     const { error } = await supabase
