@@ -8,7 +8,8 @@ import { LoginModalProps } from './types'
 
 
 export function LoginModal({ isLoginOpen, closeModal }: LoginModalProps) {
-    if (!isLoginOpen) return null
+    const loginOpen = isLoginOpen
+    if (!loginOpen) return null
 
     return (
         <div className="absolute h-full w-full self-center flex flex-1 place-content-center items-center bg-blue-200/20">
