@@ -1,5 +1,7 @@
 export interface RepostDropdownProps {
-  post_id: string
+  post_id: string,
+  repost_count: number,
+  is_reposted: boolean
 }
 
 export interface RepostButtonProps {

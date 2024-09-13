@@ -7,6 +7,7 @@ import LikeButton from "../like/like";
 import { fetchLikeStatus } from "@/app/actions/like-action";
 import RepostDropdown from "../repost/repost";
 import { RepostCard } from "./repost-card";
+import { fetchRepostStatus } from "@/app/actions/repost-action";
 
 export async function PostCard({
   userName,
@@ -16,6 +17,7 @@ export async function PostCard({
   likesCount,
   createdAt,
   repost,
+  repost_count,
   id,
 }: {
   userName: string;
@@ -25,10 +27,13 @@ export async function PostCard({
   likesCount: number;
   createdAt: string;
   id: string;
-  repost: string
+  repost: string,
+  repost_count: number
 }) {
-  const formattedCreatedAt = formattedDate(createdAt);
-  const LikeStatus = await fetchLikeStatus({ post_id: id });
+
+  const formattedCreatedAt = formattedDate(createdAt)
+  const LikeStatus = await fetchLikeStatus({ post_id: id })
+  const isReposted = await fetchRepostStatus({ post_id: id })
 
   return (
     <article className="text-left flex flex-row w-full p-4 pb-2 border-b-2 border-zinc-700 gap-2 bg-gray/0 transition hover:bg-zinc-300/5 cursor-pointer relative">
@@ -73,7 +78,7 @@ export async function PostCard({
             <IconMessageCircle className="size-5 text-white/50" />
           </button>
           <div>
-            <RepostDropdown post_id={id} />
+            <RepostDropdown post_id={id} repost_count={repost_count} is_reposted={isReposted} />
           </div>
 
           <LikeButton

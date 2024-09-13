@@ -7,7 +7,6 @@ export default function RepostButton({ post_id }: RepostButtonProps) {
 
     const handleClick = () => { 
         const repost = handleRepost({post_id})
-        console.log(repost)
     }
 
   return(

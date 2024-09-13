@@ -6,6 +6,7 @@ import { ComentPost } from '@/app/components/posts/coment-post'
 import { formattedExpecificDate, formattedTime } from '@/app/utils/format-date'
 import { fetchLikeStatus } from '@/app/actions/like-action'
 import DataUser from '@/app/utils/supabase/user'
+import RepostDropdown from '@/app/components/repost/repost'
 
 interface PostPageProps {
   params: {
@@ -22,7 +23,7 @@ export default async function PostPage({ params }: PostPageProps) {
 
   const { data: post } = await supabase
     .from('posts')
-    .select('*, user:users(name, user_name, avatar_url), likes_count, created_at')
+    .select('*, user:users(name, user_name, avatar_url), likes_count, created_at, repost_count')
     .eq('id', id)
     .single()
 
@@ -65,7 +66,7 @@ export default async function PostPage({ params }: PostPageProps) {
           <IconMessageCircle className="size-5 text-white/50" />
         </button>
         <button>
-          <IconRepeat className="size-5 text-white/50" />
+        <RepostDropdown post_id={id} repost_count={post.repost_count} />
         </button>
         <LikeButton like_status={LikeStatus} post_id={id} likes_count={post.likes_count} />
       </footer>
