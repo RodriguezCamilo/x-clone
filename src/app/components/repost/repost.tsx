@@ -82,7 +82,7 @@ export default function RepostDropdown({
       {isDropdownOpen && (
         <div
           ref={dropdownRef}
-          className="absolute border border-white/50 text-white/90 w-36 rounded-xl shadow-lg bg-black ring-1 ring-black ring-opacity-5 z-50"
+          className="absolute border border-white/50 text-nowrap text-white/90 min-w-36 rounded-xl shadow-lg bg-black ring-1 ring-black ring-opacity-5 z-50"
         >
           <div
             role="menu"

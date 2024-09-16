@@ -19,7 +19,7 @@ export default async function NavBar() {
             </div>
             <div>
             </div>
-            <div>
+            <div className='relative'>
                 {data.user ? <NavPerfil data={data} /> : null}
             </div>
         </nav>

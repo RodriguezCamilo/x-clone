@@ -1,4 +1,3 @@
-import SignOut from "@/app/components/login/sign-out";
 import { redirect } from 'next/navigation'
 import PostsList from "@/app/components/posts/posts-list";
 import { ComposePost } from "./components/posts/compose-post";
@@ -30,7 +29,6 @@ export default async function Home() {
         <Suspense fallback={<IconLoader/>}>
           <ComposePost avatarUrl={data?.user?.user_metadata.avatar_url} />
           <PostsList posts={posts} />
-          <SignOut />
         </Suspense>
       </section>
     </main>
