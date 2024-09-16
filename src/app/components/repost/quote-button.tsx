@@ -1,18 +1,25 @@
-import type { RepostButtonProps } from "./types";
+import { useState, useEffect, useRef } from "react";
 import { IconPencilMinus } from "@tabler/icons-react";
-import {handleRepost} from "@/app/actions/repost-action"
+import PostModal from "../modal/PostModal";
+import type { RepostButtonProps } from "./types";
+
+export default function QuoteButton({ post_id }: RepostButtonProps) {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
 
-export default function QuoteButton({ post_id, content }: RepostButtonProps) {
+  const handleButtonClick = () => {
+    setIsDropdownOpen(false);
+  };
 
-    const handleClick = () => { 
-        const repost = handleRepost({post_id, content})
-    }
-
-  return(
-    <button className="flex flex-row gap-2" onClick={handleClick}>
+  return (
+    <>
+      <button className="flex flex-row gap-2" onClick={handleButtonClick}>
         <IconPencilMinus />
         <p>Citar</p>
-    </button>
-  )
+      </button>
+      {isDropdownOpen && (
+          <PostModal post_id={post_id} />
+      )}
+    </>
+  );
 }

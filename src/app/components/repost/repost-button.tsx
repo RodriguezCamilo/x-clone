@@ -12,7 +12,7 @@ export default function RepostButton({ post_id, content }: RepostButtonProps) {
   return(
     <button className="flex flex-row gap-2" onClick={handleClick}>
         <IconRepeat />
-        <p>Repost</p>
+        <p>Repostear</p>
     </button>
   )
 }

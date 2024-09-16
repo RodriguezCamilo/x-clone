@@ -33,7 +33,7 @@ export default function RepostDropdown({
     };
   }, []);
 
-  const handleButtonClick = () => {
+  const handleRepostClick = () => {
     if (reposted) {
       setIsDropdownOpen(false);
       setManyRepost((prevRepost) => prevRepost - 1);
@@ -44,6 +44,10 @@ export default function RepostDropdown({
       setReposted(true);
     }
   };
+
+  const handleQuoteClick = () => {
+      setIsDropdownOpen(false);
+    }
 
   return (
     <div className="relative group flex flex-row">
@@ -94,7 +98,7 @@ export default function RepostDropdown({
                 <div
                   className=" rounded-t-xl px-4 py-3 font-bold  hover:bg-white/5 w-full text-left flex flex-row gap-2"
                   role="menuitem"
-                  onClick={handleButtonClick}
+                  onClick={handleRepostClick}
                 >
                   <UnpostButton post_id={post_id} />
                 </div>
@@ -104,16 +108,16 @@ export default function RepostDropdown({
                 <div
                   className=" rounded-t-xl px-4 py-3 font-bold  hover:bg-white/5 w-full text-left flex flex-row gap-2"
                   role="menuitem"
-                  onClick={handleButtonClick}
+                  onClick={handleRepostClick}
                 >
-                  <RepostButton post_id={post_id} content={null} />
+                  <RepostButton post_id={post_id} />
                 </div>
                 <div
                   className=" rounded-b-xl px-4 py-3 font-bold  hover:bg-white/5 w-full text-left flex flex-row gap-2"
                   role="menuitem"
-                  onClick={handleButtonClick}
+                  onClick={handleQuoteClick}
                 >
-                  <QuoteButton post_id={post_id} content={"citado"} />
+                  <QuoteButton post_id={post_id} />
                 </div>
               </>
             )}

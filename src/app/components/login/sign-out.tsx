@@ -12,7 +12,7 @@ export default function SignOut({userName}:{userName:string}) {
       role="menuitem"
       onClick={handleSignOut}
     >
-      Cerrar la sesion de {userName}
+      Cerrar la sesion de @{userName}
     </button>
   );
 }
