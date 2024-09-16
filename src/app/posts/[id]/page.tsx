@@ -96,6 +96,7 @@ export default async function PostPage({ params }: PostPageProps) {
         </button>
         <div>
           <RepostDropdown
+          userAvatar={userAvatar}
             post_id={id}
             repost_count={post.repost_count}
             is_reposted={isReposted}
