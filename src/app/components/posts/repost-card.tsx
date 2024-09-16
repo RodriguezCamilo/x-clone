@@ -1,6 +1,5 @@
 'use server'
 import Link from "next/link";
-import { IconMessageCircle } from "@tabler/icons-react";
 import { IconUser } from "@tabler/icons-react";
 import { formattedDate } from "@/app/utils/format-date";
 import { createClient } from "@/app/utils/supabase/server";

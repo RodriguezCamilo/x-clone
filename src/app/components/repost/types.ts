@@ -5,5 +5,6 @@ export interface RepostDropdownProps {
 }
 
 export interface RepostButtonProps {
-  post_id: string
+  post_id: string,
+  content: any
 }

@@ -1,9 +1,9 @@
 import type { RepostButtonProps } from "./types";
-import { IconRepeat } from "@tabler/icons-react";
+import { IconPencilMinus } from "@tabler/icons-react";
 import {handleRepost} from "@/app/actions/repost-action"
 
 
-export default function RepostButton({ post_id, content }: RepostButtonProps) {
+export default function QuoteButton({ post_id, content }: RepostButtonProps) {
 
     const handleClick = () => { 
         const repost = handleRepost({post_id, content})
@@ -11,8 +11,8 @@ export default function RepostButton({ post_id, content }: RepostButtonProps) {
 
   return(
     <button className="flex flex-row gap-2" onClick={handleClick}>
-        <IconRepeat />
-        <p>Repost</p>
+        <IconPencilMinus />
+        <p>Citar</p>
     </button>
   )
 }

@@ -3,58 +3,93 @@
 import { createClient } from "@/app/utils/supabase/server";
 import DataUser from "@/app/utils/supabase/user";
 
-export async function handleRepost({ post_id }: { post_id: string }) {
+//User repost
+export async function handleRepost({
+  post_id,
+  content,
+}: {
+  post_id: string;
+  content: string;
+}) {
+  const supabase = createClient();
+  const user = await DataUser();
+  let contentPost = " ";
+
+  if (content != null) {
+    contentPost = content;
+  }
+
+  if (!user?.user?.id) return "No hay sesion";
+
+  const { error: insertError } = await supabase
+    .from("posts")
+    .insert({ user_id: user.user.id, repost: post_id, content: contentPost });
+
+  if (insertError) {
+    console.error("Error al insertar en posts:", insertError.message);
+    return;
+  }
+
+  const { error: repostError } = await supabase
+    .from("user_reposts")
+    .insert({ user_id: user.user.id, post_id: post_id });
+
+  if (repostError) {
+    console.error("Error al insertar en user_reposts:", repostError.message);
+    return;
+  }
+
+}
+
+//User delete repost
+export async function handleUnpost({ post_id }: { post_id: string }) {
   const supabase = createClient();
   const user = await DataUser();
 
-  if (user?.user?.id) {
-    // Insertar el repost en la tabla 'posts'
-    const { error: insertError } = await supabase
-      .from("posts")
-      .insert({ user_id: user.user.id, repost: post_id, content: " " });
+  if (!user?.user?.id) return "No hay sesion";
 
-    if (insertError) {
-      console.error("Error al insertar en posts:", insertError.message);
-      return;
-    }
+  const { data: repostData, error: repostFetchError } = await supabase
+    .from("posts")
+    .select("id")
+    .eq("repost", post_id)
+    .eq("user_id", user.user.id)
+    .single();
 
-    // Insertar el repost en la tabla 'user_reposts'
-    const { error: repostError } = await supabase
-      .from("user_reposts")
-      .insert({ user_id: user.user.id, post_id: post_id });
+  if (repostFetchError) {
+    console.error("Error al obtener repost:", repostFetchError.message);
+    return;
+  }
 
-    if (repostError) {
-      console.error("Error al insertar en user_reposts:", repostError.message);
-      return;
-    }
+  if (!repostData) {
+    console.error("Este usuario no hizo un repost.");
+    return;
+  }
 
-    // Obtener el conteo actual de reposts
-    const { data: postData, error: fetchError } = await supabase
-      .from("posts")
-      .select("repost_count")
-      .eq("id", post_id)
-      .single();
+  const { error: deletePostError } = await supabase
+    .from("posts")
+    .delete()
+    .eq("id", repostData.id);
 
-    if (fetchError) {
-      console.error("Error al obtener repost_count:", fetchError.message);
-      return;
-    }
+  if (deletePostError) {
+    console.error(
+      "Error al borrar el repost en posts:",
+      deletePostError.message
+    );
+    return;
+  }
 
-    const newRepostCount = (postData?.repost_count) + 1;
-    console.log(newRepostCount)
-    // Actualizar el conteo de reposts en la tabla 'posts'
-    const { error: updateError } = await supabase
-      .from("posts")
-      .update({ repost_count: newRepostCount })
-      .eq("id", post_id);
+  const { error: deleteRepostError } = await supabase
+    .from("user_reposts")
+    .delete()
+    .eq("post_id", post_id)
+    .eq("user_id", user.user.id);
 
-
-
-    if (updateError) {
-      console.error("Error al actualizar repost_count:", updateError.message);
-    }
-  } else {
-    return "No hay sesión.";
+  if (deleteRepostError) {
+    console.error(
+      "Error al borrar el repost en user_reposts:",
+      deleteRepostError.message
+    );
+    return;
   }
 }
 
