@@ -11,6 +11,7 @@ export default function RepostDropdown({
   post_id,
   repost_count,
   is_reposted,
+  userAvatar,
 }: RepostDropdownProps) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [manyRepost, setManyRepost] = useState(repost_count);
@@ -45,9 +46,6 @@ export default function RepostDropdown({
     }
   };
 
-  const handleQuoteClick = () => {
-      setIsDropdownOpen(false);
-    }
 
   return (
     <div className="relative group flex flex-row">
@@ -115,9 +113,8 @@ export default function RepostDropdown({
                 <div
                   className=" rounded-b-xl px-4 py-3 font-bold  hover:bg-white/5 w-full text-left flex flex-row gap-2"
                   role="menuitem"
-                  onClick={handleQuoteClick}
                 >
-                  <QuoteButton post_id={post_id} />
+                  <QuoteButton userAvatar={userAvatar} post_id={post_id} />
                 </div>
               </>
             )}

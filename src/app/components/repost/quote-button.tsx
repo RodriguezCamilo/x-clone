@@ -1,14 +1,18 @@
-import { useState, useEffect, useRef } from "react";
+'use client'
+
+import { useState } from "react";
 import { IconPencilMinus } from "@tabler/icons-react";
-import PostModal from "../modal/PostModal";
-import type { RepostButtonProps } from "./types";
+import PostModal from "../modal/repost-modal";
 
-export default function QuoteButton({ post_id }: RepostButtonProps) {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-
+export default function QuoteButton({ post_id, userAvatar }: {post_id: string, userAvatar: any}) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleButtonClick = () => {
-    setIsDropdownOpen(false);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
   };
 
   return (
@@ -17,8 +21,8 @@ export default function QuoteButton({ post_id }: RepostButtonProps) {
         <IconPencilMinus />
         <p>Citar</p>
       </button>
-      {isDropdownOpen && (
-          <PostModal post_id={post_id} />
+      {isModalOpen && (
+        <PostModal userAvatar={userAvatar} post_id={post_id} onClose={handleCloseModal} />
       )}
     </>
   );

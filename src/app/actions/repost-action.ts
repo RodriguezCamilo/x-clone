@@ -38,8 +38,47 @@ export async function handleRepost({
     console.error("Error al insertar en user_reposts:", repostError.message);
     return;
   }
-
 }
+
+//User quote
+
+export const handleQuote = async ({
+  formData,
+  post_id,
+}: {
+  formData: FormData;
+  post_id: string;
+}) => {
+  const content = formData.get("content")?.toString().trim();
+  let contentPost = " ";
+
+  if (content != null) {
+    contentPost = content;
+  }
+
+  const supabase = createClient();
+  const user = await DataUser();
+
+  if (!user?.user) return "No hay sesion";
+
+  const { error: insertError } = await supabase
+    .from("posts")
+    .insert({ user_id: user.user.id, repost: post_id, content: contentPost });
+
+  if (insertError) {
+    console.error("Error al insertar en posts:", insertError.message);
+    return;
+  }
+
+  const { error: repostError } = await supabase
+    .from("user_reposts")
+    .insert({ user_id: user.user.id, post_id: post_id });
+
+  if (repostError) {
+    console.error("Error al insertar en user_reposts:", repostError.message);
+    return;
+  }
+};
 
 //User delete repost
 export async function handleUnpost({ post_id }: { post_id: string }) {

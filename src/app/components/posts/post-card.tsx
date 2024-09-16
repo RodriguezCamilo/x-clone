@@ -8,6 +8,7 @@ import { fetchLikeStatus } from "@/app/actions/like-action";
 import RepostDropdown from "../repost/repost";
 import { RepostCard } from "./repost-card";
 import { fetchRepostStatus } from "@/app/actions/repost-action";
+import DataUser from "@/app/utils/supabase/user";
 
 export async function PostCard({
   userName,
@@ -34,6 +35,8 @@ export async function PostCard({
   const formattedCreatedAt = formattedDate(createdAt)
   const LikeStatus = await fetchLikeStatus({ post_id: id })
   const isReposted = await fetchRepostStatus({ post_id: id })
+  const dataUser = await DataUser()
+
 
   return (
     <article className="text-left flex flex-row w-full p-4 pb-2 border-b-2 border-zinc-700 gap-2 bg-gray/0 transition hover:bg-zinc-300/5 cursor-pointer relative">
@@ -78,7 +81,7 @@ export async function PostCard({
             <IconMessageCircle className="size-5 text-white/50" />
           </button>
           <div>
-            <RepostDropdown post_id={id} repost_count={repost_count} is_reposted={isReposted} />
+            <RepostDropdown post_id={id} repost_count={repost_count} is_reposted={isReposted} userAvatar = {dataUser?.user?.user_metadata.avatar_url} />
           </div>
 
           <LikeButton

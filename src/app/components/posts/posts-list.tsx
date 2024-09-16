@@ -16,7 +16,7 @@ export default function PostsList({ posts } : { posts: Posts[] | null }) {
                         likes_count,
                         created_at,
                         repost,
-                        repost_count
+                        repost_count,
                     } = post
                     const {
                         user_name: userName,
