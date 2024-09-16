@@ -3,10 +3,10 @@ import { IconRepeat } from "@tabler/icons-react";
 import {handleRepost} from "@/app/actions/repost-action"
 
 
-export default function RepostButton({ post_id, content }: RepostButtonProps) {
+export default function RepostButton({ post_id}: RepostButtonProps) {
 
     const handleClick = () => { 
-        const repost = handleRepost({post_id, content})
+        const repost = handleRepost({post_id, content:null})
     }
 
   return(

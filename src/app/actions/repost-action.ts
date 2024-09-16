@@ -9,7 +9,7 @@ export async function handleRepost({
   content,
 }: {
   post_id: string;
-  content: string;
+  content: any;
 }) {
   const supabase = createClient();
   const user = await DataUser();
