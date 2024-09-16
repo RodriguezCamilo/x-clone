@@ -5,6 +5,8 @@ import LikeButton from '@/app/components/like/like'
 import { ComentPost } from '@/app/components/posts/coment-post'
 import { formattedExpecificDate, formattedTime } from '@/app/utils/format-date'
 import { fetchLikeStatus } from '@/app/actions/like-action'
+import { fetchRepostStatus } from '@/app/actions/repost-action'
+import { RepostCard } from '@/app/components/posts/repost-card'
 import DataUser from '@/app/utils/supabase/user'
 import RepostDropdown from '@/app/components/repost/repost'
 
@@ -23,12 +25,13 @@ export default async function PostPage({ params }: PostPageProps) {
 
   const { data: post } = await supabase
     .from('posts')
-    .select('*, user:users(name, user_name, avatar_url), likes_count, created_at, repost_count')
+    .select('*, user:users(name, user_name, avatar_url), likes_count, created_at, repost, repost_count')
     .eq('id', id)
     .single()
 
   const postAvatar = post.user.avatar_url
   const LikeStatus = await fetchLikeStatus({ post_id: post.id });
+  const isReposted = await fetchRepostStatus({ post_id: id })
 
   const user = await DataUser()
   const userAvatar = user?.user?.user_metadata.avatar_url
@@ -54,6 +57,7 @@ export default async function PostPage({ params }: PostPageProps) {
       <main className="flex flex-col border border-x-0 border-t-0 pb-4 border-zinc-700">
         <p className='text-wrap text-lg py-4'>
           {post.content}
+          {post.repost && <RepostCard repost={post.repost} />}
         </p>
         <div className='flex flex-row gap-2'>
           <p className='font-light text-white/50'>{formattedCreatedTime}</p>
@@ -66,7 +70,7 @@ export default async function PostPage({ params }: PostPageProps) {
           <IconMessageCircle className="size-5 text-white/50" />
         </button>
         <button>
-        <RepostDropdown post_id={id} repost_count={post.repost_count} />
+        <RepostDropdown post_id={id} repost_count={post.repost_count} is_reposted={isReposted}  />
         </button>
         <LikeButton like_status={LikeStatus} post_id={id} likes_count={post.likes_count} />
       </footer>
