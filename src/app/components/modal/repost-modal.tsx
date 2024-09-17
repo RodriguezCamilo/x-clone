@@ -3,7 +3,7 @@ import { IconX, IconUser } from "@tabler/icons-react";
 import { useRef, useEffect } from "react";
 import { handleQuote } from "@/app/actions/repost-action";
 
-export default async function PostModal({
+export default function PostModal({
   post_id,
   userAvatar,
   onClose,

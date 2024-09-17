@@ -16,7 +16,7 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body className="min-h-screen w-full grid grid-cols-3 text-white bg-black">
-        <header className="z-50">
+        <header className="z-20">
           <NavBar />
         </header>
         {children}

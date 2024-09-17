@@ -1,4 +1,5 @@
 "use client";
+import ReactDOM from "react-dom";
 import { IconX, IconUser } from "@tabler/icons-react";
 import { useRef, useEffect, useState } from "react";
 import { useFormStatus } from "react-dom";
@@ -42,7 +43,7 @@ export default function NewPostModal({
     };
   }, []);
 
-  return (
+  return ReactDOM.createPortal (
     <form
       ref={formRef}
       onSubmit={async (event) => {
@@ -93,6 +94,7 @@ export default function NewPostModal({
           </div>
         </div>
       </div>
-    </form>
+    </form>,
+    document.body
   );
 }

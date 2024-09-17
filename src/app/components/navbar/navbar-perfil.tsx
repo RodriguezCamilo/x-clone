@@ -48,7 +48,7 @@ export default function NavPerfil({ data }: NavPerfilProps) {
       {isDropdownOpen && (
         <div
           ref={dropdownRef}
-          className="absolute top-0 left-0 transform -translate-y-full border border-white/50 text-white/90 w-auto rounded-xl shadow-lg bg-black ring-1 ring-black ring-opacity-5 z-50"
+          className="absolute top-0 left-0 transform -translate-y-full border border-white/50 text-white/90 w-auto rounded-xl shadow-lg bg-black ring-1 ring-black ring-opacity-5 z-20"
         >
           <div
             role="menu"
