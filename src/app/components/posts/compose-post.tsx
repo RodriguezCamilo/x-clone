@@ -14,6 +14,8 @@ export function ComposePost({
     const textareaRef = useRef<HTMLTextAreaElement>(null)
     const { pending } = useFormStatus()
     const [canPost, setCanPost] = useState(false)
+    const [charCount, setCharCount] = useState(0)
+    const maxChars = 280
 
     useEffect(() => {
         const textarea = textareaRef.current
@@ -25,8 +27,9 @@ export function ComposePost({
         }
 
         const handleInput = () => {
-            const content = textarea?.value.trim()
-            setCanPost(!!content)
+            const content = textarea?.value.trim() || ''
+            setCanPost(!!content && content.length <= maxChars)
+            setCharCount(content.length)
             adjustTextareaHeight()
         }
 
@@ -48,13 +51,14 @@ export function ComposePost({
                 event.preventDefault()
                 const formData = new FormData(formRef.current!)
                 const content = formData.get('content')?.toString().trim()
-                if (!content) {
+                if (!content || content.length > maxChars) {
                     setCanPost(false)
                     return
                 }
                 await addPost(formData)
                 formRef.current?.reset()
                 setCanPost(false)
+                setCharCount(0)
             }}
             className="flex flex-1 flex-row max-h-80 w-full p-4 pt-0 gap-2 border-b-2 border-zinc-700"
         >
@@ -72,7 +76,11 @@ export function ComposePost({
                     rows={1}
                     className="w-full text-xl font-light p-2 bg-transparent placeholder-white/50 resize-none focus:border-0 focus:outline-none"
                     placeholder="¿¡Qué está pasando!?"
+                    maxLength={maxChars}
                 ></textarea>
+                <div className="text-sm text-gray-400 px-5 py-2 self-end">
+                    {charCount}/{maxChars}
+                </div>
 
                 <button
                     disabled={!canPost}

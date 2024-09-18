@@ -1,6 +1,6 @@
 "use client";
 import { IconX, IconUser } from "@tabler/icons-react";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { handleQuote } from "@/app/actions/repost-action";
 
 export default function PostModal({
@@ -14,6 +14,8 @@ export default function PostModal({
 }) {
   const formRef = useRef<HTMLFormElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const [contentLength, setContentLength] = useState(0);
+  const maxCharacters = 280; 
 
   useEffect(() => {
     const textarea = textareaRef.current;
@@ -25,7 +27,12 @@ export default function PostModal({
     };
 
     const handleInput = () => {
-      adjustTextareaHeight();
+      if (textarea) {
+        const content = textarea.value.slice(0, maxCharacters);
+        textarea.value = content;
+        setContentLength(content.length); 
+        adjustTextareaHeight();
+      }
     };
 
     if (textarea) {
@@ -47,6 +54,7 @@ export default function PostModal({
         const formData = new FormData(formRef.current!);
         await handleQuote({ formData, post_id });
         formRef.current?.reset();
+        setContentLength(0);
       }}
       className="fixed inset-0 flex justify-center z-50 bg-zinc-700/50"
     >
@@ -74,6 +82,9 @@ export default function PostModal({
               className="w-full text-xl font-light p-2 bg-transparent placeholder-white/50 resize-none focus:border-0 focus:outline-none"
               placeholder="Añadir un comentario"
             ></textarea>
+            <div className="text-right text-sm font-normal text-gray-400">
+              {contentLength}/{maxCharacters}
+            </div>
             <button
               type="submit"
               className="bg-sky-500 disabled:opacity-40 disabled:pointer-events-none rounded-full px-5 py-2 font-bold self-end"

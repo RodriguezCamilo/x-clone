@@ -18,6 +18,8 @@ export default function CommentModal({
     const textareaRef = useRef<HTMLTextAreaElement>(null);
     const { pending } = useFormStatus();
     const [canPost, setCanPost] = useState(false);
+    const [contentLength, setContentLength] = useState(0);
+    const maxCharacters = 280; 
   
     useEffect(() => {
       const textarea = textareaRef.current;
@@ -28,9 +30,13 @@ export default function CommentModal({
       };
   
       const handleInput = () => {
-        const content = textarea?.value.trim();
-        setCanPost(!!content);
-        adjustTextareaHeight();
+        if (textarea) {
+          const content = textarea.value.slice(0, maxCharacters);
+          textarea.value = content;
+          setContentLength(content.length); 
+          setCanPost(content.trim().length > 0);
+          adjustTextareaHeight();
+        }
       };
   
       if (textarea) {
@@ -57,6 +63,7 @@ export default function CommentModal({
           }
           await commentPost(formData, post_id);
           formRef.current?.reset();
+          setContentLength(0);
           setCanPost(false);
           onClose()
         }}
@@ -82,6 +89,9 @@ export default function CommentModal({
                 className="w-full text-xl font-light p-2 bg-transparent placeholder-white/50 resize-none focus:border-0 focus:outline-none"
                 placeholder="Postea tu respuesta"
               ></textarea>
+              <div className="text-right text-sm text-gray-400">
+                {contentLength}/{maxCharacters}
+              </div>
               <button
                 disabled={!canPost}
                 type="submit"
