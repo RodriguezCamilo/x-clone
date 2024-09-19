@@ -54,7 +54,7 @@ export default async function PostPage({ params }: PostPageProps) {
     <article className="text-left flex flex-col w-full bg-black py-4 border border-t-0 border-zinc-700 ">
       <Suspense
         fallback={
-          <div className="flex justify-center items-center w-full">
+          <div className="flex justify-center items-center w-full p-4">
             <IconLoader className="animate-spin" />
           </div>
         }
@@ -124,7 +124,7 @@ export default async function PostPage({ params }: PostPageProps) {
       {user.user && <ComentPost avatarUrl={userAvatar} post_id={id} />}
       <Suspense
         fallback={
-          <div className="flex justify-center items-center w-full">
+          <div className="flex justify-center items-center w-full p-4">
             <IconLoader className="animate-spin" />
           </div>
         }

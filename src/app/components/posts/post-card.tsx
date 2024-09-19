@@ -39,8 +39,13 @@ export async function PostCard({
         className="absolute inset-0 z-0 "
         aria-hidden="true"
         href={`/posts/${id}`}
+        prefetch={true}
       ></Link>
-      <Link href={`/perfil/${userName}`} className="flex flex-row z-10">
+      <Link
+        href={`/perfil/${userName}`}
+        prefetch={true}
+        className="flex flex-row z-10"
+      >
         {avatarUrl != "Unknown" ? (
           <img src={avatarUrl} className="rounded-full size-10" alt="" />
         ) : (

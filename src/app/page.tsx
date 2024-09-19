@@ -27,7 +27,7 @@ export default async function Home() {
       <section className="flex h-full w-full flex-col items-center pt-4 border border-y-0 border-zinc-700">
         <Suspense
           fallback={
-            <div className="flex justify-center items-center w-full">
+            <div className="flex justify-center items-center w-full p-4">
               <IconLoader className="animate-spin" />
             </div>
           }
