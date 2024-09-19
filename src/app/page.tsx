@@ -4,7 +4,7 @@ import { ComposePost } from "./components/posts/compose-post";
 import { createClient } from "@/app/utils/supabase/server";
 import DataUser from "./utils/supabase/user";
 import { Suspense } from "react";
-import { IconLoader } from "@tabler/icons-react";
+import { IconLoader2 } from "@tabler/icons-react";
 
 export default async function Home() {
   const supabase = createClient();
@@ -28,7 +28,7 @@ export default async function Home() {
         <Suspense
           fallback={
             <div className="flex justify-center items-center w-full p-4">
-              <IconLoader className="animate-spin" />
+              <IconLoader2 className="animate-spin" />
             </div>
           }
         >

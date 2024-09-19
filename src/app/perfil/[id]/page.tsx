@@ -4,7 +4,7 @@ import {
   IconArrowLeft,
   IconCalendar,
   IconUser,
-  IconLoader,
+  IconLoader2,
 } from "@tabler/icons-react";
 import Link from "next/link";
 import { formattedMonthYear } from "@/app/utils/format-date";
@@ -57,7 +57,7 @@ export default async function PerfilPage({ params }: PerfilPageProps) {
       <Suspense
         fallback={
           <div className="flex justify-center items-center w-full p-4">
-            <IconLoader className="animate-spin" />
+            <IconLoader2 className="animate-spin" />
           </div>
         }
       >
@@ -127,7 +127,7 @@ export default async function PerfilPage({ params }: PerfilPageProps) {
         <Suspense
           fallback={
             <div className="flex justify-center items-center w-full">
-              <IconLoader className="animate-spin" />
+              <IconLoader2 className="animate-spin" />
             </div>
           }
         >

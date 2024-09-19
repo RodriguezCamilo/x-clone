@@ -1,5 +1,5 @@
 import { createClient } from "../utils/supabase/server";
-import { IconArrowLeft, IconUser, IconLoader } from "@tabler/icons-react";
+import { IconArrowLeft, IconUser, IconLoader2 } from "@tabler/icons-react";
 import Link from "next/link";
 import FollowButton from "../components/follows/follow-button";
 import { fetchFollowStatus } from "../actions/follow-action";
@@ -25,7 +25,7 @@ export default async function Conectar() {
       <Suspense
         fallback={
           <div className="flex justify-center items-center w-full p-4">
-            <IconLoader className="animate-spin" />
+            <IconLoader2 className="animate-spin" />
           </div>
         }
       >

@@ -1,6 +1,6 @@
 import { createClient } from "@/app/utils/supabase/server";
 import Link from "next/link";
-import { IconArrowLeft, IconUser, IconLoader } from "@tabler/icons-react";
+import { IconArrowLeft, IconUser, IconLoader2 } from "@tabler/icons-react";
 import LikeButton from "@/app/components/like/like";
 import { ComentPost } from "@/app/components/posts/comment-post";
 import CommentButton from "@/app/components/posts/comment-button";
@@ -55,7 +55,7 @@ export default async function PostPage({ params }: PostPageProps) {
       <Suspense
         fallback={
           <div className="flex justify-center items-center w-full p-4">
-            <IconLoader className="animate-spin" />
+            <IconLoader2 className="animate-spin" />
           </div>
         }
       >
@@ -125,7 +125,7 @@ export default async function PostPage({ params }: PostPageProps) {
       <Suspense
         fallback={
           <div className="flex justify-center items-center w-full p-4">
-            <IconLoader className="animate-spin" />
+            <IconLoader2 className="animate-spin" />
           </div>
         }
       >
