@@ -83,7 +83,7 @@ export default function NewPostModal({
               <IconUser />
             </div>
           )}
-          <div className="w-full h-full flex flex-col gap-4 p-2">
+          <div className="w-full h-full flex flex-col p-2">
             <textarea
               ref={textareaRef}
               name="content"
@@ -91,7 +91,7 @@ export default function NewPostModal({
               className="w-full text-xl font-light p-2 bg-transparent placeholder-white/50 resize-none focus:border-0 focus:outline-none"
               placeholder="¿¡Qué está pasando!?"
             ></textarea>
-            <div className="text-right text-sm text-gray-400">
+            <div className="text-right text-sm text-gray-400 p-2">
               {contentLength}/{maxCharacters}
             </div>
             <button

@@ -58,7 +58,7 @@ export default function PostModal({
       }}
       className="fixed inset-0 flex justify-center z-50 bg-zinc-700/50"
     >
-      <div className="bg-black my-12 h-1/2 p-4 rounded-lg shadow-lg w-1/3 flex flex-col">
+      <div className="bg-black my-12 h-1/3 p-4 rounded-lg shadow-lg w-1/3 flex flex-col">
         <button onClick={onClose}>
           <IconX size={22} />
         </button>
@@ -82,7 +82,7 @@ export default function PostModal({
               className="w-full text-xl font-light p-2 bg-transparent placeholder-white/50 resize-none focus:border-0 focus:outline-none"
               placeholder="Añadir un comentario"
             ></textarea>
-            <div className="text-right text-sm font-normal text-gray-400">
+            <div className="text-right text-sm font-normal text-gray-400 p-2">
               {contentLength}/{maxCharacters}
             </div>
             <button

@@ -1,19 +1,16 @@
 import { createClient } from "@/app/utils/supabase/server";
 import Link from "next/link";
-import {
-  IconMessageCircle,
-  IconRepeat,
-  IconArrowLeft,
-  IconUser,
-} from "@tabler/icons-react";
+import { IconArrowLeft, IconUser } from "@tabler/icons-react";
 import LikeButton from "@/app/components/like/like";
-import { ComentPost } from "@/app/components/posts/coment-post";
+import { ComentPost } from "@/app/components/posts/comment-post";
+import CommentButton from "@/app/components/posts/comment-button";
 import { formattedExpecificDate, formattedTime } from "@/app/utils/format-date";
 import { fetchLikeStatus } from "@/app/actions/like-action";
 import { fetchRepostStatus } from "@/app/actions/repost-action";
 import { RepostCard } from "@/app/components/posts/repost-card";
 import DataUser from "@/app/utils/supabase/user";
 import RepostDropdown from "@/app/components/repost/repost";
+import PostsList from "@/app/components/posts/posts-list";
 
 interface PostPageProps {
   params: {
@@ -26,13 +23,21 @@ export default async function PostPage({ params }: PostPageProps) {
 
   const { id } = params;
 
-  const { data: post } = await supabase
+  const { data: post, error: postError } = await supabase
     .from("posts")
     .select(
       "*, user:users(name, user_name, avatar_url), likes_count, created_at, repost, repost_count"
     )
     .eq("id", id)
     .single();
+
+  const { data: posts, error: postsError } = await supabase
+    .from("posts")
+    .select(
+      "*, user:users(name, user_name, avatar_url), likes_count, created_at, repost, repost_count, response_to"
+    )
+    .eq("response_to", id)
+    .order("created_at", { ascending: false });
 
   const postAvatar = post.user.avatar_url;
   const LikeStatus = await fetchLikeStatus({ post_id: post.id });
@@ -45,8 +50,8 @@ export default async function PostPage({ params }: PostPageProps) {
   const formattedCreatedTime = formattedTime(post.created_at);
 
   return (
-    <article className="text-left flex flex-col w-full bg-black p-4 border border-t-0 border-zinc-700 ">
-      <div className="flex flex-row items-center gap-6 pb-4">
+    <article className="text-left flex flex-col w-full bg-black py-4 border border-t-0 border-zinc-700 ">
+      <div className="flex flex-row items-center gap-6 px-4 pb-4">
         <Link
           className="rounded-full size-8 hover:bg-zinc-700 transition flex items-center justify-center z-0"
           href={"/"}
@@ -55,7 +60,7 @@ export default async function PostPage({ params }: PostPageProps) {
         </Link>
         <h2 className="text-xl font-semibold">Post</h2>
       </div>
-      <header className="flex flex-row gap-2 ">
+      <header className="flex flex-row gap-2 px-4 ">
         <Link href={`/perfil/${post.user.user_name}`} className="flex flex-row">
           {postAvatar ? (
             <img
@@ -79,7 +84,7 @@ export default async function PostPage({ params }: PostPageProps) {
           <p className="font-light text-white/50">@{post.user.user_name}</p>
         </div>
       </header>
-      <main className="flex flex-col border border-x-0 border-t-0 pb-4 border-zinc-700">
+      <main className="flex flex-col border border-x-0 border-t-0 px-4 pb-4 border-zinc-700">
         <p className="text-wrap text-lg py-4">
           {post.content}
           {post.repost && <RepostCard repost={post.repost} />}
@@ -91,24 +96,21 @@ export default async function PostPage({ params }: PostPageProps) {
         </div>
       </main>
       <footer className="flex flex-row justify-start gap-24 p-2 border border-x-0 border-t-0 border-zinc-700">
-        <button>
-          <IconMessageCircle className="size-5 text-white/50" />
-        </button>
-        <div>
-          <RepostDropdown
+        <CommentButton post_id={id} userAvatar={userAvatar} />
+        <RepostDropdown
           userAvatar={userAvatar}
-            post_id={id}
-            repost_count={post.repost_count}
-            is_reposted={isReposted}
-          />
-        </div>
+          post_id={id}
+          repost_count={post.repost_count}
+          is_reposted={isReposted}
+        />
         <LikeButton
           like_status={LikeStatus}
           post_id={id}
           likes_count={post.likes_count}
         />
       </footer>
-      {!user.user ?? <ComentPost avatarUrl={userAvatar} />}
+      {user.user && <ComentPost avatarUrl={userAvatar} post_id={id} />}
+      <PostsList posts={posts} />
     </article>
   );
 }

@@ -78,7 +78,7 @@ export function ComposePost({
                     placeholder="¿¡Qué está pasando!?"
                     maxLength={maxChars}
                 ></textarea>
-                <div className="text-sm text-gray-400 px-5 py-2 self-end">
+                <div className="text-sm text-gray-400 p-2 self-end">
                     {charCount}/{maxChars}
                 </div>
 
