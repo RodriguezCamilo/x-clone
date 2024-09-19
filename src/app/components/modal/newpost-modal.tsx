@@ -74,7 +74,7 @@ export default function NewPostModal({
         <div className="w-full flex flex-row mt-4">
           {userAvatar ? (
             <img
-              src={userAvatar.avatar_url}
+              src={userAvatar}
               className="rounded-full size-10"
               alt="Imagen de perfil"
             />
