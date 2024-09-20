@@ -1,3 +1,4 @@
+'use server'
 import { createClient } from "@/app/utils/supabase/server";
 import { redirect } from "next/navigation";
 import {
@@ -13,6 +14,7 @@ import PostsList from "@/app/components/posts/posts-list";
 import { fetchFollowStatus } from "../../actions/follow-action";
 import FollowButton from "@/app/components/follows/follow-button";
 import { Suspense } from "react";
+import EditButton from "@/app/components/perfil/edit-button";
 
 interface PerfilPageProps {
   params: {
@@ -53,7 +55,7 @@ export default async function PerfilPage({ params }: PerfilPageProps) {
   const isFollowing = await fetchFollowStatus(user.id);
 
   return (
-    <section className="text-left flex flex-col h-auto w-full bg-black pt-2 border border-t-0 border-zinc-700">
+    <section className="text-left max-w-[700px] flex flex-col h-auto w-full bg-black pt-2 border border-t-0 border-zinc-700">
       <Suspense
         fallback={
           <div className="flex justify-center items-center w-full p-4">
@@ -87,9 +89,7 @@ export default async function PerfilPage({ params }: PerfilPageProps) {
         </div>
         <div className="flex flex-row justify-end items-center w-full p-4">
           {LogedUser.user?.id == user.id ? (
-            <button className="p-2 px-4 rounded-full font-semibold border border-zinc-700 transition hover:bg-white/10">
-              Editar perfil
-            </button>
+            <EditButton user={user}/>
           ) : (
             <FollowButton user_id={userId} follow_status={isFollowing} />
           )}

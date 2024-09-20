@@ -7,7 +7,7 @@ import PostButton from "./post-button";
 
 export default async function NavBar() {
   const data = await DataUser();
-  const userName = data.user?.user_metadata.user_name || "defaultUser";
+  const userName = data.user?.user_metadata.user_name;
   const userAvatar = data.user?.user_metadata.avatar_url
 
   return (
