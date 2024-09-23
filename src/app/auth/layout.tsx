@@ -8,8 +8,8 @@ export default async function AuthLayout({ children }: { children: React.ReactNo
   }
 
   return (
-    <div className="absolute w-screen h-screen flex flex-col bg-black items-center justify-center z-50">
-      {children}
-    </div>
+    <html lang="es">
+      <body className="min-h-screen w-full bg-black">{children}</body>
+    </html>
   );
 }

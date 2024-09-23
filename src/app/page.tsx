@@ -5,6 +5,8 @@ import { createClient } from "@/app/utils/supabase/server";
 import DataUser from "./utils/supabase/user";
 import { Suspense } from "react";
 import { IconLoader2 } from "@tabler/icons-react";
+import NavBar from "./components/navbar/navbar";
+import SideBar from "./components/sidebar/sidebar";
 
 export default async function Home() {
   const supabase = createClient();
@@ -23,19 +25,27 @@ export default async function Home() {
     .order("created_at", { ascending: false });
 
   return (
-    <main className="w-full bg-black">
-      <section className="flex h-full w-full flex-col items-center pt-4 border border-y-0 border-zinc-700">
-        <Suspense
-          fallback={
-            <div className="flex justify-center items-center w-full p-4">
-              <IconLoader2 className="animate-spin" />
-            </div>
-          }
-        >
-          <ComposePost avatarUrl={data?.user?.user_metadata.avatar_url} />
-          <PostsList posts={posts} />
-        </Suspense>
-      </section>
-    </main>
+    <body className="min-h-screen w-full grid grid-cols-3 text-white bg-black">
+      <header className="z-20">
+        <NavBar />
+      </header>
+      <main className="w-full bg-black">
+        <section className="flex h-full w-full flex-col items-center pt-4 border border-y-0 border-zinc-700">
+          <Suspense
+            fallback={
+              <div className="flex justify-center items-center w-full p-4">
+                <IconLoader2 className="animate-spin" />
+              </div>
+            }
+          >
+            <ComposePost avatarUrl={data?.user?.user_metadata.avatar_url} />
+            <PostsList posts={posts} />
+          </Suspense>
+        </section>
+      </main>
+      <div className="bg-black">
+        <SideBar />
+      </div>
+    </body>
   );
 }
