@@ -1,10 +1,10 @@
-'use client'
+"use client";
 
 import { useState } from "react";
-
+import { IconFeather } from "@tabler/icons-react";
 import NewPostModal from "../modal/newpost-modal";
 
-export default function PostButton({ userAvatar }: {userAvatar: any}) {
+export default function PostButton({ userAvatar }: { userAvatar: any }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleButtonClick = () => {
@@ -17,8 +17,12 @@ export default function PostButton({ userAvatar }: {userAvatar: any}) {
 
   return (
     <>
-      <button className="text-center text-lg font-bold bg-sky-500 p-3 rounded-full" onClick={handleButtonClick}>
-        Postear
+      <button
+        className="text-center text-lg font-bold bg-sky-500 p-3 rounded-full"
+        onClick={handleButtonClick}
+      >
+        <IconFeather className="xl:hidden" />
+        <p className="hidden xl:inline">Postear</p>
       </button>
       {isModalOpen && (
         <NewPostModal userAvatar={userAvatar} onClose={handleCloseModal} />

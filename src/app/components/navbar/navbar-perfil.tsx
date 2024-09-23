@@ -40,7 +40,7 @@ export default function NavPerfil({ data }: NavPerfilProps) {
           <IconUser />
         </div>
       )}
-      <div className="flex flex-col">
+      <div className="xl:flex flex-col hidden">
         <h3 className="font-bold ">{name}</h3>
         <p className="font-light text-white/50">@{userName}</p>
       </div>

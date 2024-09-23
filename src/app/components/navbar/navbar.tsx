@@ -11,8 +11,8 @@ export default async function NavBar() {
   const userAvatar = data.user?.user_metadata.avatar_url
 
   return (
-    <nav className="w-1/3 h-screen fixed flex flex-col items-end justify-between px-8 bg-black">
-      <div className="flex flex-col w-72 gap-6">
+    <nav className="min-w-[8%] w-[8%] xl:w-[30%] h-screen fixed flex flex-col items-center xl:items-end justify-between xl:px-8 bg-black">
+      <div className="flex flex-col w-full flex-1 items-center xl:items-stretch xl:w-72 gap-6">
         <Link
           href={"/"}
           className="h-20 w-20 flex items-center justify-center rounded-full hover:bg-white/5 transition"

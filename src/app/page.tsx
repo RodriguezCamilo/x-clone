@@ -25,12 +25,12 @@ export default async function Home() {
     .order("created_at", { ascending: false });
 
   return (
-    <body className="min-h-screen w-full grid grid-cols-3 text-white bg-black">
-      <header className="z-20">
+    <body className="min-h-screen w-full flex text-white bg-black">
+      <header className="z-20 w-[8%] min-w-[8%] xl:min-w-[30%] hidden md:flex">
         <NavBar />
       </header>
-      <main className="w-full bg-black">
-        <section className="flex h-full w-full flex-col items-center pt-4 border border-y-0 border-zinc-700">
+      <main className="bg-black flex mx-4 md:mx-0 w-full">
+        <section className="flex grow xl:grow-0 h-full w-full flex-col items-center pt-4 border border-y-0 border-zinc-700">
           <Suspense
             fallback={
               <div className="flex justify-center items-center w-full p-4">
@@ -42,10 +42,10 @@ export default async function Home() {
             <PostsList posts={posts} />
           </Suspense>
         </section>
+        <div className="bg-black hidden lg:flex w-full">
+          <SideBar />
+        </div>
       </main>
-      <div className="bg-black">
-        <SideBar />
-      </div>
     </body>
   );
 }
