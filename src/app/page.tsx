@@ -33,7 +33,7 @@ export default async function Home() {
       <header className="z-30 md:w-[8%] md:min-w-[8%] xl:min-w-[30%]">
         <NavBar />
       </header>
-      <main className="bg-black flex w-full mt-16 md:mt-0">
+      <main className="bg-black flex w-full max-w-full mt-16 md:mt-0">
         <section className="flex grow xl:grow-0 h-full mx-[1px] w-full flex-col items-center pt-4 border border-y-0 border-zinc-700">
           <Suspense
             fallback={
