@@ -11,10 +11,9 @@ export function RegisterModal({
   closeModal,
 }: RegisterModalProps) {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
 
   if (!isRegisterOpen) return null;
-
-  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();

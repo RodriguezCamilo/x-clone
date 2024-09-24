@@ -8,8 +8,9 @@ import { IconLoader2 } from "@tabler/icons-react";
 
 export function LoginModal({ isLoginOpen, closeModal }: LoginModalProps) {
   const loginOpen = isLoginOpen;
-  if (!loginOpen) return null;
   const [loading, setLoading] = useState(false);
+
+  if (!loginOpen) return null;
 
   return (
     <div className="absolute h-full w-full self-center flex flex-1 place-content-center items-center bg-blue-200/20">
