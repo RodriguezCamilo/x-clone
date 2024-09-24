@@ -1,7 +1,7 @@
 'use server'
 import Link from "next/link";
 import { IconUser } from "@tabler/icons-react";
-import { formattedDate } from "@/app/utils/format-date";
+import { formattedDate, formattedDateMobile } from "@/app/utils/format-date";
 import { createClient } from "@/app/utils/supabase/server";
 
 export async function RepostCard( {repost}: {repost: string} ) {
@@ -16,6 +16,7 @@ export async function RepostCard( {repost}: {repost: string} ) {
   .single()
 
   const formattedCreatedAt = formattedDate(posts.created_at);
+  const formattedCreatedAtMobile = formattedDateMobile(posts.created_at);
 
   return (
     <article className="text-left flex flex-row w-full mt-2 rounded-2xl p-4 pb-2 border border-zinc-700 gap-2 bg-gray/0 transition hover:bg-zinc-300/5 cursor-pointer relative">
@@ -26,30 +27,31 @@ export async function RepostCard( {repost}: {repost: string} ) {
       ></Link>
       <Link href={`/perfil/${posts.user.user_name}`} className="flex flex-row">
         {posts.user.avatar_url ? (
-          <img src={posts.user.avatar_url} className="rounded-full size-10" alt="" />
+          <img src={posts.user.avatar_url} className="rounded-full size-4 md:size-10" alt="Foto de perfil del reposteante" />
         ) : (
-          <div className="rounded-full bg-zinc-500/50 size-10 flex items-center justify-center">
+          <div className="rounded-full bg-zinc-500/50 size-6 md:size-10 flex items-center justify-center">
             <IconUser />
           </div>
         )}
       </Link>
       <div className="flex flex-col w-full">
         <main className="flex flex-col w-full">
-          <div className="flex flex-row gap-2">
+          <div className="flex flex-row gap-1 md:gap-2">
             <Link
               href={`/perfil/${posts.user.user_name}`}
-              className="font-bold hover:underline"
+              className="font-bold hover:underline overflow-hidden whitespace-nowrap max-w-20 md:max-w-full"
             >
               {posts.user.user_name}
             </Link>
             <Link
               href={`/perfil/${posts.user.user_name}`}
-              className="font-light text-white/50"
+              className="font-light text-white/50 overflow-hidden whitespace-nowrap max-w-20 md:max-w-full"
             >
               @{posts.user.user_name}
             </Link>
             <p className="text-white/50">·</p>
-            <p className="font-light text-white/50">{formattedCreatedAt}</p>
+            <p className="font-light text-white/50 hidden md:inline whitespace-nowrap">{formattedCreatedAt}</p>
+            <p className="font-light text-white/50 md:hidden whitespace-nowrap">{formattedCreatedAtMobile}</p>
           </div>
           <p>{posts.content}</p>
         </main>

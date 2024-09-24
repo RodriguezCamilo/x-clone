@@ -19,6 +19,24 @@ export function formattedDate(date: string): string {
     }
 }
 
+export function formattedDateMobile(date: string): string {
+    try {
+        const parsedDate = parseISO(date)
+        const hoursDifference = differenceInHours(new Date(), parsedDate)
+
+        if (hoursDifference < 24) {
+            return `${hoursDifference}h`
+        }
+
+        const dateFormat = isThisYear(parsedDate) ? 'dd MMM' : 'dd MMM yyyy'
+
+        return format(parsedDate, dateFormat, { locale: es })
+    } catch (error) {
+        console.error("Error al formatear la fecha:", error)
+        return "Fecha inválida"
+    }
+}
+
 export function formattedTime(date: string): string {
     try {
         const parsedDate = parseISO(date)

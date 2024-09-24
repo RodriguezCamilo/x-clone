@@ -2,7 +2,7 @@
 import Link from "next/link";
 import CommentButton from "./comment-button";
 import { IconUser } from "@tabler/icons-react";
-import { formattedDate } from "@/app/utils/format-date";
+import { formattedDate, formattedDateMobile } from "@/app/utils/format-date";
 import LikeButton from "../like/like";
 import { fetchLikeStatus } from "@/app/actions/like-action";
 import RepostDropdown from "../repost/repost";
@@ -25,6 +25,7 @@ export async function PostCard({
   id,
 }: PostCardProps) {
   const formattedCreatedAt = formattedDate(createdAt);
+  const formattedCreatedAtMobile = formattedDateMobile(createdAt);
   const LikeStatus = await fetchLikeStatus({ post_id: id });
   const isReposted = await fetchRepostStatus({ post_id: id });
   const dataUser = await DataUser();
@@ -47,7 +48,13 @@ export async function PostCard({
         className="flex flex-row z-10"
       >
         {avatarUrl != "Unknown" ? (
-          <img src={avatarUrl} className="rounded-full size-10" alt="" />
+          <div className="rounded-full size-10 flex items-center justify-center">
+            <img
+              src={avatarUrl}
+              className="object-cover rounded-full size-10"
+              alt="Foto de perfil del usuario del post."
+            />
+          </div>
         ) : (
           <div className="rounded-full bg-zinc-500/50 size-10 flex items-center justify-center">
             <IconUser />
@@ -56,21 +63,26 @@ export async function PostCard({
       </Link>
       <div className="flex flex-col w-full">
         <main className="flex flex-col w-full">
-          <div className="flex flex-row gap-2">
+          <div className="flex flex-row gap-1 md:gap-2">
             <Link
               href={`/perfil/${userName}`}
-              className="font-bold hover:underline z-10"
+              className="font-bold hover:underline z-10 overflow-hidden whitespace-nowrap max-w-28  md:max-w-full"
             >
               {fullName}
             </Link>
             <Link
               href={`/perfil/${userName}`}
-              className="font-extralight text-white/50 z-10"
+              className="font-extralight text-white/50 z-10 overflow-hidden whitespace-nowrap max-w-28 md:max-w-full"
             >
               @{userName}
             </Link>
             <p className="text-white/50">·</p>
-            <p className="font-light text-white/50">{formattedCreatedAt}</p>
+            <p className="font-light text-white/50 hidden md:inline whitespace-nowrap">
+              {formattedCreatedAt}
+            </p>
+            <p className="font-light text-white/50 md:hidden whitespace-nowrap">
+              {formattedCreatedAtMobile}
+            </p>
           </div>
           {resTo && (
             <div className="z-10 flex flex-row gap-1 font-extralight text-white/50">
@@ -86,7 +98,7 @@ export async function PostCard({
           <p>{content}</p>
           {repost && <RepostCard repost={repost} />}
         </main>
-        <footer className="flex flex-row w-full justify-start items-center gap-24 pt-2">
+        <footer className="flex flex-row w-full justify-between px-4 md:px-0 md:justify-start items-center md:gap-24 pt-2">
           <CommentButton
             post_id={id}
             userAvatar={dataUser?.user?.user_metadata.avatar_url}

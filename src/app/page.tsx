@@ -25,12 +25,12 @@ export default async function Home() {
     .order("created_at", { ascending: false });
 
   return (
-    <body className="min-h-screen w-full flex text-white bg-black">
-      <header className="z-20 w-[8%] min-w-[8%] xl:min-w-[30%] hidden md:flex">
+    <body className="min-h-screen w-full flex flex-col-reverse md:flex-row text-white bg-black">
+      <header className="z-30 md:w-[8%] md:min-w-[8%] xl:min-w-[30%]">
         <NavBar />
       </header>
-      <main className="bg-black flex mx-4 md:mx-0 w-full">
-        <section className="flex grow xl:grow-0 h-full w-full flex-col items-center pt-4 border border-y-0 border-zinc-700">
+      <main className="bg-black flex w-full">
+        <section className="flex grow xl:grow-0 h-full mx-[1px] w-full flex-col items-center pt-4 border border-y-0 border-zinc-700">
           <Suspense
             fallback={
               <div className="flex justify-center items-center w-full p-4">
@@ -38,7 +38,10 @@ export default async function Home() {
               </div>
             }
           >
-            <ComposePost avatarUrl={data?.user?.user_metadata.avatar_url} />
+            <div className="hidden md:flex w-full">
+              <ComposePost avatarUrl={data?.user?.user_metadata.avatar_url} />
+            </div>
+
             <PostsList posts={posts} />
           </Suspense>
         </section>

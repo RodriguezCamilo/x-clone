@@ -31,10 +31,10 @@ export default function NavPerfil({ data }: NavPerfilProps) {
     <button
       type="button"
       onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-      className="h-10 px-4 py-8 mb-2 flex flex-row items-center text-start rounded-full hover:bg-white/5 transition gap-2"
+      className="h-10 md:px-4 md:py-8 md:mb-2 flex flex-row items-center text-start rounded-full hover:bg-white/5 transition gap-2"
     >
       {avatarUrl ? (
-        <img src={avatarUrl} className="rounded-full size-10" alt="" />
+        <img src={avatarUrl} className="rounded-full size-10" alt="Imagen de perfil" />
       ) : (
         <div className="rounded-full bg-zinc-500/50 size-10 flex items-center justify-center">
           <IconUser />

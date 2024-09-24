@@ -78,7 +78,7 @@ export default function RepostDropdown({
           "font-light text-white/50 self-center justify-center text-sm "
         }
       >
-        {manyRepost > 0 && manyRepost}
+        {manyRepost > 0 ? manyRepost : '\u00A0'}
       </span>
 
       {isDropdownOpen && (

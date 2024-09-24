@@ -57,8 +57,8 @@ export default async function PerfilPage({ params }: PerfilPageProps) {
   const isFollowing = await fetchFollowStatus(user.id);
 
   return (
-    <body className="min-h-screen w-full flex text-white bg-black">
-      <header className="z-20 w-[8%] min-w-[8%] xl:min-w-[30%] hidden md:flex">
+    <body className="min-h-screen w-full flex flex-col-reverse md:flex-row text-white bg-black">
+      <header className="z-30 md:w-[8%] md:min-w-[8%] xl:min-w-[30%]">
         <NavBar />
       </header>
       <main className="bg-black flex w-full">
@@ -130,7 +130,7 @@ export default async function PerfilPage({ params }: PerfilPageProps) {
               </button>
             </div>
           </Suspense>
-          <section>
+          <section className="px-[1px] md:px-0">
             <Suspense
               fallback={
                 <div className="flex justify-center items-center w-full">

@@ -31,7 +31,7 @@ export default function LikeButton({ post_id, likes_count, like_status }: LikeBu
                         <IconHeart className="size-5 text-white/50 group-active:size-8 active:fill-text-pink-600 group-hover:text-pink-600 transition-all" />
                 }
             </button>
-            <span className={`font-light ${like ? "text-pink-600" : "text-white/50"}  self-center justify-center text-sm `}>{manyLikes > 0 && manyLikes}</span>
+            <span className={`font-light ${like ? "text-pink-600" : "text-white/50"}  self-center justify-center text-sm `}>{manyLikes > 0 ? manyLikes : '\u00A0'}</span>
         </div>
     )
 }

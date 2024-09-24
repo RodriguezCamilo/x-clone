@@ -44,7 +44,7 @@ export default function NavLink({ perfil }: NavLinkProps) {
           <Link
             key={link.name}
             href={link.href}
-            className={`flex p-4 xl:pr-8 h-12 w-min items-center text-xl gap-4 rounded-full hover:bg-white/5 transition`}
+            className={`flex md:p-4 xl:pr-8 h-12 w-min items-center text-xl gap-4 rounded-full hover:bg-white/5 transition`}
             prefetch={true}
           >
             <LinkIcon />

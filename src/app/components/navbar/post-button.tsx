@@ -18,7 +18,7 @@ export default function PostButton({ userAvatar }: { userAvatar: any }) {
   return (
     <>
       <button
-        className="text-center text-lg font-bold bg-sky-500 p-3 rounded-full"
+        className="text-center text-lg font-bold bg-sky-500 md:p-3 p-2 rounded-full"
         onClick={handleButtonClick}
       >
         <IconFeather className="xl:hidden" />
