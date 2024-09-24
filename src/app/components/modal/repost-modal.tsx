@@ -58,7 +58,7 @@ export default function PostModal({
       }}
       className="fixed inset-0 flex justify-center z-50 bg-zinc-700/50"
     >
-      <div className="bg-black my-12 h-1/3 p-4 rounded-lg shadow-lg w-1/3 flex flex-col">
+      <div className="bg-black my-12 h-2/3 lg:h-1/3 p-4 rounded-2xl shadow-lg w-full md:w-2/3 lg:w-1/3 flex flex-col">
         <button onClick={onClose}>
           <IconX size={22} />
         </button>
@@ -70,7 +70,7 @@ export default function PostModal({
               alt="Imagen de perfil"
             />
           ) : (
-            <div className="rounded-full bg-zinc-500/50 size-10 flex items-center justify-center">
+            <div className="rounded-full bg-zinc-500/50 min-h-10 min-w-10 h-10 w-10 flex items-center justify-center">
               <IconUser />
             </div>
           )}
