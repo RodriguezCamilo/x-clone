@@ -7,7 +7,7 @@ export interface PostCardProps {
     likesCount: number;
     createdAt: string;
     id: string;
-    repost: string;
+    repost: string | null;
     repost_count: number;
-    response_to: string
+    response_to: string | null;
   }

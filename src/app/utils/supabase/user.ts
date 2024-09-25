@@ -1,3 +1,5 @@
+"use server"
+
 import { createClient } from "./server"
 
 export default async function DataUser() {
