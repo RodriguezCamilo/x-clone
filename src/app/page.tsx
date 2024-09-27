@@ -1,3 +1,5 @@
+"use server";
+
 import { redirect } from "next/navigation";
 import PostsList from "@/app/components/posts/posts-list";
 import { ComposePost } from "./components/posts/compose-post";
@@ -23,18 +25,22 @@ export default async function Home() {
     .select(
       "*, user:users(name, user_name, avatar_url), likes_count, created_at, repost, repost_count, response_to"
     )
-    .order("created_at", { ascending: false });
+    .order("created_at", { ascending: false })
+    .limit(10);
 
   return (
     <body className="min-h-screen w-full flex flex-col-reverse md:flex-row text-white bg-black">
       <section className="flex fixed backdrop-blur-lg top-0 md:hidden w-full h-16 items-center p-4 z-30 border border-x-0 border-t-0 border-zinc-700">
-        <TopBar/>
+        <TopBar />
       </section>
       <header className="z-30 md:w-[8%] md:min-w-[8%] xl:min-w-[30%]">
         <NavBar />
       </header>
       <main className="bg-black flex w-full max-w-full mt-16 md:mt-0">
         <section className="flex grow xl:grow-0 h-full mx-[1px] w-full flex-col items-center pt-4 border border-y-0 border-zinc-700">
+          <div className="hidden md:flex w-full">
+            <ComposePost avatarUrl={data?.user?.user_metadata.avatar_url} />
+          </div>
           <Suspense
             fallback={
               <div className="flex justify-center items-center w-full p-4">
@@ -42,10 +48,6 @@ export default async function Home() {
               </div>
             }
           >
-            <div className="hidden md:flex w-full">
-              <ComposePost avatarUrl={data?.user?.user_metadata.avatar_url} />
-            </div>
-
             <PostsList posts={posts} />
           </Suspense>
         </section>

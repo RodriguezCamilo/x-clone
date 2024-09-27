@@ -8,3 +8,10 @@ export type Posts = PostEntity & {
 }
 
 export type Users = UserEntity
+
+export interface PostWithExtras extends Posts {
+    resTo?: any; 
+    likeStatus?: number; 
+    isReposted?: boolean;
+    userAvatar?: string; 
+  }

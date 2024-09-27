@@ -3,7 +3,6 @@
 import { createClient } from "@/app/utils/supabase/server";
 import DataUser from "@/app/utils/supabase/user";
 
-//User repost
 export async function handleRepost({
   post_id,
   content,
@@ -40,7 +39,6 @@ export async function handleRepost({
   }
 }
 
-//User quote
 
 export const handleQuote = async ({
   formData,
@@ -80,7 +78,6 @@ export const handleQuote = async ({
   }
 };
 
-//User delete repost
 export async function handleUnpost({ post_id }: { post_id: string }) {
   const supabase = createClient();
   const user = await DataUser();
@@ -151,4 +148,18 @@ export async function fetchRepostStatus({ post_id }: { post_id: string }) {
     return data.length > 0;
   }
   return false;
+}
+
+
+export async function repostFetch(repost: string) {
+  const supabase = createClient();
+
+  const { data: posts, error } = await supabase
+    .from("posts")
+    .select("*, user:users(name, user_name, avatar_url), created_at, content")
+    .order("created_at", { ascending: false })
+    .eq("id", repost)
+    .single();
+
+  return posts;
 }

@@ -1,18 +1,15 @@
-"use server";
+
+"use client";
+
 import Link from "next/link";
 import CommentButton from "./comment-button";
 import { IconUser } from "@tabler/icons-react";
-import { formattedDate, formattedDateMobile } from "@/app/utils/format-date";
 import LikeButton from "../like/like";
-import { fetchLikeStatus } from "@/app/actions/like-action";
 import RepostDropdown from "../repost/repost";
 import { RepostCard } from "./repost-card";
-import { fetchRepostStatus } from "@/app/actions/repost-action";
-import DataUser from "@/app/utils/supabase/user";
 import { PostCardProps } from "./types";
-import { responseTo } from "@/app/actions/response-to";
 
-export async function PostCard({
+export function PostCard({
   userName,
   avatarUrl,
   fullName,
@@ -23,16 +20,10 @@ export async function PostCard({
   repost_count,
   response_to,
   id,
+  likeStatus,
+  isReposted,
+  userAvatar,
 }: PostCardProps) {
-  const formattedCreatedAt = formattedDate(createdAt);
-  const formattedCreatedAtMobile = formattedDateMobile(createdAt);
-  const LikeStatus = await fetchLikeStatus({ post_id: id });
-  const isReposted = await fetchRepostStatus({ post_id: id });
-  const dataUser = await DataUser();
-  let resTo = null;
-  if (response_to) {
-    resTo = await responseTo(response_to);
-  }
 
   return (
     <article className="text-left flex flex-row w-full p-4 pb-2 border-b-2 border-zinc-700 gap-2 bg-gray/0 transition hover:bg-zinc-300/5 cursor-pointer relative">
@@ -76,22 +67,15 @@ export async function PostCard({
             >
               @{userName}
             </Link>
-            <p className="text-white/50">·</p>
-            <p className="font-light text-white/50 hidden md:inline whitespace-nowrap">
-              {formattedCreatedAt}
-            </p>
-            <p className="font-light text-white/50 md:hidden whitespace-nowrap">
-              {formattedCreatedAtMobile}
-            </p>
           </div>
-          {resTo && (
+          {response_to && (
             <div className="z-10 flex flex-row gap-1 font-extralight text-white/50">
               <p>En respuesta a</p>
               <Link
-                href={`/perfil/${resTo.user_name}`}
+                href={`/perfil/${response_to.user_name}`}
                 className=" text-sky-500 hover:underline"
               >
-                @{resTo.user_name}
+                @{response_to.user_name}
               </Link>
             </div>
           )}
@@ -99,22 +83,19 @@ export async function PostCard({
           {repost && <RepostCard repost={repost} />}
         </main>
         <footer className="flex flex-row w-full justify-between px-4 md:px-0 md:justify-start items-center md:gap-24 pt-2">
-          <CommentButton
-            post_id={id}
-            userAvatar={dataUser?.user?.user_metadata.avatar_url}
-          />
+          <CommentButton post_id={id} userAvatar={userAvatar} />
 
           <RepostDropdown
             post_id={id}
             repost_count={repost_count}
             is_reposted={isReposted}
-            userAvatar={dataUser?.user?.user_metadata.avatar_url}
+            userAvatar={userAvatar}
           />
 
           <LikeButton
             likes_count={likesCount}
             post_id={id}
-            like_status={LikeStatus}
+            like_status={likeStatus}
           />
         </footer>
       </div>
