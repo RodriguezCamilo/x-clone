@@ -83,7 +83,7 @@ export default async function PostPage({ params }: PostPageProps) {
                 {postAvatar ? (
                   <img
                     src={post.user.avatar_url}
-                    className="rounded-full size-10"
+                    className="rounded-full object-cover size-10"
                     alt="Imagen de perfil del usuario"
                   />
                 ) : (

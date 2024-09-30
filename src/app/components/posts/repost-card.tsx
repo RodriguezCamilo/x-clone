@@ -38,7 +38,7 @@ export function RepostCard( {repost}: {repost: string} ) {
       ></Link>
       <Link href={`/perfil/${posts?.user.user_name}`} className="flex flex-row">
         {posts?.user.avatar_url ? (
-          <img src={posts?.user.avatar_url} className="rounded-full size-4 md:size-10" alt="Foto de perfil del reposteante" />
+          <img src={posts?.user.avatar_url} className="rounded-full object-cover size-4 md:size-10" alt="Foto de perfil del reposteante" />
         ) : (
           <div className="rounded-full bg-zinc-500/50 size-6 md:size-10 flex items-center justify-center">
             <IconUser />
@@ -52,7 +52,7 @@ export function RepostCard( {repost}: {repost: string} ) {
               href={`/perfil/${posts?.user.user_name}`}
               className="font-bold hover:underline overflow-hidden whitespace-nowrap max-w-20 md:max-w-full"
             >
-              {posts?.user.user_name}
+              {posts?.user.name}
             </Link>
             <Link
               href={`/perfil/${posts?.user.user_name}`}

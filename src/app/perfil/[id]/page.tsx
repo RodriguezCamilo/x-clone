@@ -6,6 +6,8 @@ import {
   IconCalendar,
   IconUser,
   IconLoader2,
+  IconMapPin,
+  IconLink,
 } from "@tabler/icons-react";
 import Link from "next/link";
 import { formattedMonthYear } from "@/app/utils/format-date";
@@ -32,7 +34,9 @@ export default async function PerfilPage({ params }: PerfilPageProps) {
 
   const { data: user, error: userError } = await supabase
     .from("users")
-    .select("id, name, user_name, avatar_url, banner_url, created_at, bio, location, website")
+    .select(
+      "id, name, user_name, avatar_url, banner_url, created_at, bio, location, website"
+    )
     .eq("user_name", id)
     .single();
 
@@ -130,9 +134,19 @@ export default async function PerfilPage({ params }: PerfilPageProps) {
                 </p>
               )}
             </div>
-            <div className="flex flex-row p-4 text-white/50 gap-1">
-              <IconCalendar className="size-5" />
-              <p>Se unió en {userCreatedAt}</p>
+            <div className="flex flex-col p-4">
+              <div className="flex flex-row text-white/50 gap-1">
+                <IconMapPin className="size-5" />
+                <p>{user.location}</p>
+              </div>
+              <div className="flex flex-row text-white/50 gap-1">
+                <IconLink className="size-5" />
+                <a href={user.website} target="_blank" className="text-sky-500 hover:underline">{user.website}</a>
+              </div>
+              <div className="flex flex-row text-white/50 gap-1">
+                <IconCalendar className="size-5" />
+                <p>Se unió en {userCreatedAt}</p>
+              </div>
             </div>
             <div className="grid grid-cols-3 w-full border border-x-0 border-t-0 border-zinc-700">
               <button className="py-4 font-semibold hover:bg-white/5 transition">
