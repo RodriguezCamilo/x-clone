@@ -49,6 +49,9 @@ export default async function Home() {
             }
           >
             <PostsList posts={posts} />
+            <div className="flex justify-center items-center w-full p-4">
+              <IconLoader2 className="animate-spin" />
+            </div>
           </Suspense>
         </section>
         <div className="bg-black hidden lg:flex w-full">

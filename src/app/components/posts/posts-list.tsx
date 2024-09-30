@@ -7,7 +7,6 @@ import { useEffect, useState } from "react";
 import { fetchMorePosts } from "@/app/actions/post-action";
 
 export default function PostsList({ posts }: { posts: Posts[] | null }) {
-
   const [postsData, setPostsData] = useState<PostWithExtras[]>(posts || []);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
@@ -26,7 +25,6 @@ export default function PostsList({ posts }: { posts: Posts[] | null }) {
     const { posts: newPosts, error } = await fetchMorePosts(10, page * 10);
 
     if (error) {
-      console.error(error);
       setHasMore(false);
     } else {
       setPostsData((prev) => [...prev, ...newPosts]);
@@ -42,18 +40,21 @@ export default function PostsList({ posts }: { posts: Posts[] | null }) {
     const handleScroll = () => {
       if (
         window.innerHeight + document.documentElement.scrollTop >=
-        document.documentElement.scrollHeight - 1 && !loading && hasMore
+          document.documentElement.scrollHeight - 1 &&
+        !loading &&
+        hasMore
       ) {
         loadMorePosts();
       }
     };
 
     window.addEventListener("scroll", handleScroll);
-    
+
     return () => window.removeEventListener("scroll", handleScroll);
   }, [loading, hasMore]);
 
-  if (loading && postsData.length === 0) return <IconLoader2 className="animate-spin p-4" />;
+  if (loading && postsData.length === 0)
+    return <IconLoader2 className="animate-spin p-4" />;
 
   return (
     <>
@@ -97,7 +98,6 @@ export default function PostsList({ posts }: { posts: Posts[] | null }) {
           />
         );
       })}
-      {loading && <IconLoader2 className="animate-spin p-4" />}
     </>
   );
 }

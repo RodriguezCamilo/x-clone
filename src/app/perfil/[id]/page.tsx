@@ -39,7 +39,7 @@ export default async function PerfilPage({ params }: PerfilPageProps) {
   if (userError) {
     redirect("/");
   }
-
+  console.log(user.avatar_url)
   const userId = user.id;
 
   const userCreatedAt = formattedMonthYear(user.created_at);

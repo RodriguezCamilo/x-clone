@@ -2,7 +2,7 @@ import type { Metadata } from "next"
 import "./globals.css"
 
 export const metadata: Metadata = {
-  title: "Clon de X",
+  title: "X - Clon",
   description: "Un clon de X hecho con NextJS y Supabase.",
 };
 
