@@ -32,14 +32,14 @@ export default async function PerfilPage({ params }: PerfilPageProps) {
 
   const { data: user, error: userError } = await supabase
     .from("users")
-    .select("id, name, user_name, avatar_url, created_at, bio")
+    .select("id, name, user_name, avatar_url, banner_url, created_at, bio, location, website")
     .eq("user_name", id)
     .single();
 
   if (userError) {
     redirect("/");
   }
-  console.log(user.avatar_url)
+  console.log(user.avatar_url);
   const userId = user.id;
 
   const userCreatedAt = formattedMonthYear(user.created_at);
@@ -85,19 +85,30 @@ export default async function PerfilPage({ params }: PerfilPageProps) {
               </div>
             </div>
             <div className="bg-zinc-600 h-52 w-full relative">
-            <div className="flex items-center justify-center rounded-full size-36 absolute bottom-[-31%] left-4">
-              <div className="relative">
-                {user.avatar_url ? (
-                  <img
-                    src={user.avatar_url}
-                    className="rounded-full h-36 object-cover border-4 border-black"
-                    alt="Imagen de perfil"
-                  />
-                ) : (
-                  <IconUser height={28} width={28} className="rounded-full bg-zinc-600  border-4 border-black" />
-                )}
+              {user.banner_url && (
+                <img
+                  src={user.banner_url}
+                  className="w-full h-full object-cover"
+                  alt="Imagen de portada"
+                ></img>
+              )}
+              <div className="flex items-center justify-center rounded-full size-36 absolute bottom-[-31%] left-4">
+                <div className="relative">
+                  {user.avatar_url ? (
+                    <img
+                      src={user.avatar_url}
+                      className="rounded-full h-36 w-36 object-cover border-4 border-black"
+                      alt="Imagen de perfil"
+                    />
+                  ) : (
+                    <IconUser
+                      height={28}
+                      width={28}
+                      className="rounded-full bg-zinc-600  border-4 border-black"
+                    />
+                  )}
+                </div>
               </div>
-            </div>
             </div>
             <div className="flex flex-row justify-end items-center w-full p-4">
               {LogedUser.user?.id == user.id ? (

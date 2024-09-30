@@ -1,4 +1,4 @@
-import { useState } from "react";
+
 import { IconCameraPlus } from "@tabler/icons-react";
 import { createClient } from "@/app/utils/supabase/client";
 import { handleEditAvatarUrl } from "@/app/actions/edit-perfil-action";
@@ -10,7 +10,6 @@ function EditAvatar({ userID }: { userID: string }) {
     if (file) {
       const supabase = createClient();
       const fileName = `${userID}-${file.name}`;
-      console.log(file)
       const { data, error } = await supabase.storage
         .from("avatar")
         .upload(fileName, file, {

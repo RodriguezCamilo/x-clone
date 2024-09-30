@@ -11,17 +11,16 @@ export async function handleEdit(
   const supabase = createClient();
   const dataUser = await DataUser();
 
-  console.log(userName);
-
   const name = formData.get("name") as string;
   const bio = formData.get("bio") as string;
   const location = formData.get("location") as string;
+  const website = formData.get("website") as string;
 
   if (dataUser.user?.id != userID) return;
 
   const { data, error } = await supabase
     .from("users")
-    .update({ name, bio, location })
+    .update({ name, bio, location, website })
     .eq("id", userID)
     .select();
   if (error) {
@@ -45,7 +44,7 @@ export async function handleEditAvatarUrl(avatarUrl: string, userID: string) {
   }
 }
 
-export async function handleEditBannerUrl(avatarUrl: string, userID: string) {
+export async function handleEditBannerUrl(bannerUrl: string, userID: string) {
   const supabase = createClient();
   const dataUser = await DataUser();
 
@@ -53,10 +52,10 @@ export async function handleEditBannerUrl(avatarUrl: string, userID: string) {
 
   const { data, error } = await supabase
     .from("users")
-    .update({ avatar_url: avatarUrl })
+    .update({ banner_url: bannerUrl })
     .eq("id", userID);
 
   if (error) {
-    console.log("Error al actualizar la URL del avatar:", error);
+    console.log("Error al actualizar la URL del banner:", error);
   }
 }
