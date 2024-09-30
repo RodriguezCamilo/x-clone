@@ -13,8 +13,9 @@ function EditAvatar({ userID }: { userID: string }) {
       console.log(file)
       const { data, error } = await supabase.storage
         .from("avatar")
-        .upload(fileName, file);
-      console.log(data)
+        .upload(fileName, file, {
+          upsert: true
+        });
       if (error) {
         console.error("Error uploading avatar:", error);
         return;

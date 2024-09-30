@@ -9,12 +9,13 @@ function EditBanner({ userID }: { userID: string }) {
     const file = event.target.files?.[0];
     if (file) {
       const supabase = createClient();
-      const fileName = `${userID}-${file.name}`;
+      const fileName = `${userID}`;
       console.log(file)
       const { data, error } = await supabase.storage
         .from("banner")
-        .upload(fileName, file);
-      console.log(data)
+        .upload(fileName, file, {
+            upsert: true
+        });
       if (error) {
         console.error("Error uploading banner:", error);
         return;

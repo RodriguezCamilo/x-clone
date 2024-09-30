@@ -51,16 +51,17 @@ export default function EditModal({
           />
         ) : (
           <div className="bg-zinc-600 h-52 w-full relative">
-            <div className="flex items-center justify-center rounded-full size-28 absolute bottom-[-31%] left-4 border-4 border-black">
+            <div className="flex w-full h-full bg-black"></div>
+            <div className="flex items-center justify-center rounded-full size-28 absolute bottom-[-31%] left-4">
               <div className="relative flex justify-center">
                 {user.avatar_url ? (
                   <img
                     src={user.avatar_url}
-                    className="rounded-full size-28 object-cover"
+                    className="rounded-full h-28 object-cover  border-4 border-black"
                     alt="Imagen de perfil"
                   />
                 ) : (
-                  <IconUser height={106} width={106} className="rounded-full bg-zinc-600" />
+                  <IconUser height={28} width={28} className="rounded-full bg-zinc-600  border-4 border-black" />
                 )}
                 <EditAvatar userID={user.id}/>
               </div>

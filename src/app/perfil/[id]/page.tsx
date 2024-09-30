@@ -85,14 +85,19 @@ export default async function PerfilPage({ params }: PerfilPageProps) {
               </div>
             </div>
             <div className="bg-zinc-600 h-52 w-full relative">
-              {user.avatar_url ? (
-                <img
-                  src={user.avatar_url}
-                  className="rounded-full size-32 absolute bottom-[-31%] left-4 border-4 border-black"
-                ></img>
-              ) : (
-                <IconUser className="rounded-full size-32 absolute bottom-[-31%] left-4 border-4 border-black bg-zinc-700" />
-              )}
+            <div className="flex items-center justify-center rounded-full size-36 absolute bottom-[-31%] left-4">
+              <div className="relative">
+                {user.avatar_url ? (
+                  <img
+                    src={user.avatar_url}
+                    className="rounded-full h-36 object-cover border-4 border-black"
+                    alt="Imagen de perfil"
+                  />
+                ) : (
+                  <IconUser height={28} width={28} className="rounded-full bg-zinc-600  border-4 border-black" />
+                )}
+              </div>
+            </div>
             </div>
             <div className="flex flex-row justify-end items-center w-full p-4">
               {LogedUser.user?.id == user.id ? (
