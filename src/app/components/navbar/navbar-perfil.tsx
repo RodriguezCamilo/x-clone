@@ -1,13 +1,12 @@
 "use client";
 import SignOut from "../login/sign-out";
 import { IconUser } from "@tabler/icons-react";
-import { NavPerfilProps } from "./types";
 import { useState, useEffect, useRef } from "react";
 
-export default function NavPerfil({ data }: NavPerfilProps) {
-  const userName = data.user?.user_metadata.user_name || "defaultUser";
-  const name = data.user?.user_metadata.full_name || "defaultUser";
-  const avatarUrl = data.user?.user_metadata.avatar_url;
+export default function NavPerfil( {user}: any) {
+  const userName = user?.user_name  || "defaultUser";
+  const name = user?.name|| "defaultUser";
+  const avatarUrl = user?.avatar_url;
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);

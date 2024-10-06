@@ -1,4 +1,4 @@
-import DataUser from "../utils/supabase/user"
+import {DataUser} from "../utils/supabase/user"
 import { redirect } from 'next/navigation'
 
 export default async function AuthLayout({ children }: { children: React.ReactNode }) {

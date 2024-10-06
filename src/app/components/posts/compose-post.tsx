@@ -3,7 +3,7 @@
 import { addPost } from "../../actions/compose-post-action";
 import { useRef, useState, useEffect } from "react";
 import { useFormStatus } from "react-dom";
-import { IconPhoto, IconUser } from "@tabler/icons-react";
+import { IconPhoto, IconUser, IconX } from "@tabler/icons-react";
 
 export function ComposePost({ avatarUrl }: { avatarUrl: string }) {
   const formRef = useRef<HTMLFormElement>(null);
@@ -11,6 +11,8 @@ export function ComposePost({ avatarUrl }: { avatarUrl: string }) {
   const { pending } = useFormStatus();
   const [canPost, setCanPost] = useState(false);
   const [charCount, setCharCount] = useState(0);
+  const [selectedImage, setSelectedImage] = useState<File | null>(null);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const maxChars = 280;
 
   useEffect(() => {
@@ -40,6 +42,19 @@ export function ComposePost({ avatarUrl }: { avatarUrl: string }) {
     };
   }, []);
 
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      setSelectedImage(file);
+      setPreviewUrl(URL.createObjectURL(file));
+    }
+  };
+
+  const removeImage = () => {
+    setSelectedImage(null);
+    setPreviewUrl(null);
+  };
+
   return (
     <form
       ref={formRef}
@@ -51,12 +66,17 @@ export function ComposePost({ avatarUrl }: { avatarUrl: string }) {
           setCanPost(false);
           return;
         }
+        if (selectedImage) {
+          formData.append("image", selectedImage);
+        }
         await addPost(formData);
         formRef.current?.reset();
         setCanPost(false);
         setCharCount(0);
+        setSelectedImage(null);
+        setPreviewUrl(null);
       }}
-      className="flex flex-1 flex-row max-h-80 w-full p-4 pt-0 gap-2 border-b-2 border-zinc-700"
+      className="flex flex-1 flex-row h-80 w-full p-4 pt-0 gap-2 border-b-2 border-zinc-700"
     >
       {avatarUrl ? (
         <img
@@ -81,12 +101,25 @@ export function ComposePost({ avatarUrl }: { avatarUrl: string }) {
         <div className="text-sm text-gray-400 p-2 self-end">
           {charCount}/{maxChars}
         </div>
-        <div className="flex w-full justify-between">
-          <div className="size-10 rounded-full hover:bg-sky-500/10 flex items-center justify-center">
+        {previewUrl && (
+          <div className="relative w-full mt-2">
+            <img src={previewUrl} alt="Previsualización" className="w-full rounded-lg" />
+            <button
+              type="button"
+              onClick={removeImage}
+              className="absolute top-2 right-2 bg-gray-700/70 rounded-full p-1"
+            >
+              <IconX className="text-white" />
+            </button>
+          </div>
+        )}
+        <div className="flex w-full justify-between mt-2">
+          <div className="size-10 rounded-full hover:bg-sky-500/10 flex items-center justify-center relative">
             <input
               type="file"
               accept="image/*"
               className="absolute inset-0 opacity-0 cursor-pointer"
+              onChange={handleImageChange}
             />
             <IconPhoto className="size-5 text-sky-500" />
           </div>

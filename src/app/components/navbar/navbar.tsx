@@ -2,13 +2,21 @@ import { XIcon } from "../icons/x";
 import Link from "next/link";
 import NavLink from "./navbar-link";
 import NavPerfil from "./navbar-perfil";
-import DataUser from "@/app/utils/supabase/user";
+import { DataUser, TableUser } from "@/app/utils/supabase/user";
 import PostButton from "./post-button";
 
 export default async function NavBar() {
   const data = await DataUser();
-  const userName = data.user?.user_metadata.user_name;
-  const userAvatar = data.user?.user_metadata.avatar_url;
+
+  let user
+
+  if (data.user != null) {
+    user = await TableUser(data.user.id);
+  }
+
+
+  const userName = user?.user_name;
+  const userAvatar = user?.avatar_url;
 
   return (
     <nav className="w-full border md:border-0 border-x-0 border-zinc-700 bottom-0 md:min-w-[8%] md:w-[8%] xl:w-[30%] h-16 md:h-screen fixed flex flex-row md:flex-col items-center xl:items-end justify-evenly md:justify-between xl:px-8 bg-black">
@@ -24,7 +32,7 @@ export default async function NavBar() {
       </div>
 
       <div className="relative hidden md:flex">
-        {data.user ? <NavPerfil data={data} /> : null}
+        {data.user ? <NavPerfil user={user} /> : null}
       </div>
     </nav>
   );

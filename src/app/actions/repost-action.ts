@@ -1,7 +1,7 @@
 "use server";
 
 import { createClient } from "@/app/utils/supabase/server";
-import DataUser from "@/app/utils/supabase/user";
+import {DataUser} from "@/app/utils/supabase/user";
 
 export async function handleRepost({
   post_id,

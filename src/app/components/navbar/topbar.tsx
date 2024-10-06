@@ -1,6 +1,6 @@
 'use server'
 
-import DataUser from "@/app/utils/supabase/user";
+import {DataUser} from "@/app/utils/supabase/user";
 import NavPerfil from "./navbar-perfil";
 import Link from "next/link";
 import { XIcon } from "../icons/x";

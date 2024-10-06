@@ -11,7 +11,7 @@ import {
 } from "@tabler/icons-react";
 import Link from "next/link";
 import { formattedMonthYear } from "@/app/utils/format-date";
-import DataUser from "@/app/utils/supabase/user";
+import {DataUser} from "@/app/utils/supabase/user";
 import PostsList from "@/app/components/posts/posts-list";
 import { fetchFollowStatus } from "../../actions/follow-action";
 import FollowButton from "@/app/components/follows/follow-button";

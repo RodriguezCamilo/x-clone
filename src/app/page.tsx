@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 import PostsList from "@/app/components/posts/posts-list";
 import { ComposePost } from "./components/posts/compose-post";
 import { createClient } from "@/app/utils/supabase/server";
-import DataUser from "./utils/supabase/user";
+import {DataUser, TableUser} from "./utils/supabase/user";
 import { Suspense } from "react";
 import { IconLoader2 } from "@tabler/icons-react";
 import NavBar from "./components/navbar/navbar";
@@ -19,6 +19,8 @@ export default async function Home() {
   if (data.user == null || !data.user) {
     redirect("/auth/login");
   }
+
+  const user = await TableUser(data.user.id)
 
   const { data: posts, error } = await supabase
     .from("posts")
@@ -39,7 +41,7 @@ export default async function Home() {
       <main className="bg-black flex w-full max-w-full mt-16 md:mt-0">
         <section className="flex grow xl:grow-0 h-full mx-[1px] w-full flex-col items-center pt-4 border border-y-0 border-zinc-700">
           <div className="hidden md:flex w-full">
-            <ComposePost avatarUrl={data?.user?.user_metadata.avatar_url} />
+            <ComposePost avatarUrl={user?.avatar_url} />
           </div>
           <Suspense
             fallback={

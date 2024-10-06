@@ -1,7 +1,7 @@
 "use server";
 
 import { createClient } from "../utils/supabase/server";
-import DataUser from "../utils/supabase/user";
+import {DataUser} from "../utils/supabase/user";
 
 export async function handleEdit(
   formData: FormData,
