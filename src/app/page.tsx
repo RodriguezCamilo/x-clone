@@ -54,9 +54,9 @@ export default async function Home() {
             </div>
           </Suspense>
         </section>
-        <div className="bg-black hidden lg:flex w-full">
+        <aside className="bg-black hidden lg:flex w-full">
           <SideBar />
-        </div>
+        </aside>
       </main>
     </body>
   );

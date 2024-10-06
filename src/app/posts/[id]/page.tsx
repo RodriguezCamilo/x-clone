@@ -144,9 +144,9 @@ export default async function PostPage({ params }: PostPageProps) {
           </Suspense>
         </article>
       </main>
-      <div className="bg-black hidden lg:flex w-full">
+      <aside className="bg-black hidden lg:flex w-full">
         <SideBar />
-      </div>
+      </aside>
     </body>
   );
 }

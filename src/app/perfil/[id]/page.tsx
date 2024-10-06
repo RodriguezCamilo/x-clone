@@ -172,9 +172,9 @@ export default async function PerfilPage({ params }: PerfilPageProps) {
             </Suspense>
           </section>
         </section>
-        <div className="bg-black hidden lg:block w-full">
+        <aside className="bg-black hidden lg:block w-full">
           <SideBar />
-        </div>
+        </aside>
       </main>
     </body>
   );

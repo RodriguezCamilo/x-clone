@@ -14,8 +14,21 @@ export default function EditModal({
 }) {
   const formRef = useRef<HTMLFormElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
-  const [contentLength, setContentLength] = useState(0);
-  const maxCharacters = 160;
+
+  const maxNameChars = 20;
+  const maxBioChars = 160;
+  const maxLocationChars = 20;
+  const maxWebsiteChars = 50;
+
+  const [name, setName] = useState(user.name || "");
+  const [bio, setBio] = useState(user.bio || "");
+  const [location, setLocation] = useState(user.location || "");
+  const [website, setWebsite] = useState(user.website || "");
+
+  const [nameCharCount, setNameCharCount] = useState(user.name?.length || 0);
+  const [bioCharCount, setBioCharCount] = useState(user.bio?.length || 0);
+  const [locationCharCount, setLocationCharCount] = useState(user.location?.length || 0);
+  const [websiteCharCount, setWebsiteCharCount] = useState(user.website?.length || 0);
 
   return (
     <form
@@ -25,7 +38,6 @@ export default function EditModal({
         const formData = new FormData(formRef.current!);
         await handleEdit(formData, user.id, user.user_name);
         formRef.current?.reset();
-        setContentLength(0);
         window.location.reload();
       }}
       className="fixed inset-0 flex justify-center z-50 bg-zinc-700/50"
@@ -43,6 +55,7 @@ export default function EditModal({
             Guardar
           </button>
         </div>
+
         <div className="bg-zinc-600 h-52 w-full relative">
           {user.banner_url && (
             <img
@@ -71,6 +84,7 @@ export default function EditModal({
             </div>
           </div>
         </div>
+
         <div className="w-full h-full flex flex-col mt-4 p-2 gap-4">
           <div className="relative">
             <input
@@ -78,8 +92,13 @@ export default function EditModal({
               className="border border-zinc-700 bg-black rounded h-14 w-full px-3 pt-5 pb-1 focus:outline-sky-500 placeholder-transparent peer"
               name="name"
               id="name"
+              maxLength={maxNameChars}
+              value={name}
+              onChange={(e) => {
+                setName(e.target.value);
+                setNameCharCount(e.target.value.length);
+              }}
               placeholder=" "
-              defaultValue={user.name || ""}
             />
             <label
               htmlFor="name"
@@ -87,24 +106,35 @@ export default function EditModal({
             >
               Nombre
             </label>
+            <div className="text-sm text-gray-400 p-1 absolute right-3 top-7">
+              {nameCharCount}/{maxNameChars}
+            </div>
           </div>
+
           <div className="relative">
             <textarea
               ref={textareaRef}
               name="bio"
               id="bio"
               rows={3}
-              maxLength={160}
-              className="border border-zinc-700 bg-black rounded w-full px-3 pt-5 pb-1 focus:outline-sky-500 placeholder-transparent peer resize-none"
+              maxLength={maxBioChars}
+              className="border border-zinc-700 bg-black rounded w-full px-3 pt-6 pb-1 focus:outline-sky-500 placeholder-transparent peer resize-none"
+              value={bio}
+              onChange={(e) => {
+                setBio(e.target.value);
+                setBioCharCount(e.target.value.length);
+              }}
               placeholder=" "
-              defaultValue={user.bio || ""}
             ></textarea>
             <label
               htmlFor="bio"
-              className="absolute text-gray-400 duration-300 transform -translate-y-4 scale-75 top-5 z-10 origin-[0] left-3 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-2 peer-focus:scale-75 peer-focus:-translate-y-4 peer-focus:text-sky-500"
+              className="absolute text-gray-400 duration-300 transform -translate-y-1 scale-75 top-1 z-10 origin-[0] left-3 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-2 peer-focus:scale-75 peer-focus:-translate-y-1 peer-focus:text-sky-500"
             >
               Biografía
             </label>
+            <div className="text-sm text-gray-400 p-1 absolute right-3 top-16">
+              {bioCharCount}/{maxBioChars}
+            </div>
           </div>
 
           <div className="relative">
@@ -113,8 +143,13 @@ export default function EditModal({
               className="border border-zinc-700 bg-black rounded h-14 w-full px-3 pt-5 pb-1 focus:outline-sky-500 placeholder-transparent peer"
               name="location"
               id="location"
+              maxLength={maxLocationChars}
+              value={location}
+              onChange={(e) => {
+                setLocation(e.target.value);
+                setLocationCharCount(e.target.value.length);
+              }}
               placeholder=" "
-              defaultValue={user.location || ""}
             />
             <label
               htmlFor="location"
@@ -122,6 +157,9 @@ export default function EditModal({
             >
               Ubicación
             </label>
+            <div className="text-sm text-gray-400 p-1 absolute right-3 top-7">
+              {locationCharCount}/{maxLocationChars}
+            </div>
           </div>
 
           <div className="relative">
@@ -130,8 +168,13 @@ export default function EditModal({
               className="border border-zinc-700 bg-black rounded h-14 w-full px-3 pt-5 pb-1 focus:outline-sky-500 placeholder-transparent peer"
               name="website"
               id="website"
+              maxLength={maxWebsiteChars}
+              value={website}
+              onChange={(e) => {
+                setWebsite(e.target.value);
+                setWebsiteCharCount(e.target.value.length);
+              }}
               placeholder=" "
-              defaultValue={user.website || ""}
             />
             <label
               htmlFor="website"
@@ -139,6 +182,9 @@ export default function EditModal({
             >
               Sitio web
             </label>
+            <div className="text-sm text-gray-400 p-1 absolute right-3 top-7">
+              {websiteCharCount}/{maxWebsiteChars}
+            </div>
           </div>
         </div>
       </div>
