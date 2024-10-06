@@ -76,7 +76,7 @@ export function ComposePost({ avatarUrl }: { avatarUrl: string }) {
         setSelectedImage(null);
         setPreviewUrl(null);
       }}
-      className="flex flex-1 flex-row h-80 w-full p-4 pt-0 gap-2 border-b-2 border-zinc-700"
+      className="flex flex-1 flex-row h-40 w-full p-4 pt-0 gap-2 border-b-2 border-zinc-700"
     >
       {avatarUrl ? (
         <img

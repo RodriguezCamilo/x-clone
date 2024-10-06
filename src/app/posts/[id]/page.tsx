@@ -8,7 +8,7 @@ import { formattedExpecificDate, formattedTime } from "@/app/utils/format-date";
 import { fetchLikeStatus } from "@/app/actions/like-action";
 import { fetchRepostStatus } from "@/app/actions/repost-action";
 import { RepostCard } from "@/app/components/posts/repost-card";
-import DataUser from "@/app/utils/supabase/user";
+import {DataUser, TableUser} from "@/app/utils/supabase/user";
 import RepostDropdown from "@/app/components/repost/repost";
 import PostsList from "@/app/components/posts/posts-list";
 import { Suspense } from "react";
@@ -46,8 +46,13 @@ export default async function PostPage({ params }: PostPageProps) {
   const LikeStatus = await fetchLikeStatus({ post_id: post.id });
   const isReposted = await fetchRepostStatus({ post_id: id });
 
-  const user = await DataUser();
-  const userAvatar = user?.user?.user_metadata.avatar_url;
+  const data = await DataUser();
+  let user
+
+  if (data != null) {
+    user = await TableUser(data?.user?.id)
+  }
+  const userAvatar = user?.avatar_url;
 
   const formattedCreatedAt = formattedExpecificDate(post.created_at);
   const formattedCreatedTime = formattedTime(post.created_at);
@@ -132,7 +137,7 @@ export default async function PostPage({ params }: PostPageProps) {
               />
             </footer>
           </Suspense>
-          {user.user && <ComentPost avatarUrl={userAvatar} post_id={id} />}
+          {user && <ComentPost avatarUrl={userAvatar} post_id={id} />}
           <Suspense
             fallback={
               <div className="flex justify-center items-center w-full p-4">

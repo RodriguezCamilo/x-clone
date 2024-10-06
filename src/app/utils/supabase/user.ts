@@ -12,7 +12,7 @@ export async function DataUser() {
   return { user: data.user, error: null };
 }
 
-export async function TableUser(u : string) {
+export async function TableUser(u : string | any) {
 
   const supabase = createClient();
 
