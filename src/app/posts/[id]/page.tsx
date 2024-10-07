@@ -8,7 +8,7 @@ import { formattedExpecificDate, formattedTime } from "@/app/utils/format-date";
 import { fetchLikeStatus } from "@/app/actions/like-action";
 import { fetchRepostStatus } from "@/app/actions/repost-action";
 import { RepostCard } from "@/app/components/posts/repost-card";
-import {DataUser, TableUser} from "@/app/utils/supabase/user";
+import { DataUser, TableUser } from "@/app/utils/supabase/user";
 import RepostDropdown from "@/app/components/repost/repost";
 import PostsList from "@/app/components/posts/posts-list";
 import { Suspense } from "react";
@@ -29,7 +29,7 @@ export default async function PostPage({ params }: PostPageProps) {
   const { data: post, error: postError } = await supabase
     .from("posts")
     .select(
-      "*, user:users(name, user_name, avatar_url), likes_count, created_at, repost, repost_count"
+      "*, user:users(name, user_name, avatar_url)"
     )
     .eq("id", id)
     .single();
@@ -37,7 +37,7 @@ export default async function PostPage({ params }: PostPageProps) {
   const { data: posts, error: postsError } = await supabase
     .from("posts")
     .select(
-      "*, user:users(name, user_name, avatar_url), likes_count, created_at, repost, repost_count, response_to"
+      "*, user:users(name, user_name, avatar_url)"
     )
     .eq("response_to", id)
     .order("created_at", { ascending: false });
@@ -47,10 +47,10 @@ export default async function PostPage({ params }: PostPageProps) {
   const isReposted = await fetchRepostStatus({ post_id: id });
 
   const data = await DataUser();
-  let user
+  let user;
 
   if (data != null) {
-    user = await TableUser(data?.user?.id)
+    user = await TableUser(data?.user?.id);
   }
   const userAvatar = user?.avatar_url;
 
@@ -112,6 +112,13 @@ export default async function PostPage({ params }: PostPageProps) {
             <main className="flex flex-col border border-x-0 border-t-0 px-4 pb-4 border-zinc-700">
               <p className="text-wrap text-lg py-4">
                 {post.content}
+                {post.image_url && (
+                  <img
+                    src={post.image_url}
+                    alt="Imagen del post"
+                    className="w-full rounded-2xl my-2"
+                  ></img>
+                )}
                 {post.repost && <RepostCard repost={post.repost} />}
               </p>
               <div className="flex flex-row gap-2">

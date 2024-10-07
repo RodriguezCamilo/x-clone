@@ -156,8 +156,7 @@ export async function repostFetch(repost: string) {
 
   const { data: posts, error } = await supabase
     .from("posts")
-    .select("*, user:users(name, user_name, avatar_url), created_at, content")
-    .order("created_at", { ascending: false })
+    .select("*, user:users(name, user_name, avatar_url)")
     .eq("id", repost)
     .single();
 
