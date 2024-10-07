@@ -12,4 +12,5 @@ export interface PostCardProps {
   likeStatus?: number;
   isReposted?: boolean;
   userAvatar?: string;
+  imageUrl?: string | null;
 }

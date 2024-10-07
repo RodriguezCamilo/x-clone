@@ -1,4 +1,3 @@
-
 "use client";
 
 import Link from "next/link";
@@ -15,7 +14,6 @@ export function PostCard({
   fullName,
   content,
   likesCount,
-  createdAt,
   repost,
   repost_count,
   response_to,
@@ -23,8 +21,8 @@ export function PostCard({
   likeStatus,
   isReposted,
   userAvatar,
+  imageUrl,
 }: PostCardProps) {
-
   return (
     <article className="text-left flex flex-row w-full p-4 pb-2 border-b-2 border-zinc-700 gap-2 bg-gray/0 transition hover:bg-zinc-300/5 cursor-pointer relative">
       <Link
@@ -80,6 +78,13 @@ export function PostCard({
             </div>
           )}
           <p>{content}</p>
+          {imageUrl && (
+            <img
+              src={imageUrl}
+              alt="Imagen del post"
+              className="w-full rounded-lg"
+            ></img>
+          )}
           {repost && <RepostCard repost={repost} />}
         </main>
         <footer className="flex flex-row w-full justify-between px-4 md:px-0 md:justify-start items-center md:gap-24 pt-2">

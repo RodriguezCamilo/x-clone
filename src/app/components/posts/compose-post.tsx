@@ -76,7 +76,7 @@ export function ComposePost({ avatarUrl }: { avatarUrl: string }) {
         setSelectedImage(null);
         setPreviewUrl(null);
       }}
-      className="flex flex-1 flex-row h-40 w-full p-4 pt-0 gap-2 border-b-2 border-zinc-700"
+      className="flex flex-1 flex-row h-auto w-full p-4 pt-0 gap-2 border-b-2 border-zinc-700"
     >
       {avatarUrl ? (
         <img
@@ -103,26 +103,31 @@ export function ComposePost({ avatarUrl }: { avatarUrl: string }) {
         </div>
         {previewUrl && (
           <div className="relative w-full mt-2">
-            <img src={previewUrl} alt="Previsualización" className="w-full rounded-lg" />
+            <img
+              src={previewUrl}
+              alt="Previsualización"
+              className="w-full rounded-lg"
+            />
             <button
               type="button"
               onClick={removeImage}
-              className="absolute top-2 right-2 bg-gray-700/70 rounded-full p-1"
+              className="absolute flex items-center justify-center top-2 right-2 bg-black/70 size-8 rounded-full p-1"
             >
-              <IconX className="text-white" />
+              <IconX className="text-white size-5" />
             </button>
           </div>
         )}
         <div className="flex w-full justify-between mt-2">
-          <div className="size-10 rounded-full hover:bg-sky-500/10 flex items-center justify-center relative">
+          <div className="size-10 relative flex items-center justify-center cursor-pointer hover:bg-sky-500/10 rounded-full">
             <input
               type="file"
               accept="image/*"
-              className="absolute inset-0 opacity-0 cursor-pointer"
+              className="absolute inset-0 w-full h-full z-10 opacity-0 cursor-pointer"
               onChange={handleImageChange}
             />
-            <IconPhoto className="size-5 text-sky-500" />
+            <IconPhoto className="size-5 text-sky-500 z-0" />
           </div>
+
           <button
             disabled={!canPost}
             type="submit"

@@ -14,4 +14,5 @@ export interface PostWithExtras extends Posts {
     likeStatus?: number; 
     isReposted?: boolean;
     userAvatar?: string; 
+    imageUrl?: string;
   }

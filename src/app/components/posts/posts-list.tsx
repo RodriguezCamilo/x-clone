@@ -71,6 +71,7 @@ export default function PostsList({ posts }: { posts: Posts[] | null }) {
           likeStatus,
           isReposted,
           userAvatar,
+          image_url
         } = post;
 
         const {
@@ -95,6 +96,7 @@ export default function PostsList({ posts }: { posts: Posts[] | null }) {
             likeStatus={likeStatus}
             isReposted={isReposted}
             userAvatar={userAvatar}
+            imageUrl={image_url}
           />
         );
       })}

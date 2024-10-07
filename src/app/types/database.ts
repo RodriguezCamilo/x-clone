@@ -92,6 +92,7 @@ export type Database = {
           response_count: number
           response_to: string | null
           user_id: string
+          image_url: string | null
         }
         Insert: {
           content: string
@@ -103,6 +104,7 @@ export type Database = {
           response_count?: number
           response_to?: string | null
           user_id: string
+          image_url: string | null
         }
         Update: {
           content?: string
@@ -114,6 +116,7 @@ export type Database = {
           response_count?: number
           response_to?: string | null
           user_id?: string
+          image_url: string | null
         }
         Relationships: [
           {

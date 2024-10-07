@@ -25,7 +25,7 @@ export default async function Home() {
   const { data: posts, error } = await supabase
     .from("posts")
     .select(
-      "*, user:users(name, user_name, avatar_url), likes_count, created_at, repost, repost_count, response_to"
+      "*, user:users(name, user_name, avatar_url)"
     )
     .order("created_at", { ascending: false })
     .limit(10);
@@ -39,7 +39,7 @@ export default async function Home() {
         <NavBar />
       </header>
       <main className="bg-black flex w-full max-w-full mt-16 md:mt-0">
-        <section className="flex grow xl:grow-0 h-full mx-[1px] w-full flex-col items-center pt-4 border border-y-0 border-zinc-700">
+        <section className="flex grow h-full mx-[1px] w-full flex-col items-center pt-4 border border-y-0 border-zinc-700">
           <div className="hidden md:flex w-full">
             <ComposePost avatarUrl={user?.avatar_url} />
           </div>
