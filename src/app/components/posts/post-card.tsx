@@ -82,7 +82,7 @@ export function PostCard({
             <img
               src={imageUrl}
               alt="Imagen del post"
-              className="w-full rounded-lg"
+              className="w-full rounded-2xl my-2"
             ></img>
           )}
           {repost && <RepostCard repost={repost} />}
