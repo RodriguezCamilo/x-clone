@@ -11,9 +11,12 @@ import {
   IconMail,
   IconMailFilled,
 } from "@tabler/icons-react";
-import { NavLinkProps } from "./types";
 
-export default function NavLink({ perfil }: NavLinkProps) {
+interface NavLinkProps {
+  perfil: string;
+}
+
+export default function NavLink( {perfil} : NavLinkProps) {
   const pathname = usePathname();
 
   const links = [
