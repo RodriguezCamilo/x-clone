@@ -6,7 +6,7 @@ import { IconLoader2 } from "@tabler/icons-react";
 import { useEffect, useState } from "react";
 import { fetchMorePosts } from "@/app/actions/post-action";
 
-export default function PostsList({ posts }: { posts: Posts[] | null }) {
+export default function PostsList({ posts, postId = null }: { posts: Posts[] | null , postId?: string | null}) {
   const [postsData, setPostsData] = useState<PostWithExtras[]>(posts || []);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
@@ -22,7 +22,7 @@ export default function PostsList({ posts }: { posts: Posts[] | null }) {
     if (loading || !hasMore) return;
 
     setLoading(true);
-    const { posts: newPosts, error } = await fetchMorePosts(10, page * 10);
+    const { posts: newPosts, error } = await fetchMorePosts(10, page * 10, postId);
 
     if (error) {
       setHasMore(false);

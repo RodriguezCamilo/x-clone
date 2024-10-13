@@ -34,13 +34,19 @@ export default async function PostPage({ params }: PostPageProps) {
     .eq("id", id)
     .single();
 
-  const { data: posts, error: postsError } = await supabase
+    const { data: posts, error: postsError } = await supabase
     .from("posts")
     .select(
       "*, user:users(name, user_name, avatar_url)"
     )
     .eq("response_to", id)
     .order("created_at", { ascending: false });
+  
+  if (postsError) {
+    console.error("Error fetching posts:", postsError);
+  } else {
+    console.log("Fetched posts:", posts);
+  }
 
   const postAvatar = post.user.avatar_url;
   const LikeStatus = await fetchLikeStatus({ post_id: post.id });
@@ -152,7 +158,7 @@ export default async function PostPage({ params }: PostPageProps) {
               </div>
             }
           >
-            <PostsList posts={posts} />
+            <PostsList posts={posts} postId={id} />
           </Suspense>
         </article>
       </main>
