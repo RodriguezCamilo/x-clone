@@ -4,15 +4,15 @@ import { PostCard } from "@/app/components/posts/post-card";
 import { type Posts, PostWithExtras } from "../../types/posts";
 import { IconLoader2 } from "@tabler/icons-react";
 import { useEffect, useState } from "react";
-import { fetchMorePosts } from "@/app/actions/post-action";
+import { fetchMoreResponses } from "@/app/actions/post-action";
 
-export default function PostsList({ posts} : { posts: Posts[] | null }) {
+export default function ResponseList({ posts, postId }: { posts: Posts[] | null , postId: string }) {
   const [postsData, setPostsData] = useState<PostWithExtras[]>(posts || []);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
 
-  useEffect(() => { 
+  useEffect(() => {
     if (posts) {
       setPostsData(posts);
     }
@@ -20,41 +20,30 @@ export default function PostsList({ posts} : { posts: Posts[] | null }) {
 
   const loadMorePosts = async () => {
     if (loading || !hasMore) return;
-  
+
     setLoading(true);
-    const { posts: newPosts, error } = await fetchMorePosts(10, page * 10);
-    console.log(newPosts)
-  
+    const { posts: newPosts, error } = await fetchMoreResponses(10, page * 10, postId);
+
     if (error) {
       setHasMore(false);
     } else {
-      setPostsData(prevPosts => {
-        const uniquePosts = newPosts.filter(newPost =>
-          !prevPosts.some(existingPost => existingPost.id === newPost.id)
-        );
-        
-        if (uniquePosts.length < 10) {
-          setHasMore(false);
-        }
-
-        return [...prevPosts, ...uniquePosts];
-      });
-  
-      setPage(prev => prev + 1);
+      setPostsData((prev) => [...prev, ...newPosts]);
+      if (newPosts.length < 10) {
+        setHasMore(false);
+      }
+      setPage((prev) => prev + 1);
     }
     setLoading(false);
   };
-  
+
   useEffect(() => {
     const handleScroll = () => {
       if (
         window.innerHeight + document.documentElement.scrollTop >=
-          document.documentElement.scrollHeight - 10 &&
+          document.documentElement.scrollHeight - 1 &&
         !loading &&
         hasMore
       ) {
-        console.log("loading?", loading)
-        console.log("hasmore", hasMore)
         loadMorePosts();
       }
     };
@@ -78,7 +67,6 @@ export default function PostsList({ posts} : { posts: Posts[] | null }) {
           created_at,
           repost,
           repost_count,
-          response_to,
           likeStatus,
           isReposted,
           userAvatar,
@@ -103,7 +91,7 @@ export default function PostsList({ posts} : { posts: Posts[] | null }) {
             createdAt={created_at}
             repost={repost}
             repost_count={repost_count}
-            response_to={response_to}
+            response_to={null}
             likeStatus={likeStatus}
             isReposted={isReposted}
             userAvatar={userAvatar}

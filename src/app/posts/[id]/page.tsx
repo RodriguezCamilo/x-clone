@@ -10,10 +10,10 @@ import { fetchRepostStatus } from "@/app/actions/repost-action";
 import { RepostCard } from "@/app/components/posts/repost-card";
 import { DataUser, TableUser } from "@/app/utils/supabase/user";
 import RepostDropdown from "@/app/components/repost/repost";
-import PostsList from "@/app/components/posts/posts-list";
 import { Suspense } from "react";
 import NavBar from "@/app/components/navbar/navbar";
 import SideBar from "@/app/components/sidebar/sidebar";
+import ResponseList from "@/app/components/posts/response-list";
 
 interface PostPageProps {
   params: {
@@ -41,13 +41,8 @@ export default async function PostPage({ params }: PostPageProps) {
     )
     .eq("response_to", id)
     .order("created_at", { ascending: false })
-    .limit(10);
+    .limit(6)
   
-  if (postsError) {
-    console.error("Error fetching posts:", postsError);
-  } else {
-    console.log("Fetched posts:", posts);
-  }
 
   const postAvatar = post.user.avatar_url;
   const LikeStatus = await fetchLikeStatus({ post_id: post.id });
@@ -159,7 +154,7 @@ export default async function PostPage({ params }: PostPageProps) {
               </div>
             }
           >
-            <PostsList posts={posts} postId={id} />
+            <ResponseList posts={posts} postId={id} />
           </Suspense>
         </article>
       </main>

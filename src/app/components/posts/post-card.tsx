@@ -33,9 +33,7 @@ export function PostCard({
         const resTop = await responseTo(response_to);
         if (resTop) {
           setResTo(resTop.user_name);
-          console.log(resTop);
         }
-        console.log(resTop);
       }
     };
 
