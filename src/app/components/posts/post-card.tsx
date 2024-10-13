@@ -7,6 +7,8 @@ import LikeButton from "../like/like";
 import RepostDropdown from "../repost/repost";
 import { RepostCard } from "./repost-card";
 import { PostCardProps } from "./types";
+import { responseTo } from "../../actions/response-to";
+import { useEffect, useState } from "react";
 
 export function PostCard({
   userName,
@@ -23,6 +25,23 @@ export function PostCard({
   userAvatar,
   imageUrl,
 }: PostCardProps) {
+  const [resTo, setResTo] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchResponseUser = async () => {
+      if (response_to != undefined && response_to != null) {
+        const resTop = await responseTo(response_to);
+        if (resTop) {
+          setResTo(resTop.user_name);
+          console.log(resTop);
+        }
+        console.log(resTop);
+      }
+    };
+
+    fetchResponseUser();
+  }, [response_to]);
+
   return (
     <article className="text-left flex flex-row w-full p-4 pb-2 border-b-2 border-zinc-700 gap-2 bg-gray/0 transition hover:bg-zinc-300/5 cursor-pointer relative">
       <Link
@@ -66,14 +85,14 @@ export function PostCard({
               @{userName}
             </Link>
           </div>
-          {response_to && (
+          {resTo != null && (
             <div className="z-10 flex flex-row gap-1 font-extralight text-white/50">
               <p>En respuesta a</p>
               <Link
-                href={`/perfil/${response_to.user_name}`}
-                className=" text-sky-500 hover:underline"
+                href={`/perfil/${resTo}`}
+                className="text-sky-500 hover:underline"
               >
-                @{response_to.user_name}
+                @{resTo}
               </Link>
             </div>
           )}

@@ -15,6 +15,7 @@ export async function responseTo(post_id: string) {
     console.error(postError || "Post no encontrado");
     return null;
   }
+
   const user_id = posts.user_id;
 
   const { data: user, error: userError } = await supabase

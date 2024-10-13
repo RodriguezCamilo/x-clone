@@ -23,12 +23,13 @@ export default async function Home() {
   const user = await TableUser(data.user.id)
 
   const { data: posts, error } = await supabase
-    .from("posts")
-    .select(
-      "*, user:users(name, user_name, avatar_url)"
-    )
-    .order("created_at", { ascending: false })
-    .limit(10);
+  .from("posts")
+  .select(`
+    *,
+    user:users(name, user_name, avatar_url)
+  `)
+  .order("created_at", { ascending: false })
+  .limit(10);
 
   return (
     <body className="min-h-screen w-full flex flex-col-reverse md:flex-row text-white bg-black">

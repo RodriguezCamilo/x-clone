@@ -67,11 +67,11 @@ export default function PostsList({ posts, postId = null }: { posts: Posts[] | n
           created_at,
           repost,
           repost_count,
-          resTo,
+          response_to,
           likeStatus,
           isReposted,
           userAvatar,
-          image_url
+          image_url,
         } = post;
 
         const {
@@ -79,7 +79,7 @@ export default function PostsList({ posts, postId = null }: { posts: Posts[] | n
           name: fullName,
           avatar_url: avatarUrl,
         } = user;
-
+        
         return (
           <PostCard
             key={id}
@@ -92,7 +92,7 @@ export default function PostsList({ posts, postId = null }: { posts: Posts[] | n
             createdAt={created_at}
             repost={repost}
             repost_count={repost_count}
-            response_to={resTo}
+            response_to={response_to}
             likeStatus={likeStatus}
             isReposted={isReposted}
             userAvatar={userAvatar}

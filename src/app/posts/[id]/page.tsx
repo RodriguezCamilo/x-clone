@@ -40,7 +40,8 @@ export default async function PostPage({ params }: PostPageProps) {
       "*, user:users(name, user_name, avatar_url)"
     )
     .eq("response_to", id)
-    .order("created_at", { ascending: false });
+    .order("created_at", { ascending: false })
+    .limit(10);
   
   if (postsError) {
     console.error("Error fetching posts:", postsError);

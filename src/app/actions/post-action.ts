@@ -12,9 +12,7 @@ export const fetchMorePosts = async (
   if (postId == null) {
     const { data: posts, error } = await supabase
       .from("posts")
-      .select(
-        "*, user:users(name, user_name, avatar_url), likes_count, created_at, repost, repost_count, response_to"
-      )
+      .select("*, user:users(name, user_name, avatar_url)")
       .order("created_at", { ascending: false })
       .range(offset, offset + limit - 1);
 
@@ -24,9 +22,12 @@ export const fetchMorePosts = async (
     const { data: posts, error } = await supabase
       .from("posts")
       .select(
-        "*, user:users(name, user_name, avatar_url), likes_count, created_at, repost, repost_count, response_to"
+        `
+        *,
+        user:users(name, user_name, avatar_url),
+      `
       )
-      .eq("id", postId)
+      .eq("response_to", postId)
       .range(offset, offset + limit - 1);
 
     if (error) return { posts: [], error };
