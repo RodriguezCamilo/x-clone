@@ -30,9 +30,6 @@ export const fetchMoreResponses = async (
     .order("created_at", { ascending: false })
     .range(offset, offset + limit - 1);
 
-  console.log("Error:", error);
-  console.log("Posts:", posts);
-
   if (error) return { error };
   return { posts, error: null };
 };

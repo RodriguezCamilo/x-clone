@@ -87,7 +87,7 @@ export function PostCard({
             <div className="z-10 flex flex-row gap-1 font-extralight text-white/50">
               <p>En respuesta a</p>
               <Link
-                href={`/perfil/${resTo}`}
+                href={`/posts/${response_to}`}
                 className="text-sky-500 hover:underline"
               >
                 @{resTo}

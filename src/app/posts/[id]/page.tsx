@@ -60,12 +60,12 @@ export default async function PostPage({ params }: PostPageProps) {
   const formattedCreatedTime = formattedTime(post.created_at);
 
   return (
-    <body className="min-h-screen h-screen w-full flex flex-col-reverse md:flex-row text-white bg-black">
+    <body className="min-h-screen h-auto w-full flex flex-col-reverse md:flex-row text-white bg-black">
       <header className="z-30 md:w-[8%] md:min-w-[8%] xl:min-w-[30%]">
         <NavBar />
       </header>
       <main className="bg-black flex w-full h-full">
-        <article className="text-left flex flex-col w-full bg-black py-4 border border-t-0 border-zinc-700 ">
+        <article className="text-left flex flex-col w-full h-full bg-black py-4 border border-t-0 border-zinc-700 ">
           <Suspense
             fallback={
               <div className="flex justify-center items-center w-full p-4">

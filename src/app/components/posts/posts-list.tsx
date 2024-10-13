@@ -23,7 +23,6 @@ export default function PostsList({ posts} : { posts: Posts[] | null }) {
   
     setLoading(true);
     const { posts: newPosts, error } = await fetchMorePosts(10, page * 10);
-    console.log(newPosts)
   
     if (error) {
       setHasMore(false);
@@ -53,8 +52,6 @@ export default function PostsList({ posts} : { posts: Posts[] | null }) {
         !loading &&
         hasMore
       ) {
-        console.log("loading?", loading)
-        console.log("hasmore", hasMore)
         loadMorePosts();
       }
     };
