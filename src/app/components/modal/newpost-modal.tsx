@@ -86,7 +86,7 @@ export default function NewPostModal({
       }}
       className="fixed inset-0 flex justify-center z-40 bg-zinc-700/50"
     >
-      <div className="bg-black my-12 h-auto min-h-2/3 lg:min-h-1/3 p-4 rounded-2xl shadow-lg w-full md:w-2/3 lg:w-1/3 flex flex-col">
+      <div className="bg-black my-12 h-fit max-h-screen min-h-1/3 lg:min-h-1/3 p-4 rounded-2xl shadow-lg w-full md:w-2/3 lg:w-1/3 flex flex-col">
         <button onClick={onClose}>
           <IconX size={22} />
         </button>
@@ -118,7 +118,7 @@ export default function NewPostModal({
                 <img
                   src={previewUrl}
                   alt="Previsualización"
-                  className="w-full rounded-lg"
+                  className="w-full object-cover rounded-lg max-h-80 "
                 />
                 <button
                   type="button"
