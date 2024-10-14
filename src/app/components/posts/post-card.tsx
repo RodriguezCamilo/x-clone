@@ -9,8 +9,10 @@ import { RepostCard } from "./repost-card";
 import { PostCardProps } from "./types";
 import { responseTo } from "../../actions/response-to";
 import { useEffect, useState } from "react";
+import OptionsDropdown from "./options-dropdown";
 
 export function PostCard({
+  userId,
   userName,
   avatarUrl,
   fullName,
@@ -69,7 +71,7 @@ export function PostCard({
       </Link>
       <div className="flex flex-col w-full">
         <main className="flex flex-col w-full">
-          <div className="flex flex-row gap-1 md:gap-2">
+          <div className="flex flex-row gap-1 md:gap-2 relative">
             <Link
               href={`/perfil/${userName}`}
               className="font-bold hover:underline z-10 overflow-hidden whitespace-nowrap max-w-28  md:max-w-full"
@@ -82,6 +84,9 @@ export function PostCard({
             >
               @{userName}
             </Link>
+            <div className="absolute right-0">
+              <OptionsDropdown postId={id} userId={userId} />
+            </div>
           </div>
           {resTo != null && (
             <div className="z-10 flex flex-row gap-1 font-extralight text-white/50">

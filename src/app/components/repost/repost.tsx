@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { IconRepeat, IconPencilMinus } from "@tabler/icons-react";
+import { IconRepeat} from "@tabler/icons-react";
 import RepostButton from "./repost-button";
 import type { RepostDropdownProps } from "./types";
 import QuoteButton from "./quote-button";
@@ -75,7 +75,7 @@ export default function RepostDropdown({
 
       <span
         className={
-          "font-light text-white/50 self-center justify-center text-sm "
+          `font-light ${reposted ? 'text-emerald-600' : 'text-white/50'} self-center justify-center text-sm `
         }
       >
         {manyRepost > 0 ? manyRepost : '\u00A0'}

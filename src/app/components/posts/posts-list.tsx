@@ -83,6 +83,7 @@ export default function PostsList({ posts} : { posts: Posts[] | null }) {
         } = post;
 
         const {
+          id: userId,
           user_name: userName,
           name: fullName,
           avatar_url: avatarUrl,
@@ -92,6 +93,7 @@ export default function PostsList({ posts} : { posts: Posts[] | null }) {
           <PostCard
             key={id}
             id={id}
+            userId = {userId}
             userName={userName ?? "Unknown"}
             fullName={fullName ?? "Unknown"}
             avatarUrl={avatarUrl ?? "Unknown"}

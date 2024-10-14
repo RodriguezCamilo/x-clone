@@ -7,7 +7,7 @@ export const fetchMorePosts = async (limit = 10, offset = 0) => {
 
   const { data: posts, error } = await supabase
     .from("posts")
-    .select("*, user:users(name, user_name, avatar_url)")
+    .select("*, user:users(id, name, user_name, avatar_url)")
     .order("created_at", { ascending: false })
     .range(offset, offset + limit - 1);
     
@@ -25,7 +25,7 @@ export const fetchMoreResponses = async (
 
   const { data: posts, error } = await supabase
     .from("posts")
-    .select("*, user:users(name, user_name, avatar_url)")
+    .select("*, user:users(id, name, user_name, avatar_url)")
     .eq("response_to", postId)
     .order("created_at", { ascending: false })
     .range(offset, offset + limit - 1);

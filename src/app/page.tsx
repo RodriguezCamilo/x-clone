@@ -26,7 +26,7 @@ export default async function Home() {
   .from("posts")
   .select(`
     *,
-    user:users(name, user_name, avatar_url)
+    user:users(id, name, user_name, avatar_url)
   `)
   .order("created_at", { ascending: false })
   .limit(10);

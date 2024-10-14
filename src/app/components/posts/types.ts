@@ -1,4 +1,5 @@
 export interface PostCardProps {
+  userId: string;
   userName: string;
   avatarUrl: string;
   fullName: string;
