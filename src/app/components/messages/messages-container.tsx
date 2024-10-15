@@ -48,13 +48,8 @@ export default function MenssagesContainer() {
             onSelectConversation={setActiveConversation}
           />
         )}
-        <Conversations
-          conversations={conversations}
-          currentUserId={user?.user?.id}
-          onSelectConversation={setActiveConversation}
-        />
       </section>
-      <aside className="bg-black hidden lg:block w-full">
+      <aside className="bg-black w-full hidden lg:block">
         {activeConversation ? (
           <Chat conversationId={activeConversation} />
         ) : (

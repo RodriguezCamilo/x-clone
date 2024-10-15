@@ -32,7 +32,6 @@ function ConversationCard({ id, user, last_message }: any) {
   return (
     <article
       className="w-full p-4 mt-4 hover:bg-zinc-700 transition flex gap-2"
-      key={id}
     >
       {loading ? (
         <div className="flex justify-center items-center w-full p-4">

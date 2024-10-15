@@ -1,3 +1,5 @@
+'use client'
+
 import { useEffect, useState } from 'react';
 import { getMessagesByConversation } from '@/app/actions/chat-action';
 

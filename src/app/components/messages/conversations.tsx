@@ -1,3 +1,4 @@
+import Link from "next/link";
 import ConversationCard from "./conversation-card";
 
 function Conversations({
@@ -20,9 +21,24 @@ function Conversations({
         const otherUserId = user_1 === currentUserId ? user_2 : user_1;
 
         return (
-          <button key={id} onClick={() => onSelectConversation(id)}>
-            <ConversationCard user={otherUserId} last_message={last_message} />
-          </button>
+          <>
+            <button
+              className="hidden lg:block"
+              key={id}
+              onClick={() => onSelectConversation(id)}
+            >
+              <ConversationCard
+                user={otherUserId}
+                last_message={last_message}
+              />
+            </button>
+            <Link className="lg:hidden" key={id} href={`/mensajes/${id}`}>
+              <ConversationCard
+                user={otherUserId}
+                last_message={last_message}
+              />
+            </Link>
+          </>
         );
       })}
     </>
