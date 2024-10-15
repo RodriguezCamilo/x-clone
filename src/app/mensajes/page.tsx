@@ -1,3 +1,5 @@
+"use server"
+
 import { getConversations } from "../actions/chat-action";
 import MenssagesContainer from "../components/messages/messages-container";
 import NavBar from "../components/navbar/navbar";
