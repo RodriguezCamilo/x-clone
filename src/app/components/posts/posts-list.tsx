@@ -62,7 +62,7 @@ export default function PostsList({ posts} : { posts: Posts[] | null }) {
   }, [loading, hasMore]);
 
   if (loading && postsData.length === 0)
-    return <IconLoader2 className="animate-spin p-4" />;
+    return <IconLoader2 className="animate-spin p-4 text-sky-500" />;
 
   return (
     <>

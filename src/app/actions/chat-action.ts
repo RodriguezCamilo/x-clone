@@ -44,3 +44,17 @@ export const getLastMessage = async (lastId: string) => {
   }
   return data;
 };
+
+export const getMessagesByConversation = async (conversationId: string) => {
+    const { data, error } = await supabase
+      .from("messages")
+      .select("*")
+      .eq("conversation_id", conversationId)
+      .order("created_at", { ascending: true });
+  
+    if (error) {
+      console.error("Error obteniendo los mensajes:", error);
+      return [];
+    }
+    return data;
+  };

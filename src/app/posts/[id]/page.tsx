@@ -69,7 +69,7 @@ export default async function PostPage({ params }: PostPageProps) {
           <Suspense
             fallback={
               <div className="flex justify-center items-center w-full p-4">
-                <IconLoader2 className="animate-spin" />
+                <IconLoader2 className="animate-spin text-sky-500" />
               </div>
             }
           >
@@ -150,7 +150,7 @@ export default async function PostPage({ params }: PostPageProps) {
           <Suspense
             fallback={
               <div className="flex justify-center items-center w-full p-4">
-                <IconLoader2 className="animate-spin" />
+                <IconLoader2 className="animate-spin text-sky-500" />
               </div>
             }
           >

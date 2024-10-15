@@ -1,9 +1,18 @@
 import ConversationCard from "./conversation-card";
 
-function Conversations({conversations, currentUserId}: {conversations:any[], currentUserId:string | undefined}) {
+function Conversations({
+  conversations,
+  currentUserId,
+  onSelectConversation,
+}: {
+  conversations: any[];
+  currentUserId: string | undefined;
+  onSelectConversation: (conversationId: string) => void;
+}) {
   if (!Array.isArray(conversations)) {
     return <p>No conversations found.</p>;
   }
+
   return (
     <>
       {conversations.map((con: any) => {
@@ -11,11 +20,9 @@ function Conversations({conversations, currentUserId}: {conversations:any[], cur
         const otherUserId = user_1 === currentUserId ? user_2 : user_1;
 
         return (
-          <ConversationCard
-            key={id}
-            user={otherUserId}
-            last_message={last_message}
-          />
+          <button key={id} onClick={() => onSelectConversation(id)}>
+            <ConversationCard user={otherUserId} last_message={last_message} />
+          </button>
         );
       })}
     </>
