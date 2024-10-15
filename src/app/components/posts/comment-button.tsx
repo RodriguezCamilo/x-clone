@@ -23,8 +23,8 @@ export default function CommentButton({
 
   return (
     <div className="z-20">
-      <button className="size-8 rounded-full flex items-center justify-center group transition hover:bg-blue-600/50 gap-2" onClick={handleButtonClick}>
-        <IconMessageCircle className="size-5 text-white/50 hover:text-blue-600" />
+      <button className="size-8 rounded-full flex items-center justify-center group transition hover:bg-sky-600/10 gap-2" onClick={handleButtonClick}>
+        <IconMessageCircle className="size-5 text-white/50 group-hover:text-sky-600" />
       </button>
       {isModalOpen && (
         <CommentModal
