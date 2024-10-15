@@ -9,6 +9,7 @@ import { RepostCard } from "./repost-card";
 import { PostCardProps } from "./types";
 import { responseTo } from "../../actions/response-to";
 import { useEffect, useState } from "react";
+import { formattedDate, formattedDateMobile } from "@/app/utils/format-date";
 import OptionsDropdown from "./options-dropdown";
 
 export function PostCard({
@@ -26,8 +27,21 @@ export function PostCard({
   isReposted,
   userAvatar,
   imageUrl,
+  createdAt,
 }: PostCardProps) {
   const [resTo, setResTo] = useState<string | null>(null);
+
+  const [formattedCreatedAt, setFormattedCreatedAt] = useState<string>();
+  const [formattedCreatedAtMobile, setFormattedCreatedAtMobile] =
+    useState<string>();
+
+  const handleDate = async () => {
+    const formatted = await formattedDate(createdAt);
+    const formattedMobile = await formattedDateMobile(createdAt);
+
+    setFormattedCreatedAt(formatted);
+    setFormattedCreatedAtMobile(formattedMobile);
+  };
 
   useEffect(() => {
     const fetchResponseUser = async () => {
@@ -40,6 +54,7 @@ export function PostCard({
     };
 
     fetchResponseUser();
+    handleDate();
   }, [response_to]);
 
   return (
@@ -84,6 +99,13 @@ export function PostCard({
             >
               @{userName}
             </Link>
+            <p className="text-white/50">·</p>
+            <p className="font-light text-white/50 hidden md:inline whitespace-nowrap">
+              {formattedCreatedAt}
+            </p>
+            <p className="font-light text-white/50 md:hidden whitespace-nowrap">
+              {formattedCreatedAtMobile}
+            </p>
             <div className="absolute right-0">
               <OptionsDropdown postId={id} userId={userId} />
             </div>
