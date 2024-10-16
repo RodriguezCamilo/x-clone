@@ -6,7 +6,7 @@ import NavBar from "../components/navbar/navbar";
 export default async function Mensajes() {
 
   return (
-    <body className="min-h-screen w-full flex flex-col md:flex-row text-white bg-black">
+    <body className="min-h-screen w-full flex flex-col md:flex-row text-white bg-black overflow-hidden">
       <header className="z-30 md:w-[8%] md:min-w-[8%] xl:min-w-[30%]">
         <NavBar />
       </header>

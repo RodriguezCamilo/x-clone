@@ -10,6 +10,13 @@ function ChatCard({ message, formatted, user }: any) {
           user?.id === message?.sender ? "items-end" : "items-start"
         }`}
       >
+        {message.image_url && (
+          <img
+            src={message.image_url}
+            alt="Imagen del usuario"
+            className="max-w-sm m-2 rounded-xl"
+          />
+        )}
         <div
           className={`p-3 rounded-full ${
             user?.id === message?.sender ? "bg-sky-600" : "bg-zinc-700"

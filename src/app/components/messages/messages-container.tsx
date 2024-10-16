@@ -44,7 +44,6 @@ export default function MessagesContainer() {
       }
       return prevMessages;
     });
-    console.log(messages)
   };
 
   useEffect(() => {
@@ -67,8 +66,8 @@ export default function MessagesContainer() {
   }, [activeConversation]);
 
   return (
-    <section className="bg-black flex w-full">
-      <section className="text-left max-w-[500px] flex flex-col h-auto w-full bg-black pt-2 border border-t-0 border-zinc-700">
+    <section className="bg-black flex w-full h-screen overflow-hidden">
+      <section className={`text-left max-w-[500px] ${activeConversation ? "hidden" : "flex"} lg:flex flex-col h-auto w-full bg-black pt-2 border border-t-0 border-zinc-700`}>
         <h1 className="font-bold text-xl mx-4">Mensajes</h1>
         {loading ? (
           <div className="flex justify-center items-center w-full p-4">
@@ -82,7 +81,7 @@ export default function MessagesContainer() {
           />
         )}
       </section>
-      <aside className="bg-black w-[500px] overflow-auto h-screen hidden lg:flex flex-col relative border-r border-zinc-700">
+      <aside className={`bg-black w-[500px] z-50 h-full ${activeConversation ? "flex" : "hidden"} lg:flex flex-col relative border-r border-zinc-700`}>
         {activeConversation ? (
           <>
             <Chat conversationId={activeConversation?.id} messages={messages} />
