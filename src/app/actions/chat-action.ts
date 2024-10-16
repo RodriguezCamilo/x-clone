@@ -1,5 +1,6 @@
 "use server";
 
+import { v4 as uuidv4 } from "uuid";
 import { createClient } from "@/app/utils/supabase/server";
 
 const supabase = createClient();
@@ -46,15 +47,67 @@ export const getLastMessage = async (lastId: string) => {
 };
 
 export const getMessagesByConversation = async (conversationId: string) => {
-    const { data, error } = await supabase
-      .from("messages")
-      .select("*")
-      .eq("conversation_id", conversationId)
-      .order("created_at", { ascending: true });
-  
-    if (error) {
-      console.error("Error obteniendo los mensajes:", error);
-      return [];
+  const { data, error } = await supabase
+    .from("messages")
+    .select("*")
+    .eq("conversation_id", conversationId)
+    .order("created_at", { ascending: true });
+
+  if (error) {
+    console.error("Error obteniendo los mensajes:", error);
+    return [];
+  }
+  return data;
+};
+
+export const addMessage = async (
+  formData: FormData,
+  conversationId: string,
+  reciver: string
+) => {
+  const content = formData.get("content")?.toString().trim();
+  const imageFile = formData.get("image") as File | null;
+
+  if (!content && !imageFile) return;
+
+  const { data: userData, error: userError } = await supabase.auth.getUser();
+  if (userError || !userData?.user) {
+    return;
+  }
+
+  let imageUrl = null;
+  console.log(conversationId)
+
+  if (imageFile) {
+    const fileExt = imageFile.name.split(".").pop();
+    const fileName = `${uuidv4()}.${fileExt}`;
+    const filePath = `public/${fileName}`;
+
+    const { error: uploadError } = await supabase.storage
+      .from("images")
+      .upload(filePath, imageFile);
+
+    if (uploadError) {
+      console.error("Error uploading image:", uploadError);
+      return;
     }
-    return data;
-  };
+
+    const { data: imageUrlData } = supabase.storage
+      .from("images")
+      .getPublicUrl(filePath);
+
+    imageUrl = imageUrlData?.publicUrl || null;
+  }
+
+  const { data: postData, error: postError } = await supabase
+    .from("messages")
+    .insert({
+      content,
+      sender: userData.user.id,
+      image_url: imageUrl,
+      reciver: reciver,
+      conversation_id: conversationId
+    });
+
+  if (postError) return console.error(postError);
+};

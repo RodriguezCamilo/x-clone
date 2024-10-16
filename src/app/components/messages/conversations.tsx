@@ -25,7 +25,7 @@ function Conversations({
             <button
               className="hidden lg:block"
               key={id}
-              onClick={() => onSelectConversation(id)}
+              onClick={() => onSelectConversation(con)}
             >
               <ConversationCard
                 user={otherUserId}

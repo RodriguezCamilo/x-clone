@@ -6,13 +6,12 @@ import { DataUser } from "@/app/utils/supabase/user";
 import { IconLoader2 } from "@tabler/icons-react";
 import Conversations from "./conversations";
 import Chat from "./chat";
+import { ComposeMessage } from "./compose-message";
 
 export default function MenssagesContainer() {
   const [user, setUser] = useState<any>(null);
   const [conversations, setConversations] = useState<any[]>([]);
-  const [activeConversation, setActiveConversation] = useState<string | null>(
-    null
-  );
+  const [activeConversation, setActiveConversation] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -49,11 +48,18 @@ export default function MenssagesContainer() {
           />
         )}
       </section>
-      <aside className="bg-black w-full hidden lg:block">
+      <aside className="bg-black w-[500px] h-screen hidden lg:flex flex-col relative border-r border-zinc-700">
         {activeConversation ? (
-          <Chat conversationId={activeConversation} />
+          <>
+            <Chat conversationId={activeConversation?.id} />
+            <div className="bg-black p-2 border-t border-zinc-700">
+              <ComposeMessage conversation={activeConversation} />
+            </div>
+          </>
         ) : (
-          <p className="text-gray-400">Selecciona una conversación</p>
+          <h3 className="text-white/70 font-light top-1/3 left-1/3 absolute">
+            Selecciona una conversación
+          </h3>
         )}
       </aside>
     </section>

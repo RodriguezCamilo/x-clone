@@ -74,3 +74,18 @@ export function formattedMonthYear(date: string): string {
         return "Fecha inválida"
     }
 }
+
+export function formattedChat(date: string): string {
+    try {
+        const parsedDate = parseISO(date);
+        const hoursDifference = differenceInHours(new Date(), parsedDate);
+
+        if (hoursDifference < 24) {
+            return format(parsedDate, 'h:mm aaaa', { locale: es });
+        }
+        return `${format(parsedDate, 'EEEE, dd MMM', { locale: es })} a las ${format(parsedDate, 'h:mm aaaa', { locale: es })}`;
+    } catch (error) {
+        console.error("Error al formatear la fecha:", error);
+        return "Fecha inválida";
+    }
+}

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { getMessagesByConversation } from '@/app/actions/chat-action';
+import ChatCard from './chat-card';
 
 function Chat({ conversationId }: { conversationId: string }) {
   const [messages, setMessages] = useState<any[]>([]);
@@ -18,13 +19,10 @@ function Chat({ conversationId }: { conversationId: string }) {
   }, [conversationId]);
 
   return (
-    <div className="chat-container">
+    <div className="p-4 h-full flex flex-col justify-end gap-2">
       {messages.length > 0 ? (
         messages.map((message) => (
-          <div key={message.id} className="message">
-            <p>{message.content}</p>
-            <span>{new Date(message.created_at).toLocaleTimeString()}</span>
-          </div>
+          <ChatCard message={message}/>
         ))
       ) : (
         <p>No hay mensajes en esta conversación.</p>
