@@ -14,7 +14,7 @@ function ChatCard({ message, formatted, user }: any) {
           <img
             src={message.image_url}
             alt="Imagen del usuario"
-            className="max-w-sm m-2 rounded-xl"
+            className="w-[90%] lg:max-w-sm m-2 rounded-xl"
           />
         )}
         <div
