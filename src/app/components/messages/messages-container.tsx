@@ -9,6 +9,7 @@ import Chat from "./chat";
 import { ComposeMessage } from "./compose-message";
 import { createClient } from "@/app/utils/supabase/client";
 import Link from "next/link";
+import { getUser } from "@/app/actions/user-action";
 
 const supabase = createClient();
 
@@ -18,6 +19,7 @@ export default function MessagesContainer() {
   const [activeConversation, setActiveConversation] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [messages, setMessages] = useState<any[]>([]);
+  const [otherUser, setOtherUser] = useState<any>();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -66,8 +68,23 @@ export default function MessagesContainer() {
     };
   }, [activeConversation]);
 
+  useEffect(() => {
+    const getNameConver = async () => {
+      if (user.user?.id == activeConversation.user_1) {
+        const u = await getUser(activeConversation.user_2);
+        setOtherUser(u);
+      } else if (user.user?.id == activeConversation.user_2) {
+        const u = await getUser(activeConversation.user_1);
+        setOtherUser(u);
+      }
+    };
+    if (activeConversation) {
+      getNameConver();
+    }
+  }, [activeConversation]);
+
   return (
-    <section className="bg-black flex w-full h-screen overflow-hidden">
+    <section className="bg-black flex w-full min-h-screen overflow-hidden">
       <section
         className={`text-left max-w-[500px] ${
           activeConversation ? "hidden" : "flex"
@@ -101,8 +118,20 @@ export default function MessagesContainer() {
       >
         {activeConversation ? (
           <>
+            <div className="absolute top-0 w-full flex flex-1 lg:hidden backdrop-blur-sm m-2 gap-8">
+              <button
+                className="rounded-full size-8 hover:bg-zinc-700 transition flex items-center justify-center"
+                onClick={() => setActiveConversation(null)}
+              >
+                <IconArrowLeft />
+              </button>
+              <div className="font-bold text-lg flex items-center gap-2">
+                {otherUser?.avatar_url ? <img src={otherUser?.avatar_url} alt="Imagen de perfil" className="rounded-full size-7" /> : <div></div>}
+                {otherUser?.name}
+              </div>
+            </div>
             <Chat conversationId={activeConversation?.id} messages={messages} />
-            <div className="bg-black p-2 border-t border-zinc-700">
+            <div className="bg-black p-2 border-t border-zinc-700 absolute bottom-0 w-full">
               <ComposeMessage
                 conversation={activeConversation}
                 addNewMessage={addNewMessage}
