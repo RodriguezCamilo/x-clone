@@ -19,7 +19,7 @@ export function ComposeMessage({ conversation, addNewMessage }: any) {
       if (!conversation) return;
       const data = await DataUser();
       const u = await getUser(data.user?.id);
-      u === conversation.user_1
+      u.id === conversation.user_1
         ? setReciver(conversation.user_2)
         : setReciver(conversation.user_1);
     }
@@ -45,7 +45,7 @@ export function ComposeMessage({ conversation, addNewMessage }: any) {
       textarea.addEventListener("input", handleInput);
       adjustTextareaHeight();
     }
-    
+
     return () => {
       if (textarea) {
         textarea.removeEventListener("input", handleInput);
@@ -68,9 +68,9 @@ export function ComposeMessage({ conversation, addNewMessage }: any) {
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    
+
     if (!formRef.current) return;
-    
+
     const formData = new FormData(formRef.current);
     const content = formData.get("content")?.toString().trim();
 

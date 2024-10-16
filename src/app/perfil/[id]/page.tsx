@@ -11,7 +11,7 @@ import {
 } from "@tabler/icons-react";
 import Link from "next/link";
 import { formattedMonthYear } from "@/app/utils/format-date";
-import {DataUser} from "@/app/utils/supabase/user";
+import { DataUser } from "@/app/utils/supabase/user";
 import PostsList from "@/app/components/posts/posts-list";
 import { fetchFollowStatus } from "../../actions/follow-action";
 import FollowButton from "@/app/components/follows/follow-button";
@@ -19,6 +19,7 @@ import { Suspense } from "react";
 import EditButton from "@/app/components/perfil/edit-button";
 import NavBar from "@/app/components/navbar/navbar";
 import SideBar from "@/app/components/sidebar/sidebar";
+import MessageButton from "@/app/components/messages/message-button";
 
 interface PerfilPageProps {
   params: {
@@ -43,7 +44,6 @@ export default async function PerfilPage({ params }: PerfilPageProps) {
   if (userError) {
     redirect("/");
   }
-  console.log(user.avatar_url);
   const userId = user.id;
 
   const userCreatedAt = formattedMonthYear(user.created_at);
@@ -114,11 +114,14 @@ export default async function PerfilPage({ params }: PerfilPageProps) {
                 </div>
               </div>
             </div>
-            <div className="flex flex-row justify-end items-center w-full p-4">
+            <div className="flex flex-row gap-2 justify-end items-center w-full p-4">
               {LogedUser.user?.id == user.id ? (
                 <EditButton user={user} />
               ) : (
-                <FollowButton user_id={userId} follow_status={isFollowing} />
+                <>
+                  <MessageButton user_id={userId} />
+                  <FollowButton user_id={userId} follow_status={isFollowing} />
+                </>
               )}
             </div>
             <div className="flex flex-col px-4">
@@ -141,7 +144,13 @@ export default async function PerfilPage({ params }: PerfilPageProps) {
               </div>
               <div className="flex flex-row text-white/50 gap-1">
                 <IconLink className="size-5" />
-                <a href={user.website} target="_blank" className="text-sky-500 hover:underline">{user.website}</a>
+                <a
+                  href={user.website}
+                  target="_blank"
+                  className="text-sky-500 hover:underline"
+                >
+                  {user.website}
+                </a>
               </div>
               <div className="flex flex-row text-white/50 gap-1">
                 <IconCalendar className="size-5" />

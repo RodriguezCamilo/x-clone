@@ -2,6 +2,8 @@
 
 import { v4 as uuidv4 } from "uuid";
 import { createClient } from "@/app/utils/supabase/server";
+import { redirect } from "next/navigation";
+import { DataUser } from "../utils/supabase/user";
 
 const supabase = createClient();
 
@@ -9,7 +11,8 @@ export const getConversations = async (userId: string | undefined) => {
   const { data, error } = await supabase
     .from("conversations")
     .select("id, user_1, user_2, last_message")
-    .or(`user_1.eq.${userId},user_2.eq.${userId}`);
+    .or(`user_1.eq.${userId},user_2.eq.${userId}`)
+    .order("created_at", { ascending: false });
 
   if (error) {
     console.error("Error obteniendo las conversaciones:", error);
@@ -112,5 +115,57 @@ export const addMessage = async (
 
   if (postError) return console.error(postError);
 
+  const { error: updateError } = await supabase
+    .from("conversations")
+    .update({ last_message: postData.id }) 
+    .eq("id", conversationId);
+
+  if (updateError)
+    return console.error("Error updating last_message:", updateError);
+
   return postData;
+};
+
+export const getConversation = async (otherUser: string) => {
+  const userId = await DataUser();
+
+  const { data, error } = await supabase
+    .from("conversations")
+    .select("id, user_1, user_2, last_message")
+    .or(
+      `user_1.eq.${userId.user?.id}.and(user_2.eq.${otherUser}),user_1.eq.${otherUser}.and(user_2.eq.${userId.user?.id})`
+    )
+    .single();
+
+  if (error) return console.error(error);
+  return data;
+};
+
+export const addConversation = async (
+  user_1: string | undefined,
+  user_2: string
+) => {
+  const { data, error } = await supabase.from("conversations").insert({
+    user_1,
+    user_2,
+    last_message: null,
+  });
+  if (error) return console.error(error);
+  console.log(data);
+  return data;
+};
+
+export const newConversation = async (otherUserID: string) => {
+  const userId = await DataUser();
+  const existConver = await getConversation(otherUserID);
+
+  if (existConver) {
+    console.log("La conversación ya existe");
+    redirect("/mensajes");
+    return;
+  }
+
+  await addConversation(userId.user?.id, otherUserID);
+  redirect("/mensajes");
+  return;
 };

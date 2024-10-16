@@ -6,7 +6,7 @@ function ChatCard({ message, formatted, user }: any) {
     <Suspense fallback={<IconLoader2 className="animate-spin text-sky-500" />}>
       <div
         key={message?.id}
-        className={`w-full flex flex-col ${
+        className={`w-full flex flex-col mb-2 ${
           user?.id === message?.sender ? "items-end" : "items-start"
         }`}
       >
