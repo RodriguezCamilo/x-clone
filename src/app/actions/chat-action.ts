@@ -76,7 +76,6 @@ export const addMessage = async (
   }
 
   let imageUrl = null;
-  console.log(conversationId)
 
   if (imageFile) {
     const fileExt = imageFile.name.split(".").pop();
@@ -106,8 +105,12 @@ export const addMessage = async (
       sender: userData.user.id,
       image_url: imageUrl,
       reciver: reciver,
-      conversation_id: conversationId
-    });
+      conversation_id: conversationId,
+    })
+    .select("*")
+    .single();
 
   if (postError) return console.error(postError);
+
+  return postData;
 };

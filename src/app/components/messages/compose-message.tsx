@@ -1,16 +1,14 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { useFormStatus } from "react-dom";
 import { IconX, IconPhoto, IconSend2 } from "@tabler/icons-react";
 import { addMessage } from "@/app/actions/chat-action";
 import { DataUser } from "@/app/utils/supabase/user";
 import { getUser } from "@/app/actions/user-action";
 
-export function ComposeMessage({ conversation }: any) {
+export function ComposeMessage({ conversation, addNewMessage }: any) {
   const formRef = useRef<HTMLFormElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
-  const { pending } = useFormStatus();
   const [canMessage, setCanMessage] = useState(false);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
@@ -21,7 +19,7 @@ export function ComposeMessage({ conversation }: any) {
       if (!conversation) return;
       const data = await DataUser();
       const u = await getUser(data.user?.id);
-      u == conversation.user_1
+      u === conversation.user_1
         ? setReciver(conversation.user_2)
         : setReciver(conversation.user_1);
     }
@@ -47,6 +45,7 @@ export function ComposeMessage({ conversation }: any) {
       textarea.addEventListener("input", handleInput);
       adjustTextareaHeight();
     }
+    
     return () => {
       if (textarea) {
         textarea.removeEventListener("input", handleInput);
@@ -67,26 +66,41 @@ export function ComposeMessage({ conversation }: any) {
     setPreviewUrl(null);
   };
 
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+    
+    if (!formRef.current) return;
+    
+    const formData = new FormData(formRef.current);
+    const content = formData.get("content")?.toString().trim();
+
+    if (!content || content.length < 1) {
+      setCanMessage(false);
+      return;
+    }
+
+    if (selectedImage) {
+      formData.append("image", selectedImage);
+    }
+
+    try {
+      const newMessage = await addMessage(formData, conversation.id, reciver);
+
+      addNewMessage(newMessage);
+
+      formRef.current.reset();
+      setCanMessage(false);
+      setSelectedImage(null);
+      setPreviewUrl(null);
+    } catch (error) {
+      console.error("Error al enviar el mensaje:", error);
+    }
+  };
+
   return (
     <form
       ref={formRef}
-      onSubmit={async (event) => {
-        event.preventDefault();
-        const formData = new FormData(formRef.current!);
-        const content = formData.get("content")?.toString().trim();
-        if (!content || content.length < 1) {
-          setCanMessage(false);
-          return;
-        }
-        if (selectedImage) {
-          formData.append("image", selectedImage);
-        }
-        await addMessage(formData, conversation.id, reciver);
-        formRef.current?.reset();
-        setCanMessage(false);
-        setSelectedImage(null);
-        setPreviewUrl(null);
-      }}
+      onSubmit={handleSubmit}
       className="flex flex-1 flex-row w-full p-1 items-center gap-2 border-b-2 bg-zinc-800 border-zinc-700 rounded-2xl"
     >
       <div className="flex flex-1 flex-col h-auto w-full">
@@ -114,7 +128,6 @@ export function ComposeMessage({ conversation }: any) {
               className="absolute inset-0 w-full h-full z-10 opacity-0 cursor-pointer"
               onChange={handleImageChange}
             />
-
             <IconPhoto className="size-5 text-sky-500 z-0" />
           </div>
           <textarea
@@ -128,9 +141,9 @@ export function ComposeMessage({ conversation }: any) {
           <button
             disabled={!canMessage}
             type="submit"
-            className="disabled:opacity-40 disabled:pointer-events-none rounded-full font-bold"
+            className={`disabled:opacity-40 disabled:pointer-events-none rounded-full font-bold`}
           >
-            {pending ? <IconSend2 /> : <IconSend2 />}
+            <IconSend2 />
           </button>
         </div>
       </div>

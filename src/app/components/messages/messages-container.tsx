@@ -7,12 +7,16 @@ import { IconLoader2 } from "@tabler/icons-react";
 import Conversations from "./conversations";
 import Chat from "./chat";
 import { ComposeMessage } from "./compose-message";
+import { createClient } from "@/app/utils/supabase/client";
 
-export default function MenssagesContainer() {
+const supabase = createClient();
+
+export default function MessagesContainer() {
   const [user, setUser] = useState<any>(null);
   const [conversations, setConversations] = useState<any[]>([]);
   const [activeConversation, setActiveConversation] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [messages, setMessages] = useState<any[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -32,6 +36,36 @@ export default function MenssagesContainer() {
     fetchData();
   }, []);
 
+  const addNewMessage = (newMessage: any) => {
+    setMessages((prevMessages) => {
+      const exists = prevMessages.some((msg) => msg.id === newMessage.id);
+      if (!exists) {
+        return [...prevMessages, newMessage];
+      }
+      return prevMessages;
+    });
+    console.log(messages)
+  };
+
+  useEffect(() => {
+    const subscription = supabase
+      .channel("messages")
+      .on(
+        "postgres_changes",
+        { event: "INSERT", schema: "public", table: "messages" },
+        (payload) => {
+          if (payload.new.conversation_id === activeConversation?.id) {
+            addNewMessage(payload.new);
+          }
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(subscription);
+    };
+  }, [activeConversation]);
+
   return (
     <section className="bg-black flex w-full">
       <section className="text-left max-w-[500px] flex flex-col h-auto w-full bg-black pt-2 border border-t-0 border-zinc-700">
@@ -48,12 +82,15 @@ export default function MenssagesContainer() {
           />
         )}
       </section>
-      <aside className="bg-black w-[500px] h-screen hidden lg:flex flex-col relative border-r border-zinc-700">
+      <aside className="bg-black w-[500px] overflow-auto h-screen hidden lg:flex flex-col relative border-r border-zinc-700">
         {activeConversation ? (
           <>
-            <Chat conversationId={activeConversation?.id} />
+            <Chat conversationId={activeConversation?.id} messages={messages} />
             <div className="bg-black p-2 border-t border-zinc-700">
-              <ComposeMessage conversation={activeConversation} />
+              <ComposeMessage
+                conversation={activeConversation}
+                addNewMessage={addNewMessage}
+              />
             </div>
           </>
         ) : (
