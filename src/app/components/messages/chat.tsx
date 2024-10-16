@@ -53,28 +53,30 @@ function Chat({
   }, [messages]);
 
   return (
-    <div className="p-4 h-auto overflow-auto flex flex-col justify-end gap-2">
-      {loading ? (
-        <IconLoader2 className="animate-spin text-sky-500" />
-      ) : (
-        <>
-          {localMessages.length > 0 ? (
-            localMessages.map((message) => {
-              const formatted = formattedChat(message.created_at);
-              return (
-                <ChatCard
-                  key={message?.id}
-                  message={message}
-                  formatted={formatted}
-                  user={user}
-                />
-              );
-            })
-          ) : (
-            <p>No hay mensajes en esta conversación.</p>
-          )}
-        </>
-      )}
+    <div className=" h-full overflow-auto flex flex-col justify-end gap-2">
+      <div className="p-4 overflow-auto max-h-full scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-gray-800" >
+        {loading ? (
+          <IconLoader2 className="animate-spin text-sky-500" />
+        ) : (
+          <>
+            {localMessages.length > 0 ? (
+              localMessages.map((message) => {
+                const formatted = formattedChat(message.created_at);
+                return (
+                  <ChatCard
+                    key={message?.id}
+                    message={message}
+                    formatted={formatted}
+                    user={user}
+                  />
+                );
+              })
+            ) : (
+              <p>No hay mensajes en esta conversación.</p>
+            )}
+          </>
+        )}
+      </div>
     </div>
   );
 }
