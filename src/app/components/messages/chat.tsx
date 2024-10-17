@@ -54,7 +54,7 @@ function Chat({
 
   return (
     <div className=" h-full overflow-auto flex flex-col justify-end gap-2 mb-20">
-      <div className="p-2 lg:p-4 overflow-auto max-h-full scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-gray-800" >
+      <div className="p-2 pt-12 lg:p-4 overflow-auto max-h-full scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-gray-800" >
         {loading ? (
           <IconLoader2 className="animate-spin text-sky-500" />
         ) : (

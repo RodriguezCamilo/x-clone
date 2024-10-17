@@ -112,13 +112,13 @@ export default function MessagesContainer() {
         )}
       </section>
       <aside
-        className={`bg-black w-screen lg:w-[500px] z-50 h-screen ${
+        className={`bg-black w-screen lg:w-[500px] z-50 h-[90vh] lg:h-screen ${
           activeConversation ? "flex" : "hidden"
         } lg:flex flex-col relative border-r border-zinc-700`}
       >
         {activeConversation ? (
           <>
-            <div className="absolute top-0 w-full flex flex-1 lg:hidden backdrop-blur-sm m-2 gap-8">
+            <div className="absolute top-0 w-full flex flex-1 lg:hidden backdrop-blur-sm mt-0 p-1 m-2 gap-8">
               <button
                 className="rounded-full size-8 hover:bg-zinc-700 transition flex items-center justify-center"
                 onClick={() => setActiveConversation(null)}
