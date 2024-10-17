@@ -112,7 +112,7 @@ export default function MessagesContainer() {
         )}
       </section>
       <aside
-        className={`bg-black w-screen lg:w-[500px] z-50 h-[80vh] lg:h-screen ${
+        className={`bg-black w-screen lg:w-[500px] z-50 h-[90vh] lg:h-screen ${
           activeConversation ? "flex" : "hidden"
         } lg:flex flex-col relative border-r border-zinc-700`}
       >
