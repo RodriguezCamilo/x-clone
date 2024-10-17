@@ -74,7 +74,7 @@ export function ComposeMessage({ conversation, addNewMessage }: any) {
     const formData = new FormData(formRef.current);
     const content = formData.get("content")?.toString().trim();
 
-    if (!content || content.length < 1) {
+    if (!content || content.length < 0) {
       setCanMessage(false);
       return;
     }
