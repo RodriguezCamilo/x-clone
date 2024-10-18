@@ -12,13 +12,13 @@ export async function DataUser() {
   return { user: data.user, error: null };
 }
 
-export async function TableUser(u : string | any) {
+export async function TableUser(u : string | null | undefined) {
 
   const supabase = createClient();
 
   const { data: user } = await supabase
     .from("users")
-    .select("id, avatar_url, user_name, name, created_at, bio, website, location, banner_url")
+    .select("*")
     .eq("id", u)
     .single();
 

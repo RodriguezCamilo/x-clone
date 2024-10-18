@@ -2,16 +2,17 @@
 
 import { PostCard } from "@/app/components/posts/post-card";
 import { type Posts, PostWithExtras } from "../../types/posts";
+import { type Users } from "../../types/posts";
 import { IconLoader2 } from "@tabler/icons-react";
 import { useEffect, useState } from "react";
 import { fetchMorePosts } from "@/app/actions/post-action";
 
 export default function PostsList({
   posts,
-  userAvatar,
+  loggedUser,
 }: {
   posts: Posts[] | null;
-  userAvatar: string;
+  loggedUser: Users | null;
 }) {
   const [postsData, setPostsData] = useState<PostWithExtras[]>(posts || []);
   const [loading, setLoading] = useState(false);
@@ -111,7 +112,7 @@ export default function PostsList({
             response_to={response_to}
             likeStatus={likeStatus}
             isReposted={isReposted}
-            userAvatar={userAvatar}
+            loggedUser={loggedUser}
             imageUrl={image_url}
           />
         );

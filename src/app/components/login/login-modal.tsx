@@ -22,7 +22,7 @@ export function LoginModal({ isLoginOpen, closeModal }: LoginModalProps) {
 
     setErrorMessage(login);
 
-    setLoading(false)
+    setLoading(false);
   };
 
   return (

@@ -16,7 +16,7 @@ export async function emailLogin(formData: FormData) {
   const { error } = await supabase.auth.signInWithPassword(data);
 
   if (error) {
-    return ("Usuario o contraseña incorrectos.");
+    return "Usuario o contraseña incorrectos.";
   }
 
   revalidatePath("/", "layout");
@@ -26,13 +26,19 @@ export async function emailLogin(formData: FormData) {
 export async function signup(formData: FormData) {
   const supabase = createClient();
 
-  const user = formData.get("user") as string;
-  const email = formData.get("email") as string;
-  const password = formData.get("password") as string;
-  const name = formData.get("name") as string;
+  const user = (formData.get("user") as string).trim();
+  const email = (formData.get("email") as string).trim();
+  const password = (formData.get("password") as string).trim();
+  const name = (formData.get("name") as string).trim();
 
   if (!user || !email || !password || !name) {
     return { error: "Todos los campos son obligatorios." };
+  }
+
+  if (/\s/.test(user)) {
+    return {
+      error: "El nombre de usuario no puede contener espacios en blanco.",
+    };
   }
 
   const { data: existingUser, error: queryError } = await supabase

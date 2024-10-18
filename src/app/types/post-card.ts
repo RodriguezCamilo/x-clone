@@ -1,3 +1,5 @@
+import { type Users } from "./users";
+
 export interface PostCardProps {
   userId: string;
   userName: string;
@@ -12,6 +14,6 @@ export interface PostCardProps {
   response_to: any | null;
   likeStatus?: number;
   isReposted?: boolean;
-  userAvatar?: string;
+  loggedUser?: Users | null;
   imageUrl?: string | null;
 }

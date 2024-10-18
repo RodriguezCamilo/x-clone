@@ -44,6 +44,8 @@ export default async function PerfilPage({ params }: PerfilPageProps) {
     .single();
 
   if (userError) {
+    console.log(id)
+    console.log(userError)
     redirect("/");
   }
   const userId = user.id;
@@ -179,7 +181,7 @@ export default async function PerfilPage({ params }: PerfilPageProps) {
                 </div>
               }
             >
-              <PostsList posts={posts} userAvatar={mainUser?.avatar_url} />
+              <PostsList posts={posts} loggedUser={mainUser || {id: null}} />
             </Suspense>
           </section>
         </section>

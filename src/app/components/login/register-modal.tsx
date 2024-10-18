@@ -56,6 +56,8 @@ export function RegisterModal({
           type="text"
           required
           placeholder="Usuario"
+          pattern="^(?!.*\s).*$"
+          title="El nombre de usuario no puede contener espacios."
         />
         <input
           className="bg-black h-14 border rounded border-zinc-500/50 p-2 text-zinc-500/50 outline-sky-500 "

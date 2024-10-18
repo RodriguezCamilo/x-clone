@@ -28,21 +28,16 @@ export default async function PostPage({ params }: PostPageProps) {
 
   const { data: post, error: postError } = await supabase
     .from("posts")
-    .select(
-      "*, user:users(name, user_name, avatar_url)"
-    )
+    .select("*, user:users(name, user_name, avatar_url)")
     .eq("id", id)
     .single();
 
-    const { data: posts, error: postsError } = await supabase
+  const { data: posts, error: postsError } = await supabase
     .from("posts")
-    .select(
-      "*, user:users(name, user_name, avatar_url)"
-    )
+    .select("*, user:users(name, user_name, avatar_url)")
     .eq("response_to", id)
     .order("created_at", { ascending: false })
-    .limit(6)
-  
+    .limit(6);
 
   const postAvatar = post.user.avatar_url;
   const LikeStatus = await fetchLikeStatus({ post_id: post.id });
@@ -132,18 +127,22 @@ export default async function PostPage({ params }: PostPageProps) {
               </div>
             </main>
             <footer className="flex flex-row justify-start gap-24 p-2 border border-x-0 border-t-0 border-zinc-700">
-              <CommentButton post_id={id} userAvatar={userAvatar} />
-              <RepostDropdown
-                userAvatar={userAvatar}
-                post_id={id}
-                repost_count={post.repost_count}
-                is_reposted={isReposted}
-              />
-              <LikeButton
-                like_status={LikeStatus}
-                post_id={id}
-                likes_count={post.likes_count}
-              />
+              {user && (
+                <>
+                  <CommentButton post_id={id} userAvatar={userAvatar} />
+                  <RepostDropdown
+                    userAvatar={userAvatar}
+                    post_id={id}
+                    repost_count={post.repost_count}
+                    is_reposted={isReposted}
+                  />
+                  <LikeButton
+                    like_status={LikeStatus}
+                    post_id={id}
+                    likes_count={post.likes_count}
+                  />
+                </>
+              )}
             </footer>
           </Suspense>
           {user && <ComentPost avatarUrl={userAvatar} post_id={id} />}

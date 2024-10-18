@@ -53,7 +53,7 @@ export default async function Home() {
               </div>
             }
           >
-            <PostsList posts={posts} userAvatar={user?.avatar_url} />
+            <PostsList posts={posts} loggedUser={user} />
             <div className="flex justify-center items-center w-full p-4">
               <IconLoader2 className="animate-spin" />
             </div>
