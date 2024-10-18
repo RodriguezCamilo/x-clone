@@ -44,8 +44,8 @@ export default async function PerfilPage({ params }: PerfilPageProps) {
     .single();
 
   if (userError) {
-    console.log(id)
-    console.log(userError)
+    console.log(id);
+    console.log(userError);
     redirect("/");
   }
   const userId = user.id;
@@ -109,11 +109,7 @@ export default async function PerfilPage({ params }: PerfilPageProps) {
                       alt="Imagen de perfil"
                     />
                   ) : (
-                    <IconUser
-                      height={28}
-                      width={28}
-                      className="rounded-full bg-zinc-600  border-4 border-black"
-                    />
+                    <IconUser className="rounded-full h-36 w-36 bg-zinc-600  border-4 border-black" />
                   )}
                 </div>
               </div>
@@ -181,7 +177,10 @@ export default async function PerfilPage({ params }: PerfilPageProps) {
                 </div>
               }
             >
-              <PostsList posts={posts} loggedUser={mainUser || {id: "null"}} />
+              <PostsList
+                posts={posts}
+                loggedUser={mainUser || { id: "null" }}
+              />
             </Suspense>
           </section>
         </section>
