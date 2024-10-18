@@ -13,6 +13,6 @@ export interface PostWithExtras extends Posts {
     resTo?: any; 
     likeStatus?: number; 
     isReposted?: boolean;
-    userAvatar?: string; 
+    loggedUser?: Users;
     imageUrl?: string;
   }

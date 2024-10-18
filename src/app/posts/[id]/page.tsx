@@ -153,7 +153,7 @@ export default async function PostPage({ params }: PostPageProps) {
               </div>
             }
           >
-            <ResponseList posts={posts} postId={id} />
+            <ResponseList posts={posts} postId={id} loggedUser={user} />
           </Suspense>
         </article>
       </main>

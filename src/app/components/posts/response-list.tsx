@@ -5,13 +5,16 @@ import { type Posts, PostWithExtras } from "../../types/posts";
 import { IconLoader2 } from "@tabler/icons-react";
 import { useEffect, useState } from "react";
 import { fetchMoreResponses } from "@/app/actions/post-action";
+import { Users } from "@/app/types/users";
 
 export default function ResponseList({
   posts,
   postId,
+  loggedUser
 }: {
   posts: Posts[] | null;
   postId: string;
+  loggedUser: Users
 }) {
   const [postsData, setPostsData] = useState<PostWithExtras[]>(posts || []);
   const [loading, setLoading] = useState(false);
@@ -87,7 +90,6 @@ export default function ResponseList({
           repost_count,
           likeStatus,
           isReposted,
-          userAvatar,
           image_url,
         } = post;
 
@@ -114,7 +116,7 @@ export default function ResponseList({
             response_to={null}
             likeStatus={likeStatus}
             isReposted={isReposted}
-            userAvatar={userAvatar}
+            loggedUser={loggedUser}
             imageUrl={image_url}
           />
         );

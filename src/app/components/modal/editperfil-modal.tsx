@@ -42,7 +42,7 @@ export default function EditModal({
       }}
       className="fixed inset-0 flex justify-center z-50 bg-zinc-700/50"
     >
-      <div className="bg-black my-12 h-3/4 lg:h-3/4 p-4 rounded-2xl shadow-lg w-full md:w-2/3 lg:w-1/3 flex flex-col gap-10">
+      <div className="bg-black overflow-auto lg:my-12 h-full lg:h-3/4 p-4 rounded-2xl shadow-lg w-full md:w-2/3 lg:w-1/3 flex flex-col gap-10">
         <div className="flex flex-row items-center justify-between w-full">
           <button onClick={onClose}>
             <IconX size={22} />
