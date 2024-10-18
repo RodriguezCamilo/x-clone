@@ -16,7 +16,7 @@ export async function emailLogin(formData: FormData) {
   const { error } = await supabase.auth.signInWithPassword(data);
 
   if (error) {
-    redirect("/error");
+    return ("Usuario o contraseña incorrectos.");
   }
 
   revalidatePath("/", "layout");
