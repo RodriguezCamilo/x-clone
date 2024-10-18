@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 import PostsList from "@/app/components/posts/posts-list";
 import { ComposePost } from "./components/posts/compose-post";
 import { createClient } from "@/app/utils/supabase/server";
-import {DataUser, TableUser} from "./utils/supabase/user";
+import { DataUser, TableUser } from "./utils/supabase/user";
 import { Suspense } from "react";
 import { IconLoader2 } from "@tabler/icons-react";
 import NavBar from "./components/navbar/navbar";
@@ -20,16 +20,18 @@ export default async function Home() {
     redirect("/auth/login");
   }
 
-  const user = await TableUser(data.user.id)
+  const user = await TableUser(data.user.id);
 
   const { data: posts, error } = await supabase
-  .from("posts")
-  .select(`
+    .from("posts")
+    .select(
+      `
     *,
     user:users(id, name, user_name, avatar_url)
-  `)
-  .order("created_at", { ascending: false })
-  .limit(10);
+  `
+    )
+    .order("created_at", { ascending: false })
+    .limit(10);
 
   return (
     <body className="min-h-screen w-full flex flex-col-reverse md:flex-row text-white bg-black">
@@ -51,7 +53,7 @@ export default async function Home() {
               </div>
             }
           >
-            <PostsList posts={posts} />
+            <PostsList posts={posts} userAvatar={user?.avatar_url} />
             <div className="flex justify-center items-center w-full p-4">
               <IconLoader2 className="animate-spin" />
             </div>

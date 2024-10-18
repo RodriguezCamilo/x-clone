@@ -9,7 +9,7 @@ export default function NewPostModal({
   userAvatar,
   onClose,
 }: {
-  userAvatar: any;
+  userAvatar: string;
   onClose: () => void;
 }) {
   const formRef = useRef<HTMLFormElement>(null);

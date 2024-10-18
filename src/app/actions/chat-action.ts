@@ -64,7 +64,7 @@ export const getMessagesByConversation = async (conversationId: string) => {
 
 export const addMessage = async (
   formData: FormData,
-  conversationId: string,
+  conversationId: string | undefined,
   reciver: string | undefined
 ) => {
   const content = formData.get("content")?.toString().trim();

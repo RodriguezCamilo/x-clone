@@ -5,8 +5,9 @@ import { IconX, IconPhoto, IconSend2 } from "@tabler/icons-react";
 import { addMessage } from "@/app/actions/chat-action";
 import { DataUser } from "@/app/utils/supabase/user";
 import { getUser } from "@/app/actions/user-action";
+import { Message, Conversation } from "@/app/types/messages";
 
-export function ComposeMessage({ conversation, addNewMessage }: any) {
+export function ComposeMessage({ conversation, addNewMessage }: {conversation: Conversation | null, addNewMessage: any}) {
   const formRef = useRef<HTMLFormElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [canMessage, setCanMessage] = useState<boolean>(false);
@@ -84,7 +85,7 @@ export function ComposeMessage({ conversation, addNewMessage }: any) {
     }
 
     try {
-      const newMessage = await addMessage(formData, conversation.id, reciver);
+      const newMessage = await addMessage(formData, conversation?.id, reciver);
 
       addNewMessage(newMessage);
 
@@ -94,6 +95,12 @@ export function ComposeMessage({ conversation, addNewMessage }: any) {
       setPreviewUrl(null);
     } catch (error) {
       console.error("Error al enviar el mensaje:", error);
+    }
+  };
+
+  const handleKeyDown = (event: React.KeyboardEvent) => {
+    if (event.key === "Enter" && canMessage) {
+      handleSubmit(event as any);
     }
   };
 
@@ -136,6 +143,7 @@ export function ComposeMessage({ conversation, addNewMessage }: any) {
             rows={1}
             className="w-full p-2 bg-transparent placeholder-white/50 resize-none focus:border-0 focus:outline-none"
             placeholder="Escribe un mensaje"
+            onKeyDown={handleKeyDown}
           ></textarea>
 
           <button

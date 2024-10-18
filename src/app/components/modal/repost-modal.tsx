@@ -9,7 +9,7 @@ export default function PostModal({
   onClose,
 }: {
   post_id: any;
-  userAvatar: any;
+  userAvatar: string;
   onClose: () => void;
 }) {
   const formRef = useRef<HTMLFormElement>(null);
@@ -58,7 +58,7 @@ export default function PostModal({
         formRef.current?.reset();
         setContentLength(0);
         setLoading(false);
-        onClose()
+        onClose();
       }}
       className="fixed inset-0 flex justify-center z-50 bg-zinc-700/50"
     >
@@ -69,7 +69,7 @@ export default function PostModal({
         <div className="w-full flex flex-row mt-4">
           {userAvatar ? (
             <img
-              src={userAvatar.avatar_url}
+              src={userAvatar}
               className="rounded-full size-10"
               alt="Imagen de perfil"
             />

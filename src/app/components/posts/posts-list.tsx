@@ -6,13 +6,19 @@ import { IconLoader2 } from "@tabler/icons-react";
 import { useEffect, useState } from "react";
 import { fetchMorePosts } from "@/app/actions/post-action";
 
-export default function PostsList({ posts} : { posts: Posts[] | null }) {
+export default function PostsList({
+  posts,
+  userAvatar,
+}: {
+  posts: Posts[] | null;
+  userAvatar: string;
+}) {
   const [postsData, setPostsData] = useState<PostWithExtras[]>(posts || []);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
 
-  useEffect(() => { 
+  useEffect(() => {
     if (posts) {
       setPostsData(posts);
     }
@@ -20,30 +26,31 @@ export default function PostsList({ posts} : { posts: Posts[] | null }) {
 
   const loadMorePosts = async () => {
     if (loading || !hasMore) return;
-  
+
     setLoading(true);
     const { posts: newPosts, error } = await fetchMorePosts(10, page * 10);
-  
+
     if (error) {
       setHasMore(false);
     } else {
-      setPostsData(prevPosts => {
-        const uniquePosts = newPosts.filter(newPost =>
-          !prevPosts.some(existingPost => existingPost.id === newPost.id)
+      setPostsData((prevPosts) => {
+        const uniquePosts = newPosts.filter(
+          (newPost) =>
+            !prevPosts.some((existingPost) => existingPost.id === newPost.id)
         );
-        
+
         if (uniquePosts.length < 10) {
           setHasMore(false);
         }
 
         return [...prevPosts, ...uniquePosts];
       });
-  
-      setPage(prev => prev + 1);
+
+      setPage((prev) => prev + 1);
     }
     setLoading(false);
   };
-  
+
   useEffect(() => {
     const handleScroll = () => {
       if (
@@ -78,7 +85,6 @@ export default function PostsList({ posts} : { posts: Posts[] | null }) {
           response_to,
           likeStatus,
           isReposted,
-          userAvatar,
           image_url,
         } = post;
 
@@ -88,12 +94,12 @@ export default function PostsList({ posts} : { posts: Posts[] | null }) {
           name: fullName,
           avatar_url: avatarUrl,
         } = user;
-        
+
         return (
           <PostCard
             key={id}
             id={id}
-            userId = {userId}
+            userId={userId}
             userName={userName ?? "Unknown"}
             fullName={fullName ?? "Unknown"}
             avatarUrl={avatarUrl ?? "Unknown"}

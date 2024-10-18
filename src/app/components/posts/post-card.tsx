@@ -35,9 +35,9 @@ export function PostCard({
   const [formattedCreatedAtMobile, setFormattedCreatedAtMobile] =
     useState<string>();
 
-  const handleDate = async () => {
-    const formatted = await formattedDate(createdAt);
-    const formattedMobile = await formattedDateMobile(createdAt);
+  const handleDate = () => {
+    const formatted = formattedDate(createdAt);
+    const formattedMobile = formattedDateMobile(createdAt);
 
     setFormattedCreatedAt(formatted);
     setFormattedCreatedAtMobile(formattedMobile);
