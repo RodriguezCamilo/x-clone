@@ -6,7 +6,7 @@ import { IconUser } from "@tabler/icons-react";
 import LikeButton from "../like/like";
 import RepostDropdown from "../repost/repost";
 import { RepostCard } from "./repost-card";
-import { PostCardProps } from "./types";
+import { PostCardProps } from "@/app/types/post-card";
 import { responseTo } from "../../actions/response-to";
 import { useEffect, useState } from "react";
 import { formattedDate, formattedDateMobile } from "@/app/utils/format-date";

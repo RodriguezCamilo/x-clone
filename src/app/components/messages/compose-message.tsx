@@ -9,10 +9,10 @@ import { getUser } from "@/app/actions/user-action";
 export function ComposeMessage({ conversation, addNewMessage }: any) {
   const formRef = useRef<HTMLFormElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
-  const [canMessage, setCanMessage] = useState(false);
+  const [canMessage, setCanMessage] = useState<boolean>(false);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
-  const [reciver, setReciver] = useState<any>();
+  const [reciver, setReciver] = useState<string | undefined>();
 
   useEffect(() => {
     async function getAuthUser() {

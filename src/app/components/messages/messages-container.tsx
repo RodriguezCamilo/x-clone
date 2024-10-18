@@ -10,26 +10,30 @@ import { ComposeMessage } from "./compose-message";
 import { createClient } from "@/app/utils/supabase/client";
 import Link from "next/link";
 import { getUser } from "@/app/actions/user-action";
+import { Message, Conversation } from "@/app/types/messages";
 
 const supabase = createClient();
 
 export default function MessagesContainer() {
   const [user, setUser] = useState<any>(null);
-  const [conversations, setConversations] = useState<any[]>([]);
-  const [activeConversation, setActiveConversation] = useState<any>(null);
+  const [conversations, setConversations] = useState<Conversation[]>([]);
+  const [activeConversation, setActiveConversation] =
+    useState<Conversation | null>(null);
   const [loading, setLoading] = useState(true);
-  const [messages, setMessages] = useState<any[]>([]);
+  const [messages, setMessages] = useState<Message[]>([]);
   const [otherUser, setOtherUser] = useState<any>();
 
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
 
-      const currentUser = await DataUser();
-      setUser(currentUser);
+      const currentUserResult = await DataUser();
+      if (currentUserResult.user) {
+        setUser(currentUserResult.user);
+      }
 
-      if (currentUser?.user?.id) {
-        const convos = await getConversations(currentUser.user.id);
+      if (currentUserResult.user?.id) {
+        const convos = await getConversations(currentUserResult.user.id);
         setConversations(convos);
       }
 
@@ -39,7 +43,7 @@ export default function MessagesContainer() {
     fetchData();
   }, []);
 
-  const addNewMessage = (newMessage: any) => {
+  const addNewMessage = (newMessage: Message) => {
     setMessages((prevMessages) => {
       const exists = prevMessages.some((msg) => msg.id === newMessage.id);
       if (!exists) {
@@ -57,7 +61,7 @@ export default function MessagesContainer() {
         { event: "INSERT", schema: "public", table: "messages" },
         (payload) => {
           if (payload.new.conversation_id === activeConversation?.id) {
-            addNewMessage(payload.new);
+            addNewMessage(payload.new as Message);
           }
         }
       )
@@ -70,11 +74,11 @@ export default function MessagesContainer() {
 
   useEffect(() => {
     const getNameConver = async () => {
-      if (user.user?.id == activeConversation.user_1) {
-        const u = await getUser(activeConversation.user_2);
+      if (user.user?.id == activeConversation?.user_1) {
+        const u = await getUser(activeConversation?.user_2);
         setOtherUser(u);
-      } else if (user.user?.id == activeConversation.user_2) {
-        const u = await getUser(activeConversation.user_1);
+      } else if (user.user?.id == activeConversation?.user_2) {
+        const u = await getUser(activeConversation?.user_1);
         setOtherUser(u);
       }
     };
@@ -126,7 +130,15 @@ export default function MessagesContainer() {
                 <IconArrowLeft />
               </button>
               <div className="font-bold text-lg flex items-center gap-2">
-                {otherUser?.avatar_url ? <img src={otherUser?.avatar_url} alt="Imagen de perfil" className="rounded-full size-7" /> : <div></div>}
+                {otherUser?.avatar_url ? (
+                  <img
+                    src={otherUser?.avatar_url}
+                    alt="Imagen de perfil"
+                    className="rounded-full size-7"
+                  />
+                ) : (
+                  <div></div>
+                )}
                 {otherUser?.name}
               </div>
             </div>

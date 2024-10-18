@@ -7,15 +7,16 @@ import { formattedChat } from "@/app/utils/format-date";
 import { IconLoader2 } from "@tabler/icons-react";
 import { DataUser } from "@/app/utils/supabase/user";
 import { getUser } from "@/app/actions/user-action";
+import { Message } from "@/app/types/messages";
 
 function Chat({
   conversationId,
   messages,
 }: {
   conversationId: string;
-  messages: any[];
+  messages: Message[];
 }) {
-  const [localMessages, setLocalMessages] = useState<any[]>(messages);
+  const [localMessages, setLocalMessages] = useState<Message[]>(messages);
   const [loading, setLoading] = useState<boolean>(true);
   const [user, setUser] = useState<any>();
 

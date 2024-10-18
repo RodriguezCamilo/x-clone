@@ -3,11 +3,18 @@ import { formattedDateMobile } from "@/app/utils/format-date";
 import { IconUser, IconLoader2 } from "@tabler/icons-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { OtherUser, LastMessage } from "@/app/types/messages";
 
-function ConversationCard({ id, user, last_message }: any) {
-  const [otherUser, setOtherUser] = useState<any>();
-  const [lastMessage, setLastMessage] = useState<any>();
-  const [formattedTime, setFormattedTime] = useState<any>();
+function ConversationCard({
+  user,
+  last_message,
+}: {
+  user: string;
+  last_message: string;
+}) {
+  const [otherUser, setOtherUser] = useState<OtherUser | null>();
+  const [lastMessage, setLastMessage] = useState<LastMessage | null>();
+  const [formattedTime, setFormattedTime] = useState<string>();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -30,9 +37,7 @@ function ConversationCard({ id, user, last_message }: any) {
   }, []);
 
   return (
-    <article
-      className="w-full p-4 mt-4 hover:bg-zinc-700 transition flex gap-2"
-    >
+    <article className="w-full p-4 mt-4 hover:bg-zinc-700 transition flex gap-2">
       {loading ? (
         <div className="flex justify-center items-center w-full p-4">
           <IconLoader2 className="animate-spin text-sky-500" />

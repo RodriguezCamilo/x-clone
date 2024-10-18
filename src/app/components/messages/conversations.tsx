@@ -1,14 +1,15 @@
 
 import ConversationCard from "./conversation-card";
+import { Conversation } from "@/app/types/messages";
 
 function Conversations({
   conversations,
   currentUserId,
   onSelectConversation,
 }: {
-  conversations: any[];
+  conversations: Conversation[];
   currentUserId: string | undefined;
-  onSelectConversation: (conversationId: string) => void;
+  onSelectConversation: (conversation: Conversation) => void;
 }) {
   if (!Array.isArray(conversations)) {
     return <p>No conversations found.</p>;
@@ -16,7 +17,7 @@ function Conversations({
 
   return (
     <>
-      {conversations.map((con: any) => {
+      {conversations.map((con) => {
         const { id, user_1, user_2, last_message } = con;
         const otherUserId = user_1 === currentUserId ? user_2 : user_1;
 

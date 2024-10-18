@@ -1,7 +1,8 @@
 import { IconLoader2 } from "@tabler/icons-react";
 import { Suspense } from "react";
+import { Message } from "@/app/types/messages";
 
-function ChatCard({ message, formatted, user }: any) {
+function ChatCard({ message, formatted, user }: {message: Message, formatted: string, user: any}) {
   return (
     <Suspense fallback={<IconLoader2 className="animate-spin text-sky-500" />}>
       <div

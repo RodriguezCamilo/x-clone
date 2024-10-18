@@ -66,15 +66,15 @@ export const getMessagesByConversation = async (conversationId: string) => {
 export const addMessage = async (
   formData: FormData,
   conversationId: string,
-  reciver: string
+  reciver: string | undefined
 ) => {
   const content = formData.get("content")?.toString().trim();
   const imageFile = formData.get("image") as File | null;
 
   if (!content && !imageFile) return;
 
-  const { data: userData, error: userError } = await supabase.auth.getUser();
-  if (userError || !userData?.user) {
+  const userData = await DataUser()
+  if (!userData?.user) {
     return;
   }
 
@@ -160,7 +160,6 @@ export const newConversation = async (otherUserID: string) => {
   const existConver = await getConversation(otherUserID);
 
   if (existConver) {
-    console.log("La conversación ya existe");
     redirect("/mensajes");
     return;
   }
