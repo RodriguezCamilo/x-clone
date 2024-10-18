@@ -11,7 +11,7 @@ import {
 } from "@tabler/icons-react";
 import Link from "next/link";
 import { formattedMonthYear } from "@/app/utils/format-date";
-import { DataUser } from "@/app/utils/supabase/user";
+import { DataUser, TableUser } from "@/app/utils/supabase/user";
 import PostsList from "@/app/components/posts/posts-list";
 import { fetchFollowStatus } from "../../actions/follow-action";
 import FollowButton from "@/app/components/follows/follow-button";
@@ -32,6 +32,8 @@ export default async function PerfilPage({ params }: PerfilPageProps) {
   const supabase = createClient();
 
   const LogedUser = await DataUser();
+
+  const mainUser = await TableUser(LogedUser?.user?.id);
 
   const { data: user, error: userError } = await supabase
     .from("users")
@@ -177,7 +179,7 @@ export default async function PerfilPage({ params }: PerfilPageProps) {
                 </div>
               }
             >
-              <PostsList posts={posts} />
+              <PostsList posts={posts} userAvatar={mainUser?.avatar_url} />
             </Suspense>
           </section>
         </section>
