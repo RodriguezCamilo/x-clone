@@ -132,24 +132,22 @@ export function PostCard({
           {repost && <RepostCard repost={repost} />}
         </main>
         <footer className="flex flex-row w-full justify-between px-4 md:px-0 md:justify-start items-center md:gap-24 pt-2">
-          {loggedUser &&
+          {loggedUser && loggedUser.id !== "null" && (
             <>
               <CommentButton post_id={id} userAvatar={loggedUser?.avatar_url} />
-
               <RepostDropdown
                 post_id={id}
                 repost_count={repost_count}
                 is_reposted={isReposted}
                 userAvatar={loggedUser?.avatar_url}
               />
-
               <LikeButton
                 likes_count={likesCount}
                 post_id={id}
                 like_status={likeStatus}
               />
             </>
-          }
+          )}
         </footer>
       </div>
     </article>

@@ -181,7 +181,7 @@ export default async function PerfilPage({ params }: PerfilPageProps) {
                 </div>
               }
             >
-              <PostsList posts={posts} loggedUser={mainUser || {id: null}} />
+              <PostsList posts={posts} loggedUser={mainUser || {id: "null"}} />
             </Suspense>
           </section>
         </section>
