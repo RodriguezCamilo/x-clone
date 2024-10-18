@@ -61,7 +61,7 @@ export default async function PerfilPage({ params }: PerfilPageProps) {
   const isFollowing = await fetchFollowStatus(user.id);
 
   return (
-    <body className="min-h-screen w-full flex flex-col-reverse md:flex-row text-white bg-black">
+    <body className="min-h-screen w-full flex md:flex-row text-white bg-black">
       <header className="z-30 md:w-[8%] md:min-w-[8%] xl:min-w-[30%]">
         <NavBar />
       </header>

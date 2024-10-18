@@ -15,7 +15,8 @@ export default function PostModal({
   const formRef = useRef<HTMLFormElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [contentLength, setContentLength] = useState(0);
-  const maxCharacters = 280; 
+  const [loading, setLoading] = useState<boolean>(false);
+  const maxCharacters = 280;
 
   useEffect(() => {
     const textarea = textareaRef.current;
@@ -30,7 +31,7 @@ export default function PostModal({
       if (textarea) {
         const content = textarea.value.slice(0, maxCharacters);
         textarea.value = content;
-        setContentLength(content.length); 
+        setContentLength(content.length);
         adjustTextareaHeight();
       }
     };
@@ -50,15 +51,18 @@ export default function PostModal({
     <form
       ref={formRef}
       onSubmit={async (event) => {
+        setLoading(true);
         event.preventDefault();
         const formData = new FormData(formRef.current!);
         await handleQuote({ formData, post_id });
         formRef.current?.reset();
         setContentLength(0);
+        setLoading(false);
+        onClose()
       }}
       className="fixed inset-0 flex justify-center z-50 bg-zinc-700/50"
     >
-      <div className="bg-black my-12 h-2/3 lg:h-1/3 p-4 rounded-2xl shadow-lg w-full md:w-2/3 lg:w-1/3 flex flex-col">
+      <div className="bg-black my-12 h-fit max-h-screen min-h-1/3 lg:min-h-1/3 p-4 rounded-2xl shadow-lg w-full md:w-2/3 lg:w-1/3 flex flex-col">
         <button onClick={onClose}>
           <IconX size={22} />
         </button>
@@ -86,6 +90,7 @@ export default function PostModal({
               {contentLength}/{maxCharacters}
             </div>
             <button
+              disabled={loading}
               type="submit"
               className="bg-sky-500 disabled:opacity-40 disabled:pointer-events-none rounded-full px-5 py-2 font-bold self-end"
             >

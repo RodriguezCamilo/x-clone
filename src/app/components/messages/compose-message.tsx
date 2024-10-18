@@ -37,7 +37,7 @@ export function ComposeMessage({ conversation, addNewMessage }: any) {
 
     const handleInput = () => {
       const content = textarea?.value.trim() || "";
-      setCanMessage(!!content && content.length > 1);
+      setCanMessage(!!content && content.length > 0);
       adjustTextareaHeight();
     };
 

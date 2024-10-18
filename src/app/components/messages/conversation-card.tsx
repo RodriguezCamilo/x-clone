@@ -27,8 +27,10 @@ function ConversationCard({
       const lMessage = await getLastMessage(last_message);
       setLastMessage(lMessage);
 
-      const fTime = formattedDateMobile(lMessage?.created_at);
-      setFormattedTime(fTime);
+      if (lMessage?.created_at) {
+        const fTime = formattedDateMobile(lMessage?.created_at);
+        setFormattedTime(fTime);
+      }
 
       setLoading(false);
     };
@@ -65,8 +67,12 @@ function ConversationCard({
               <p className="font-light text-white/50">
                 @{otherUser?.user_name}
               </p>
-              <p className="text-white/50 font-light">·</p>
-              <p className="text-white/50 font-light">{formattedTime}</p>
+              { formattedTime &&
+                <>
+                  <p className="text-white/50 font-light">·</p>
+                  <p className="text-white/50 font-light">{formattedTime}</p>
+                </>
+              }
             </div>
             <div className="font-light text-white/50">
               {lastMessage?.content}

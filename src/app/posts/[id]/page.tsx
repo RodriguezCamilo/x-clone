@@ -60,7 +60,7 @@ export default async function PostPage({ params }: PostPageProps) {
   const formattedCreatedTime = formattedTime(post.created_at);
 
   return (
-    <body className="min-h-screen h-auto w-full flex flex-col-reverse md:flex-row text-white bg-black">
+    <body className="min-h-screen h-auto w-full flex md:flex-row text-white bg-black">
       <header className="z-30 md:w-[8%] md:min-w-[8%] xl:min-w-[30%]">
         <NavBar />
       </header>

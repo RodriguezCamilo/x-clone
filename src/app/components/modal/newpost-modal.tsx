@@ -68,6 +68,7 @@ export default function NewPostModal({
     <form
       ref={formRef}
       onSubmit={async (event) => {
+        setCanPost(false);
         event.preventDefault();
         const formData = new FormData(formRef.current!);
         const content = formData.get("content")?.toString().trim();
@@ -80,9 +81,9 @@ export default function NewPostModal({
         }
         await addPost(formData);
         formRef.current?.reset();
-        setCanPost(false);
         setSelectedImage(null);
         setPreviewUrl(null);
+        onClose()
       }}
       className="fixed inset-0 flex justify-center z-40 bg-zinc-700/50"
     >

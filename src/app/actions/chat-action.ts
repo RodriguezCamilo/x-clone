@@ -43,7 +43,6 @@ export const getLastMessage = async (lastId: string) => {
     .single();
 
   if (error) {
-    console.error("Error obteniendo el mensaje:", error);
     return null;
   }
   return data;
