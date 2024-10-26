@@ -4,18 +4,22 @@ import { deletePost } from "@/app/actions/delete-post-action";
 import { DataUser } from "@/app/utils/supabase/user";
 import { IconDots, IconTrash } from "@tabler/icons-react";
 import { useState, useEffect, useRef } from "react";
+import EditButton from "./edit-button";
 
 interface OptionsDropdownProps {
   postId: string;
   userId: string;
+  userAvatar: string;
 }
 
 export default function OptionsDropdown({
   postId,
   userId,
+  userAvatar,
 }: OptionsDropdownProps) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isOwner, setisOwner] = useState<boolean>(false);
+  const [authUser, setAuthUser] = useState<any>()
 
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -24,6 +28,7 @@ export default function OptionsDropdown({
       const AuthUser = await DataUser();
       if (userId == AuthUser.user?.id) {
         setisOwner(true);
+        setAuthUser(AuthUser)
       }
     };
     function handleClickOutside(event: MouseEvent) {
@@ -72,6 +77,9 @@ export default function OptionsDropdown({
             >
               <IconTrash /> Eliminar
             </button>
+            <div className="text-white font-bold py-3 px-4 hover:bg-white/5 w-full text-left flex flex-row gap-2 items-center">
+              <EditButton post_id={postId} userAvatar={userAvatar} user_id={authUser.user?.id} />
+            </div>
           </div>
         </div>
       )}

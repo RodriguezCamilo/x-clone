@@ -107,7 +107,7 @@ export function PostCard({
               {formattedCreatedAtMobile}
             </p>
             <div className="absolute right-0">
-              <OptionsDropdown postId={id} userId={userId} />
+              <OptionsDropdown postId={id} userId={userId} userAvatar={avatarUrl} />
             </div>
           </div>
           {resTo != null && (

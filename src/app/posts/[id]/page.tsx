@@ -14,6 +14,8 @@ import { Suspense } from "react";
 import NavBar from "@/app/components/navbar/navbar";
 import SideBar from "@/app/components/sidebar/sidebar";
 import ResponseList from "@/app/components/posts/response-list";
+import OptionsDropdown from "@/app/components/posts/options-dropdown";
+import { redirect } from "next/navigation";
 
 interface PostPageProps {
   params: {
@@ -28,13 +30,17 @@ export default async function PostPage({ params }: PostPageProps) {
 
   const { data: post, error: postError } = await supabase
     .from("posts")
-    .select("*, user:users(name, user_name, avatar_url)")
+    .select("*, user:users(id, name, user_name, avatar_url)")
     .eq("id", id)
     .single();
 
+    if (postError) {
+      redirect("/")
+    }
+
   const { data: posts, error: postsError } = await supabase
     .from("posts")
-    .select("*, user:users(name, user_name, avatar_url)")
+    .select("*, user:users( name, user_name, avatar_url)")
     .eq("response_to", id)
     .order("created_at", { ascending: false })
     .limit(6);
@@ -77,7 +83,7 @@ export default async function PostPage({ params }: PostPageProps) {
               </Link>
               <h2 className="text-xl font-semibold">Post</h2>
             </div>
-            <header className="flex flex-row gap-2 px-4 ">
+            <header className="flex flex-row gap-2 px-4 relative">
               <Link
                 href={`/perfil/${post.user.user_name}`}
                 className="flex flex-row"
@@ -104,6 +110,13 @@ export default async function PostPage({ params }: PostPageProps) {
                 <p className="font-light text-white/50">
                   @{post.user.user_name}
                 </p>
+              </div>
+              <div className="absolute right-0">
+                <OptionsDropdown
+                  postId={post.id}
+                  userId={post.user.id}
+                  userAvatar={userAvatar}
+                />
               </div>
             </header>
             <main className="flex flex-col border border-x-0 border-t-0 px-4 pb-4 border-zinc-700">
