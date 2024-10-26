@@ -25,7 +25,7 @@ export default async function WhoFollow() {
   return (
     <div className="flex flex-col w-full border border-zinc-700 rounded-lg">
       <h2 className="text-xl font-bold pt-2 px-4">A quién seguir</h2>
-      <div className="flex flex-col py-4 gap-2">
+      <div className="flex w-full flex-col py-4 gap-2">
         {followStatuses.map((user) => (
           <div
             key={user.id}
@@ -36,7 +36,7 @@ export default async function WhoFollow() {
               className="absolute inset-0 z-0"
             ></Link>
             <div className="flex flex-row gap-2 items-center">
-              <div className="">
+              <div className="flex-shrink-0">
                 {user.avatar_url ? (
                   <img
                     src={user.avatar_url}
@@ -44,14 +44,14 @@ export default async function WhoFollow() {
                     className="w-12 h-12 rounded-full"
                   />
                 ) : (
-                  <div className="rounded-full bg-zinc-500/50 size-10 flex items-center justify-center">
+                  <div className="rounded-full bg-zinc-500/50 h-12 w-12 flex items-center justify-center">
                     <IconUser />
                   </div>
                 )}
               </div>
-              <div>
-                <h3 className="text-lg font-semibold">{user.name}</h3>
-                <p className=" text-white/50 font-light">@{user.user_name}</p>
+              <div className="">
+                <h3 className="text-lg font-semibold truncate max-w-20">{user.name}</h3>
+                <p className=" text-white/50 truncate max-w-20 font-light">@{user.user_name}</p>
               </div>
             </div>
 
